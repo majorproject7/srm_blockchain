@@ -1,5 +1,0 @@
-mongodb+srv://srmmajorproject1:vDkIIIgtyIvr2YQF@cluster0.ghcwogm.mongodb.net/
-
-git remote add origin https://github.com/majorproject7/srm_blockchain.git
-git branch -M main
-git push -u origin main
