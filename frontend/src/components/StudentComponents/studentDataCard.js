@@ -1,5 +1,6 @@
 /* this card will be shown in student data in card */
 import React from "react";
+//import photo from 'C:/GANESH/srms/frontend/src/photo.jpeg';
 const StuCard =(stuCardData)=>{
 
     const studentInfo = stuCardData;
@@ -17,10 +18,10 @@ const StuCard =(stuCardData)=>{
 return(
 
     <div>
-        <div  className=" grid grid-cols-1 justify-items-center">
-    <div className=" w-[250px] h-[250px] text-lg bg-blue-300 rounded-[15px]  " > image </div>
+        <div align="center"  className=" grid grid-cols-1 justify-items-center">
+    <div className=" w-[200px] h-[200px] text-lg bg-blue-300 rounded-[15px]  " > <img src="/photo.jpeg" alt="gadfg"></img> </div>
     
-    <div  className=" p-3 grid grid-cols-1 border  justify-items-center">
+    <div align="center" className=" p-3 grid grid-cols-1   justify-items-center">
     { Array.from(studentInfo.entries()).map(([subject, mark], index) => (
         
         <div className=" grid grid-cols-2 justify-center">

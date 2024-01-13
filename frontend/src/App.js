@@ -1,18 +1,20 @@
 
-import React from 'react';
-import RegistrationForm from './components/StudentComponents/RegistrationForm.js';
-import StuDash from './components/StudentComponents/studentGrade.js';
-import StudentForm from './components/StudentComponents/studentlogin.js';
+import React  from 'react';
 import DashBoard from './components/StudentComponents/stuDashBoard.js';
-import StuCard from './components/StudentComponents/studentDataCard.js';
+import { BrowserRouter as Router, Route, Routes ,Link} from "react-router-dom";
+import StuGrade from './components/StudentComponents/studentGrade.js';
+import HomePage from './components/DashBoard/DashBoard.js';
 const App = () => {
     return (
-
+      
         
-        <div>
-         
-          {  <DashBoard/>}
-        </div>
+        <Router>
+          <Routes>
+          <Route path="/" element={<HomePage/>} />
+          <Route path="/studashboard" element={<DashBoard/>} />
+          <Route path="/result" element={<StuGrade/>}></Route>
+          </Routes>
+        </Router>
        
     );
 };

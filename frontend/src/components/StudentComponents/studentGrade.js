@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const StuDash = ()=>{
+const StuGrade = ()=>{
 
     const studentData = new Map([
         ['Math', 90],
@@ -45,7 +45,7 @@ const StuDash = ()=>{
 
 );
  
-};
+}
 
 
-export default StuDash;
+export default StuGrade;
