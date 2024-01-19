@@ -13,3 +13,9 @@ then ganache and truffle will correctly.
 contract address is found in migration details or ganache details in transaction.
 contract abi is found in artifacts or build/contracts :
  in json format.
+
+
+ const contractAddress = await deployer.deployedContracts.YourContractName.address;
+console.log("Contract address:", contractAddress);
+
+this line is used to call the contract and get the value.

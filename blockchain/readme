@@ -1,0 +1,13 @@
+
+turn on ganache gui in windows 
+add truffle-config.js to ganache to see what all contracts are being taken care of
+create a smart contract 
+write its migration file 
+
+run truffle compile 
+run truffle migrate --developemnt
+
+keep the name of solidity contract file and contract name same
+
+abi is present in migrations folder 
+contract address is available with in ganache.
