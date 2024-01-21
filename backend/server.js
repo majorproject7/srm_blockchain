@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const studentRoutes = require('./routes/students');
+const LoginRoute = require('./routes/Login');
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routes
-app.use('/api/students', studentRoutes);
+app.use('/api/DashBoard', LoginRoute);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server started on port ${port}`));

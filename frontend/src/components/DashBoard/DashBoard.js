@@ -9,8 +9,8 @@ const HomePage=() =>
         dob: "",
         facultyid:"",
         fcpass:"",
-        adminid:"",
-        adminpass:""
+        AdminName:"",
+        passwd:""
       });
     
     const handleChange = (e) => {
@@ -25,14 +25,14 @@ const HomePage=() =>
         event.preventDefault();
     
         try {
-            const response = await axios.post('http://localhost:5000/api/students/login', formData);
+            const response = await axios.post('http://localhost:5000/api/DashBoard/login', formData);
     
             if (response.data.success) {
                 // Redirect to student page
                 navigate('/studashboard');
             } else {
                 // Handle login error
-                if(formData.rollno===""  || formData.dob ==="" )
+                if(formData.AdminName ===""  || formData.passwd ==="" )
                 {
                     alert("please fill details");
                 }
@@ -42,7 +42,7 @@ const HomePage=() =>
             }
         } catch (error) {
 
-            if(formData.rollno ==="")
+            if(formData.AdminName ==="")
             {
                 alert("Database not active");
             }
@@ -136,21 +136,22 @@ const HomePage=() =>
     <div className="  mx-1 my-2 w-[230px] h-[380px]   bg-green-200 rounded-[30px]  flex items-center " >
     <form onSubmit={handleSubmit}>
                   <h2 className='text-lg'> Admin Login</h2>
-                  <label>Admin  / Id : 
+                  <label>Admin/Id: 
                   
                   <input type="text"
-                  name="admin"
-                  value = {formData.adminid}
+                  name="AdminName"
+                  value = {formData.AdminName}
                   onChange={handleChange}
                   ></input>
+                  
                   </label>
                   <br>
                   </br>
                   <label>
                  Password<br></br>
                   <input type="password"
-                  name="adminpassword"
-                  value = {formData.adminpass}
+                  name="passwd"
+                  value = {formData.passwd}
                   onChange={handleChange}
                   ></input>
                   </label><br></br>

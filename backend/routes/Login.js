@@ -1,21 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const LoginModel = require('../models/Login');
+const Login = require('../models/LoginModel');
 
 // Registration route
 
 // Login route
 router.post('/login', async (req, res) => {
 
-  console.log("request came to login pbackend");
+  console.log("request came to login Backend for admin login");
   try {
-    const { rollno, dob } = req.body;
+    const { AdminName, passwd } = req.body;
 
-    // Find student by email
-    console.log("rollno "+rollno);
-    const student = await LoginModel.findOne({name : "rakesh"});
-    console.log("response got ");
-    if (student) {
+    
+    console.log("PassWord  "+passwd+"---"+AdminName);
+    const admin = await Login.find({name : "Rakesh" });
+    console.log("response got  "+admin.length);
+    if (admin) {
       res.json({ success: true });
     } else {
       res.json({ success: false });
