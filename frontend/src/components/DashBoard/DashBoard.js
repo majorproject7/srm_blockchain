@@ -24,32 +24,40 @@ const HomePage=() =>
         console.log("data from student submitted");
         event.preventDefault();
     
-        try {
-            const response = await axios.post('http://localhost:5000/api/DashBoard/login', formData);
-    
-            if (response.data.success) {
-                // Redirect to student page
-                navigate('/studashboard');
-            } else {
-                // Handle login error
-                if(formData.AdminName ===""  || formData.passwd ==="" )
-                {
-                    alert("please fill details");
-                }
-                else
-                {alert('not data found! please contact concerned faculty');
-            }setError('Invalid credentials');
-            }
-        } catch (error) {
-
-            if(formData.AdminName ==="")
-            {
-                alert("Database not active");
-            }
-            // Handle network or server errors
-            console.error('Login error:', error);
-            setError('An error occurred');
+        if(formData.AdminName.length > 0)
+          {  navigate('/AdminDash');}
+        else if (formData.rollno.length>0){
+            navigate('/stuDashBoard');
         }
+        else{
+            alert(" please enter student or admin details");
+        }
+            //const response = await axios.post('http://localhost:5000/api/DashBoard/login', formData);
+            
+        //     if (response.data.success) {
+        //         // Redirect to student page
+                
+        //     } else {
+        //         // Handle login error
+        //         if(formData.AdminName ===""  || formData.passwd ==="" )
+        //         {
+        //             alert("please fill details");
+        //         }
+        //         else
+        //         {alert('not data found! please contact concerned faculty');
+        //     }setError('Invalid credentials');
+        //     }
+        // } catch (error) {
+
+        //     if(formData.AdminName ==="")
+        //     {
+        //         alert("Database not active");
+        //     }
+        //     // Handle network or server errors
+        //     console.error('Login error:', error);
+        //     setError('An error occurred');
+        // }
+        
     };
 
     return (
