@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const LoginRoute = require('./routes/Login');
 const AddTeacher = require('./routes/TeacherRoute');
+const AddStu = require('./routes/students');
 const app = express();
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://srmmajorproject1:vDkIIIgtyIvr2YQF@cluster0.ghcwogm.mongodb.net/SRMS', {
+mongoose.connect('mongodb://127.0.0.1:27017/srms', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -17,12 +18,13 @@ mongoose.connect('mongodb+srv://srmmajorproject1:vDkIIIgtyIvr2YQF@cluster0.ghcwo
 
 // Middlewares
 
-AddTeacher.AddTeacher();
+
 app.use(bodyParser.json());
 app.use(cors());
 
-// Routes
+
 app.use('/api/DashBoard', LoginRoute);
+app.use('/api/addstu',AddStu);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server started on port ${port}`));

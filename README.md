@@ -85,3 +85,7 @@ db.kmit.insertMany([ { 'year': 2024, 'department': 'CSM', 'section': 'A', 'stude
   },
   "additional_notes": "Specializes in algorithm design.",
 }
+
+
+
+mongodb in localhost will connect to ipv6 generally to over come that use 127.0.0.1
