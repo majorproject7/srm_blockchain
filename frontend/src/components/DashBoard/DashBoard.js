@@ -1,9 +1,9 @@
 import {React ,useState} from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const HomePage=() =>
 {   const navigate = useNavigate();
-    const [error, setError] = useState(null);
+  //  const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
         rollno: "",
         dob: "",
@@ -30,7 +30,7 @@ const HomePage=() =>
             navigate('/stuDashBoard');
         }
         else{
-            alert(" please enter student or admin details");
+           navigate('/TeacherDashBoard');
         }
             //const response = await axios.post('http://localhost:5000/api/DashBoard/login', formData);
             
@@ -62,19 +62,21 @@ const HomePage=() =>
 
     return (
         <>
-        <div className='bg-slate-600'>
-            <div className="text-2xl text-center mx-2 my-2 w-[full] h-[50px] border-solid borde border-4 bg-yellow-400 rounded-[30px] shadow ">
+         <div className='bg-slate-500'>
+            <div className="text-2xl text-center mx-2 my-2 w-[full] h-[50px] border-solid border border-4 bg-yellow-400 rounded-[30px] shadow ">
                  <div  className="w-[full] ">Keshav Memorial Institute of Techology</div>
                 </div> 
         </div>
-        
+        <div className=' min-h-screen flex flex-row items-center justify-center'>
+
+       
         {/* grid for 3 boxes student, admin , teacher*/ }
 
-        <div align="center" className=" p-3 grid grid-cols-3 border bg-slate-400 border-2 justify-items-center ">
+        <div  className=" p-10 flex flex-row  bg-slate-400 justify-center rounded-[30px]">
 
         <div className="  justify-center text-center">
-    <div className="mx-1 my-2 w-[250px] h-[400px]  bg-gray-900 rounded-[30px] shadow justify-items-center" >
-    <div className="  mx-1 my-2 w-[230px] h-[380px]   bg-amber-200 rounded-[30px]  flex items-center " >
+   
+    <div className=" border-black border-4 mx-1 my-2 w-[230px] h-[380px]   bg-amber-200 rounded-[30px]  flex items-center " >
     <form onSubmit={handleSubmit}>
                   <h2 className='text-lg'> Student Login</h2>
                   <label>Student Roll No / Id : 
@@ -100,7 +102,7 @@ const HomePage=() =>
               </form>
 
 
-     </div></div> 
+     </div>
 
     </div>
 
@@ -109,8 +111,8 @@ const HomePage=() =>
     {/*"second card teacher*/ }
     
     <div className="  justify-center text-center">
-    <div className="mx-1 my-2 w-[250px] h-[400px]  bg-gray-900 rounded-[30px] shadow justify-items-center" >
-    <div className="  mx-1 my-2 w-[230px] h-[380px]   bg-blue-200 rounded-[30px]  flex items-center " >
+   
+    <div className="border-black border-4   mx-1 my-2 w-[230px] h-[380px]   bg-blue-300 rounded-[30px]  flex items-center " >
     <form onSubmit={handleSubmit}>
                   <h2 className='text-lg'> Faculty Login</h2>
                   <label>Faculty Id : 
@@ -134,14 +136,14 @@ const HomePage=() =>
 
                     <button type="submit">submit</button>
               </form>
-     </div></div> 
+     </div>
     </div>
     
     {/* third */}
     
     <div className="  justify-center text-center">
-    <div className="mx-1 my-2 w-[250px] h-[400px]  bg-gray-900 rounded-[30px] shadow justify-items-center" >
-    <div className="  mx-1 my-2 w-[230px] h-[380px]   bg-green-200 rounded-[30px]  flex items-center " >
+    
+    <div className="border-black border-4   mx-1 my-2 w-[230px] h-[380px]   bg-green-200 rounded-[30px]  flex items-center " >
     <form onSubmit={handleSubmit}>
                   <h2 className='text-lg'> Admin Login</h2>
                   <label>Admin/Id: 
@@ -166,14 +168,14 @@ const HomePage=() =>
 
                     <button type="submit">submit</button>
               </form>
-     </div></div> 
+     </div>
     </div>
 
 
 
 
 </div>
-       
+</div>
         </>
         
     );

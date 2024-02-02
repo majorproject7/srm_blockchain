@@ -36,8 +36,13 @@ function AdminDash()
      <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center " >  
             <h2 className="text-white font-semibold">Student Management</h2>
      </div>
+
+
      <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center " >  
-            <h2 className="text-white font-semibold">Admin Management</h2>
+           <Link to="/AdminManage"> <h2 className="text-white font-semibold">Admin Management</h2></Link>
+     
+     
+     
      </div>
      </div>
     </div>

@@ -5,19 +5,26 @@ function FacultyManage() {
   return (
     <>
       <Kmithead></Kmithead>
-      <div className="w- h-8 text-lg bg-cyan-100 rounded-[15px] flex justify-center ">
+      <div className=" h-8 text-lg bg-cyan-100 rounded-[15px] flex justify-center ">
         <h1 className="text-lg font-semibold"> Faculty section</h1>
       </div>
 
 
-      <div className="flex flex-row justify-center">
+      <div className="p-5 mx-10 h-screen flex flex-row justify-evenly">
         <div>{yearcomponent()}</div>
-        <div>{Branchcomponent()}</div>
         <div>{yearsemcomponent()}</div>
         <div>{facultycomponent()}</div>
+        <div>{buttonPanel()} </div>
       </div>
       
-      <div className="h-[150px] flex justify-evenly">
+    
+    </>
+  );
+}
+function buttonPanel()
+{
+      return (
+        <div className="h-[150px] flex flex-col justify-evenly">
 
         <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
           <h2 className=" font-semibold text-xl">EDIT Professor</h2>
@@ -29,13 +36,12 @@ function FacultyManage() {
           <h2 className=" font-semibold text-xl">REMOVE Professor</h2>
         </div>
       </div>
-    </>
-  );
+      );
 }
 function facultycomponent()
 {
     return(
-<div className="w-[426px] h-[250px] flex flex-col justify-evenly">
+<div className="w-[400px] h-[250px] flex flex-col justify-evenly">
           <div className="w-[300px] h-8 text-lg bg-purple-200 rounded-[15px] flex justify-center ">
             <h2 className=" font-semibold text-xl">Faculty 4-2</h2>
           </div>
@@ -63,7 +69,8 @@ function facultycomponent()
 function yearcomponent()
 {
     return(
-<div className="w-[426px] h-[250px] flex flex-col justify-evenly">
+      <>
+<div className=" w-[350px] h-[250px] flex flex-col justify-evenly">
           <div className="w-[300px] h-8 text-lg bg-green-200 rounded-[15px] flex justify-center ">
             <h2 className=" font-semibold text-xl">year</h2>
           </div>
@@ -79,16 +86,17 @@ function yearcomponent()
           <div className="w-[300px] h-8 text-lg bg-green-100 rounded-[15px] flex justify-center ">
             <h2 className=" font-semibold text-xl">2021</h2>
           </div>
-
+          
         </div>
-      
+       <div>{Branchcomponent()}</div>
+      </>
     )
 }
 
 function yearsemcomponent()
 {
     return(
-<div className="w-[426px] h-[510px] flex flex-col justify-evenly">
+<div className="w-[350px] h-[510px] flex flex-col justify-evenly">
           <div className="w-[300px] h-8 text-lg bg-green-200 rounded-[15px] flex justify-center ">
             <h2 className=" font-semibold text-xl">CSM - 2024 </h2>
           </div>
@@ -126,7 +134,7 @@ function yearsemcomponent()
 function Branchcomponent()
 {
     return(
-<div className="w-[426px] h-[250px] flex flex-col justify-evenly">
+<div className="w-[350px] h-[250px] flex flex-col justify-evenly">
           <div className="w-[300px] h-8 text-lg bg-blue-200 rounded-[15px] flex justify-center ">
             <h2 className=" font-semibold text-xl">Branch</h2>
           </div>
