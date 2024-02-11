@@ -7,7 +7,7 @@ import HomePage from './components/DashBoard/DashBoard.js';
 import AdminDash from './components/AdminComponents/AdminDashPage.js';
 import FacultyManage from './components/AdminComponents/FacultySec.js';
 import AdminManagePage from './components/AdminComponents/AdminSec.js';
-import TDashBoard from './components/TeacherComponents/TeacherDashBoard.js';
+import TeacherDetailsContainer from './components/TeacherComponents/TeacherDashBoard.js';
 import SMP from './components/AdminComponents/StudentSec.js';
 import AdminActions from './components/AdminComponents/AdminEditSec.js';
 import FacultyAction from './components/AdminComponents/FacultyEditSec.js';
@@ -19,7 +19,7 @@ const App = () => {
           <Routes>
           <Route path="/" element={<HomePage/>} />  
           <Route path="/AdminDash" element={<AdminDash/>}></Route>
-           <Route path="/TeacherDashBoard" element={<TDashBoard/>} /> 
+           <Route path="/TeacherDashBoard" element={<TeacherDetailsContainer/>} /> 
            <Route path="/studashboard" element={<DashBoard/>} />
          
           <Route path="/AdminManage" element={<AdminManagePage/>} />

@@ -7,8 +7,8 @@ const HomePage=() =>
     const [formData, setFormData] = useState({
         rollno: "",
         dob: "",
-        facultyid:"",
-        fcpass:"",
+        faculty_id:"",
+        fc_pass:"",
         admin_id:"",
         passwd:""
       });
@@ -80,24 +80,37 @@ const HomePage=() =>
 };
 
     const handleSubmit = async (event) => {
-        console.log("data from student submitted");
+        console.log("data from Teacher form submitted");
         event.preventDefault();
 
-
-
-        if(formData.AdminName.length > 0)
-          {  navigate('/AdminDash');}
+        try{
+          const response = await axios.post('http://localhost:5000/api/TeacherRoute/login', formData);
+              
+               if (response.data.success) {
+                 navigate('/TeacherDashBoard',{ state: { faculty: response.data.facultydata } });
+                 alert(response.data.message);
+                  
+           } else {
       
-        else{
-           navigate('/TeacherDashBoard');
-        }   
+                alert(response.data.message);
+      
+            }
+          } 
+          catch (error) {
+      
+              // Handle network or server errors
+              console.error('Login error:', error);
+             
+          }
+
+    
         
     };
 
     return (
         <>
          <div className='bg-slate-500'>
-            <div className="text-2xl text-center mx-2 my-2 w-[full] h-[50px] border-solid border border-4 bg-yellow-400 rounded-[30px] shadow ">
+            <div className="text-2xl text-center mx-2 my-2 w-[full] h-[50px] border-solid  border-4 bg-yellow-400 rounded-[30px] shadow ">
                  <div  className="w-[full] ">Keshav Memorial Institute of Techology</div>
                 </div> 
         </div>
@@ -152,8 +165,9 @@ const HomePage=() =>
                   <label>Faculty Id : 
                   
                   <input type="text"
-                  name="facultyid"
-                  value = {formData.facultyid}
+                  id = "faculty_id"
+                  name="faculty_id"
+                  value = {formData.faculty_id}
                   onChange={handleChange}
                   ></input>
                   </label>
@@ -162,7 +176,8 @@ const HomePage=() =>
                   <label>
                  Password<br></br>
                   <input type="password"
-                  name="password"
+                  id = "fc_pass"
+                  name="fc_pass"
                   value = {formData.fcpass}
                   onChange={handleChange}
                   ></input>
@@ -184,6 +199,7 @@ const HomePage=() =>
                   
                   <input type="text"
                   name="admin_id"
+                  id="admin_id"
                   value = {formData.admin_id}
                   onChange={handleChange}
                   ></input>

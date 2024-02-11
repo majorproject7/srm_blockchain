@@ -18,18 +18,16 @@ const FacultyAction =() =>{
 
 const StudentForm = () => {
     const [formData, setFormData] = useState({
-      year: 2024,
-      Ayear: '1',
-      name: '',
-      email: '',
-      branch: 'CSD',
-      section: 'A',
-      roll_no: '',
-      dob:'',
+     name: '',
+     faculty_id : '',
+     contact : '',
+     email : '',
+     dob : '',
+     department_id: '',
+     qualification : '',
+     passwd : ''
     });
-  const branches=['CSD','CSE','CSM','IT'];
-  const sections=['A','B'];
-  const Ayears=[1,2,3,4]
+
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setFormData((prevData) => ({
@@ -43,7 +41,7 @@ const StudentForm = () => {
       // Handle form submission logic, e.g., send data to the server or perform validation
       console.log('Form data submitted:', formData);
      try{
-      const response= await axios.post('http://localhost:5000/api/StudentRoute/add', formData);
+      const response= await axios.post('http://localhost:5000/api/TeacherRoute/addfaculty', formData);
         
       if (response.data.success) {
         alert(response.data.message);
@@ -60,24 +58,7 @@ const StudentForm = () => {
     return (
       <div className="mx-auto max-w-md p-4 bg-gray-100 border rounded-md shadow-md">
         <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-600">
-              Academic Year
-            </label>
-            <select
-              type="text"
-              id="Ayear"
-              name="Ayear"
-              value={formData.Ayear}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            >
-              {Ayears.map((branch)=> (
-              <option key={branch} value={branch}>{branch}</option>))
-}</select>
-          
-          </div>
+       
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-600">
               Name
@@ -93,7 +74,22 @@ const StudentForm = () => {
             />
             
             </div>
-
+          
+            <div>
+            <label htmlFor="faculty_id" className="block text-sm font-medium text-gray-600">
+              Faculty_id
+            </label>
+            <input
+              type="text"
+              id="faculty_id"
+              name="faculty_id"
+              value={formData.rollno}
+              onChange={handleInputChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+            
+            </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-600">
               Email
@@ -110,7 +106,7 @@ const StudentForm = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">
+            <label htmlFor="dob" className="block text-sm font-medium text-gray-600">
               Date Of Birth
             </label>
             <input
@@ -123,60 +119,65 @@ const StudentForm = () => {
               required
             />
           </div>
-  
+
           <div>
-            <label htmlFor="branch" className="block text-sm font-medium text-gray-600">
-              Branch
-            </label>
-            <select
-              id="branch"
-              name="branch"
-              value={formData.branch}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            >
-                {branches.map((branch)=> (
-              <option key={branch} value={branch}>{branch}</option>))
-            
-            }
-            </select>
-          </div>
-  
-          <div>
-            <label htmlFor="section" className="block text-sm font-medium text-gray-600">
-              Section
-            </label>
-            <select
-              id="section"
-              name="section"
-              value={formData.section}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            > 
-               {sections.map((branch)=> (
-              <option key={branch} value={branch}>{branch}</option>))
-            
-            }
-              {/* Add options for other sections */}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-600">
-              Roll_No/Student_id
+            <label htmlFor="contact" className="block text-sm font-medium text-gray-600">
+              contact
             </label>
             <input
               type="text"
-              id="roll"
-              name="roll_no"
-              value={formData.rollno}
+              id="contact"
+              name="contact"
+              value={formData.contact}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
             />
-            
-            </div>
+          </div>
+          <div>
+            <label htmlFor="department_id" className="block text-sm font-medium text-gray-600">
+              Department_id
+            </label>
+            <input
+              type="text"
+              id="department_id"
+              name="department_id"
+              value={formData.department_id}
+              onChange={handleInputChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="qualification" className="block text-sm font-medium text-gray-600">
+              Qualification
+            </label>
+            <input
+              type="text"
+              id="qualification"
+              name="qualification"
+              value={formData.qualification}
+              onChange={handleInputChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="passwd" className="block text-sm font-medium text-gray-600">
+              Login Password
+            </label>
+            <input
+              type="text"
+              id="passwd"
+              name="passwd"
+              value={formData.passwd}
+              onChange={handleInputChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+          </div>
+  
+        
           <button
             type="submit"
             className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
