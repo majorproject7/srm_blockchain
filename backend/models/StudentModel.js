@@ -32,6 +32,10 @@ const studentSchema = new mongoose.Schema({
     required: true,
     unique : true,
   },
+  dob : {
+    type: Date,
+    required : true,
+  }
 });
 
 const Student = mongoose.model('Students', studentSchema,'Students');

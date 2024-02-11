@@ -9,6 +9,8 @@ import FacultyManage from './components/AdminComponents/FacultySec.js';
 import AdminManagePage from './components/AdminComponents/AdminSec.js';
 import TDashBoard from './components/TeacherComponents/TeacherDashBoard.js';
 import SMP from './components/AdminComponents/StudentSec.js';
+import AdminActions from './components/AdminComponents/AdminEditSec.js';
+import FacultyAction from './components/AdminComponents/FacultyEditSec.js';
 const App = () => {
     return (
       
@@ -23,7 +25,8 @@ const App = () => {
           <Route path="/AdminManage" element={<AdminManagePage/>} />
           <Route path="/facultyManage" element={<FacultyManage/>}></Route>
           <Route path="/StudentManagePage" element={<SMP/>}></Route>
-          
+          <Route path="/AdminActions" element={<AdminActions/>}></Route>
+         <Route path="/FacultyActions" element={<FacultyAction></FacultyAction>}></Route>
           <Route path="/result" element={<StuGrade/>}></Route>
 
            </Routes>

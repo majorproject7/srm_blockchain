@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import Kmithead from '../DashBoard/KmitHeader';
-import axios from 'axios';
+import react from 'react';
 
-const StudentManagementPage = ( ) => {
-  
+import {useState} from 'react';
+import axios from 'axios';
+import Kmithead from '../DashBoard/KmitHeader';
+const FacultyAction =() =>{
 
     return(
-        
         <div>
             <Kmithead></Kmithead>
-            {/* {StudentManagementPage(Sdata)} */}
-            <div className="h-10 bg-blue-200 rounded-lg flex items-center justify-center"> <h1 className='font-bold'>Add Student</h1></div>
-            {StudentForm()}
-        </div>
+            {
+                StudentForm()
+            }
+       </div> 
     );
-}
 
+}
 
 const StudentForm = () => {
     const [formData, setFormData] = useState({
@@ -188,4 +187,5 @@ const StudentForm = () => {
       </div>
     );
   };
-export default StudentManagementPage;
+
+export default FacultyAction;

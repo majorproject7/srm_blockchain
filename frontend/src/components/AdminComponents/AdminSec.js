@@ -1,5 +1,5 @@
 import Kmithead from "../DashBoard/KmitHeader";
-
+import {Link} from "react-router-dom";
 
 function AdminManagePage(){
 
@@ -97,8 +97,8 @@ function Adminlistcomponent()
           </div>
           
     <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
-          <h2 className=" font-semibold text-xl">Add ADMIN</h2>
-        </div>
+         <Link to='/AdminActions'> <h2 className=" font-semibold text-xl">Add ADMIN</h2>
+         </Link> </div>
 
         </div>
       

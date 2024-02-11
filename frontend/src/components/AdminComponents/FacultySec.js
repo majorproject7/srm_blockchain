@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Kmithead from "../DashBoard/KmitHeader";
 
 function FacultyManage() {
@@ -30,7 +31,7 @@ function buttonPanel()
           <h2 className=" font-semibold text-xl">EDIT Professor</h2>
         </div>
         <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
-          <h2 className=" font-semibold text-xl">ADD Professor</h2>
+         <Link to="/FacultyActions"><h2 className=" font-semibold text-xl">ADD Professor</h2></Link> 
         </div>
         <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
           <h2 className=" font-semibold text-xl">REMOVE Professor</h2>

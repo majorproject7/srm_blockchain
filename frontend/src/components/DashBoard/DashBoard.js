@@ -9,7 +9,7 @@ const HomePage=() =>
         dob: "",
         facultyid:"",
         fcpass:"",
-        AdminName:"",
+        admin_id:"",
         passwd:""
       });
     
@@ -20,43 +20,77 @@ const HomePage=() =>
       });
     };
     
+    
+    const handleStuSubmit = async (event) => {
+      console.log("data from student submitted");
+      event.preventDefault();
+     try{
+      const response = await axios.post('http://localhost:5000/api/StudentRoute/login', formData);
+          
+           if (response.data.success) {
+             navigate('/studashboard');
+             alert(response.data.message);
+              
+       } else {
+
+            alert(response.data.message);
+
+        }
+      } 
+      catch (error) {
+
+          if(formData.rollno ==="")
+          {
+              alert("Database not active");
+          }
+          // Handle network or server errors
+          console.error('Login error:', error);
+          
+      }
+      
+  };
+   
+  const handleAdminSubmit = async (event) => {
+    console.log("data from student submitted");
+    event.preventDefault();
+   try{
+    const response = await axios.post('http://localhost:5000/api/AdminRoute/login', formData);
+        
+         if (response.data.success) {
+           navigate('/AdminDash');
+           alert(response.data.message);
+            
+     } else {
+
+          alert(response.data.message);
+
+      }
+    } 
+    catch (error) {
+
+        if(formData.admin_id ==="")
+        {
+            alert("Database not active");
+        }
+        // Handle network or server errors
+        console.error('Login error:', error);
+        
+    }
+    
+};
+
     const handleSubmit = async (event) => {
         console.log("data from student submitted");
         event.preventDefault();
-    
+
+
+
         if(formData.AdminName.length > 0)
           {  navigate('/AdminDash');}
-        else if (formData.rollno.length>0){
-            navigate('/stuDashBoard');
-        }
+      
         else{
            navigate('/TeacherDashBoard');
-        }
-            //const response = await axios.post('http://localhost:5000/api/DashBoard/login', formData);
-            
-        //     if (response.data.success) {
-        //         // Redirect to student page
-                
-        //     } else {
-        //         // Handle login error
-        //         if(formData.AdminName ===""  || formData.passwd ==="" )
-        //         {
-        //             alert("please fill details");
-        //         }
-        //         else
-        //         {alert('not data found! please contact concerned faculty');
-        //     }setError('Invalid credentials');
-        //     }
-        // } catch (error) {
-
-        //     if(formData.AdminName ==="")
-        //     {
-        //         alert("Database not active");
-        //     }
-        //     // Handle network or server errors
-        //     console.error('Login error:', error);
-        //     setError('An error occurred');
-        // }
+        }   
         
     };
 
@@ -77,7 +111,7 @@ const HomePage=() =>
         <div className="  justify-center text-center">
    
     <div className=" border-black border-4 mx-1 my-2 w-[230px] h-[380px]   bg-amber-200 rounded-[30px]  flex items-center " >
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleStuSubmit}>
                   <h2 className='text-lg'> Student Login</h2>
                   <label>Student Roll No / Id : 
                   
@@ -144,13 +178,13 @@ const HomePage=() =>
     <div className="  justify-center text-center">
     
     <div className="border-black border-4   mx-1 my-2 w-[230px] h-[380px]   bg-green-200 rounded-[30px]  flex items-center " >
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleAdminSubmit}>
                   <h2 className='text-lg'> Admin Login</h2>
                   <label>Admin/Id: 
                   
                   <input type="text"
-                  name="AdminName"
-                  value = {formData.AdminName}
+                  name="admin_id"
+                  value = {formData.admin_id}
                   onChange={handleChange}
                   ></input>
                   
