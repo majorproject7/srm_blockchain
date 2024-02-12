@@ -2,8 +2,11 @@ import React from "react";
 import StuCard from "./studentDataCard";
 import SemSel from "./stuResultSel";
 import { Link } from "react-router-dom";
-
+import {useLocation} from 'react-router-dom';
 const DashBoard = ()=>{
+  const location = useLocation();
+  const studentData = location.state.StudentLogin;
+  console.log(studentData);
     console.log('StuDashboard component rendered');
     const studentInfo = new Map([
         ['Name', 'Rakesh'],
@@ -12,7 +15,7 @@ const DashBoard = ()=>{
         ['Year', '2023'],
         // Add more information as needed
       ]);
-   
+    
 
     return (
 
@@ -25,7 +28,7 @@ const DashBoard = ()=>{
 
     <div align="center" className="border p-5  grid  bg-slate-600 justify-center ">
         
-      <div>  {StuCard(studentInfo)}</div>
+      <div>  {StuCard(studentData)}</div>
       <div> {SemSel()}</div>
  
         </div>

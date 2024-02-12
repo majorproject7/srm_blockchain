@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom';
 import { CircularProgress } from '@mui/material'; // Assuming you are using Material UI for the progress indicator
 import axios from 'axios'; // Assuming you are using Axios for making HTTP requests
 import Kmithead from '../DashBoard/KmitHeader';
-
+import {Link} from 'react-router-dom';
 const TeacherDetailsContainer = () => {
  const location = useLocation();
   
@@ -40,6 +40,9 @@ const TeacherDetailsContainer = () => {
           </div>
     
     </div>
+      <div className="flex justify-center">
+    {buttonPanel()}
+    </div>
     </div>
   );
 };
@@ -51,13 +54,13 @@ function buttonPanel()
       return (
         <div className="h-[150px] flex flex-col justify-evenly">
 
-        <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
-          <h2 className=" font-semibold text-xl">ADD STUDENT MARKS</h2>
-        </div>
-        <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
+        <div className="w-[300px] h-8 text-lg bg-blue-200 rounded-[15px] flex justify-center ">
+         <Link to="/AddResult "> <h2 className=" font-semibold text-xl">ADD STUDENT MARKS</h2>
+         </Link> </div>
+        <div className="w-[300px] h-8 text-lg bg-blue-200 rounded-[15px] flex justify-center ">
           <h2 className=" font-semibold text-xl">EDIT STUDENT MARKS</h2>
         </div>
-        <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
+        <div className="w-[300px] h-8 text-lg bg-blue-200 rounded-[15px] flex justify-center ">
           <h2 className=" font-semibold text-xl">SUBMIT MARKS</h2>
         </div>
       </div>

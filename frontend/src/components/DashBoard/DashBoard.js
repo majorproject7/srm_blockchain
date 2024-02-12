@@ -1,6 +1,6 @@
 import {React ,useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 const HomePage=() =>
 {   const navigate = useNavigate();
   //  const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const HomePage=() =>
       const response = await axios.post('http://localhost:5000/api/StudentRoute/login', formData);
           
            if (response.data.success) {
-             navigate('/studashboard');
+             navigate('/studashboard',{ state: { StudentLogin : response.data.StudentData } });
              alert(response.data.message);
               
        } else {

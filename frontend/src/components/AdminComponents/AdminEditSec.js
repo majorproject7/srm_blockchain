@@ -62,7 +62,7 @@ const AdminDetails = ()=>
 
  
 console.log(admins);
-  const adminlist = admins;
+ 
 
 
      return(

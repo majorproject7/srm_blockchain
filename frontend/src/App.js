@@ -11,6 +11,7 @@ import TeacherDetailsContainer from './components/TeacherComponents/TeacherDashB
 import SMP from './components/AdminComponents/StudentSec.js';
 import AdminActions from './components/AdminComponents/AdminEditSec.js';
 import FacultyAction from './components/AdminComponents/FacultyEditSec.js';
+import StudentResultPage from './components/TeacherComponents/AddResults.js';
 const App = () => {
     return (
       
@@ -21,13 +22,16 @@ const App = () => {
           <Route path="/AdminDash" element={<AdminDash/>}></Route>
            <Route path="/TeacherDashBoard" element={<TeacherDetailsContainer/>} /> 
            <Route path="/studashboard" element={<DashBoard/>} />
-         
+          
           <Route path="/AdminManage" element={<AdminManagePage/>} />
           <Route path="/facultyManage" element={<FacultyManage/>}></Route>
           <Route path="/StudentManagePage" element={<SMP/>}></Route>
           <Route path="/AdminActions" element={<AdminActions/>}></Route>
          <Route path="/FacultyActions" element={<FacultyAction></FacultyAction>}></Route>
           <Route path="/result" element={<StuGrade/>}></Route>
+
+        {/* Teacher Section pages  */}
+        <Route path="/AddResult" element={<StudentResultPage></StudentResultPage>}></Route>
 
            </Routes>
         </Router>

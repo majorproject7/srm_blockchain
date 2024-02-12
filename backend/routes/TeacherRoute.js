@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Faculty = require('../models/TeacherModel');
+const SubjectModel = require('../models/SubjectModel');
 
 router.post('/login', async(req,res)=>{
   console.log('checking for Teacher in srms database');
@@ -29,6 +30,35 @@ router.post('/login', async(req,res)=>{
   catch(error){
   
     console.log("error occured while logging in");
+    res.status(500).json(
+      {
+        success : false,
+        message:' Error occured while authenticate. please contact DB admin'
+      }
+    )
+    }
+
+});
+
+router.post('/getSubjects', async(req,res)=>{
+  console.log('getting subjects');
+  try{
+         const branch = req.body.branch;
+         
+         const semesterNum = req.body.semnum; 
+    const response  = await SubjectModel.find(
+      { Department: branch,  "Subjects.Semester": semesterNum},
+       { "Subjects.Subject.$": 1, _id: 0 });
+
+         console.log(response[0].Subjects[0]);
+        if(response)
+        {
+          res.json({subjectlist : response[0].Subjects[0].Subject});
+        }
+  }
+  catch(error){
+  
+    console.log(error)
     res.status(500).json(
       {
         success : false,
@@ -85,7 +115,7 @@ router.post('/addfaculty', async(req,res)=>{
 
 router.get('/getFacultyDetails',async (req,res)=>
 {
-    console.log("geting amdin details");
+    console.log("geting Faculty details");
    
     try {
      const FacultyDataResponse  = await Faculty.find({});
@@ -93,10 +123,12 @@ router.get('/getFacultyDetails',async (req,res)=>
     // Replace with your query criteria if needed
       res.json(FacultyDataResponse[0]);
     } catch (err) {
-      console.error('Error fetching admin details:', err);
+      console.error('Error fetching Faculty details:', err);
       res.status(500).json({ message: 'Error fetching admin details' });
     }
    
 
 });
+
+
 module.exports = router;

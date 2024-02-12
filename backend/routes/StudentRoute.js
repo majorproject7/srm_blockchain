@@ -19,7 +19,7 @@ try{
       if(response.length > 0)
       {
         res.json({success : true , 
-          message : 'Login Successful'})
+          message : 'Login Successful',StudentData : response[0]})
       }
       else
       {
@@ -74,6 +74,26 @@ console.log("request came to login backend");
  
   }
   
+});
+
+router.post('/getStudentDetails',async(req,res)=>
+{
+    console.log("getting student details of a section");
+    dep = req.body.dept;
+    sec =req.body.section;
+    Acadyear= req.body.year;
+    console.log(dep+" -- "+Acadyear+"--"+sec);
+    try {
+      const StudentDataResponse  = await StuModel.find({branch : dep,section:sec,Ayear:Acadyear},{name:1,_id:0,roll_no:1});
+    
+       console.log(StudentDataResponse);
+       res.json(StudentDataResponse);
+     } catch (err) {
+       console.error('Error fetching Faculty details:', err);
+       res.status(500).json({ message: 'Error fetching admin details' });
+     }
+
+
 });
 
 module.exports = router;
