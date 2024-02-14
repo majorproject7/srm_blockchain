@@ -2,49 +2,52 @@
 pragma solidity >=0.5.0 <0.9.0;
 
 contract Student {
-
-    // Define a structure to store student data
-    struct Studentstruc {
-        string name;
-        uint256 rollNo;
-        string section;
-        uint256 year;
-        string branch;
-        string hod;
+    // Structure to represent a single result object
+    struct Result {
         uint256 semester;
-        string grade;
+        string resHash;
     }
 
-    // Mapping to store students by their roll numbers
-    mapping(uint256 => Studentstruc) public students;
+    // Mapping to store student results based on their roll number
+    mapping(uint256 => Result[]) public studentResults;
 
-    // Function to add a new student
-    function addStudent(
-        uint256 _rollNo,
-        string memory _name,
-        string memory _section,
-        uint256 _year,
-        string memory _branch,
-        string memory _hod,
-        uint256 _semester,
-        string memory _grade
-    ) public {
-        students[_rollNo] = Studentstruc(
-            _name,
-            _rollNo,
-            _section,
-            _year,
-            _branch,
-            _hod,
-            _semester,
-            _grade
-        );
+    // Event emitted when a student's result is added
+    event ResultAdded(uint256 rollNo, uint256 semester, string resHash);
+
+    // Function to add a result for a student
+    function addResult(uint256 rollNo, uint256 semester, string memory resHash) public {
+       // require(semester > 0, "Semester must be greater than 0"); // Validate semester
+
+        // Ensure uniqueness of semester results for a student
+        bool unique = true;
+        for (uint256 i = 0; i < studentResults[rollNo].length; i++) {
+            if (studentResults[rollNo][i].semester == semester) {
+                unique = false;
+                break;
+            }
+        }
+
+        require(unique, "Duplicate result for the same semester");
+
+        studentResults[rollNo].push(Result(semester, resHash));
+        emit ResultAdded(rollNo, semester, resHash);
     }
 
-    // Function to get the data of a student by their roll number
-    function getStudent(uint256 _rollNo) public view returns (Studentstruc memory) {
-        return students[_rollNo];
+    // Function to get a student's result for a specific semester
+    function getResultBySemester(uint256 rollNo, uint256 semester) public view returns (string memory) {
+        require(semester > 0, "Semester must be greater than 0"); // Validate semester
+
+        for (uint256 i = 0; i < studentResults[rollNo].length; i++) {
+            if (studentResults[rollNo][i].semester == semester) {
+                return studentResults[rollNo][i].resHash;
+            }
+        }
+
+        return "not found"; // Return empty string if result not found
+    }
+
+    // Function to get all results for a student
+    function getAllResults(uint256 rollNo) public view returns (Result[] memory) {
+        return studentResults[rollNo];
     }
 }
-
-   

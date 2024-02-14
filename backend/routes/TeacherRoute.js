@@ -133,7 +133,7 @@ router.get('/getFacultyDetails',async (req,res)=>
 router.get('/Uploadresult',async (req,res)=> {
 
   console.log.log("uplodaing result");
-
+  
   try{
     
     // Find the student's record

@@ -16,9 +16,9 @@
       "constant": true
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"get\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/SimpleStorage.sol\":\"SimpleStorage\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/SimpleStorage.sol\":{\"keccak256\":\"0x8ac96240efc38f33307cbc6f2ad518ad04771c38ce2f9f50d8f35bf4897987f8\",\"urls\":[\"bzz-raw://a1ee414cfce047891fac0935c80f0529de8f0d6c80ab5daffada993435961ce6\",\"dweb:/ipfs/QmVRZqFp6vS9bkJ7FMy9gEnpuksUT7z6YK6jvJy1hMoQoR\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b50610173806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80636d4ce63c14610030575b600080fd5b61003861004e565b604051610045919061011b565b60405180910390f35b60606040518060400160405280601a81526020017f68656c6c6f20636f6e747261637420697320776f726b696e6720000000000000815250905090565b600081519050919050565b600082825260208201905092915050565b60005b838110156100c55780820151818401526020810190506100aa565b60008484015250505050565b6000601f19601f8301169050919050565b60006100ed8261008b565b6100f78185610096565b93506101078185602086016100a7565b610110816100d1565b840191505092915050565b6000602082019050818103600083015261013581846100e2565b90509291505056fea2646970667358221220c8f14fc67c6ae112390b9eee1888e28187a50bf81b548a311cd86ea5f0facc7c64736f6c63430008130033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c80636d4ce63c14610030575b600080fd5b61003861004e565b604051610045919061011b565b60405180910390f35b60606040518060400160405280601a81526020017f68656c6c6f20636f6e747261637420697320776f726b696e6720000000000000815250905090565b600081519050919050565b600082825260208201905092915050565b60005b838110156100c55780820151818401526020810190506100aa565b60008484015250505050565b6000601f19601f8301169050919050565b60006100ed8261008b565b6100f78185610096565b93506101078185602086016100a7565b610110816100d1565b840191505092915050565b6000602082019050818103600083015261013581846100e2565b90509291505056fea2646970667358221220c8f14fc67c6ae112390b9eee1888e28187a50bf81b548a311cd86ea5f0facc7c64736f6c63430008130033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"get\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/SimpleStorage.sol\":\"SimpleStorage\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/SimpleStorage.sol\":{\"keccak256\":\"0x120b344983ffb47a5dd5b044427946da1105a02af29010c33c77a7c148016933\",\"urls\":[\"bzz-raw://bfe7125ad13f1c882bdf82bf9096f5bcd710425d0af6b45ce35cafa5279eef0e\",\"dweb:/ipfs/QmRGRiZATTVAPYtoLpyJCNwEp9UAG25LG69D5mdDWU6p6c\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610173806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80636d4ce63c14610030575b600080fd5b61003861004e565b604051610045919061011b565b60405180910390f35b60606040518060400160405280600581526020017f68656c6c6f000000000000000000000000000000000000000000000000000000815250905090565b600081519050919050565b600082825260208201905092915050565b60005b838110156100c55780820151818401526020810190506100aa565b60008484015250505050565b6000601f19601f8301169050919050565b60006100ed8261008b565b6100f78185610096565b93506101078185602086016100a7565b610110816100d1565b840191505092915050565b6000602082019050818103600083015261013581846100e2565b90509291505056fea264697066735822122076992656bd5880378e1678ec1cf2fc89440a3b6f45adfcc367b6662fb91b13e064736f6c63430008130033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c80636d4ce63c14610030575b600080fd5b61003861004e565b604051610045919061011b565b60405180910390f35b60606040518060400160405280600581526020017f68656c6c6f000000000000000000000000000000000000000000000000000000815250905090565b600081519050919050565b600082825260208201905092915050565b60005b838110156100c55780820151818401526020810190506100aa565b60008484015250505050565b6000601f19601f8301169050919050565b60006100ed8261008b565b6100f78185610096565b93506101078185602086016100a7565b610110816100d1565b840191505092915050565b6000602082019050818103600083015261013581846100e2565b90509291505056fea264697066735822122076992656bd5880378e1678ec1cf2fc89440a3b6f45adfcc367b6662fb91b13e064736f6c63430008130033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [
@@ -850,9 +850,9 @@
       "name": "#utility.yul"
     }
   ],
-  "sourceMap": "37:153:0:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "37:153:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;82:105;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;118:13;144:35;;;;;;;;;;;;;;;;;;;82:105;:::o;7:99:2:-;59:6;93:5;87:12;77:22;;7:99;;;:::o;112:169::-;196:11;230:6;225:3;218:19;270:4;265:3;261:14;246:29;;112:169;;;;:::o;287:246::-;368:1;378:113;392:6;389:1;386:13;378:113;;;477:1;472:3;468:11;462:18;458:1;453:3;449:11;442:39;414:2;411:1;407:10;402:15;;378:113;;;525:1;516:6;511:3;507:16;500:27;349:184;287:246;;;:::o;539:102::-;580:6;631:2;627:7;622:2;615:5;611:14;607:28;597:38;;539:102;;;:::o;647:377::-;735:3;763:39;796:5;763:39;:::i;:::-;818:71;882:6;877:3;818:71;:::i;:::-;811:78;;898:65;956:6;951:3;944:4;937:5;933:16;898:65;:::i;:::-;988:29;1010:6;988:29;:::i;:::-;983:3;979:39;972:46;;739:285;647:377;;;;:::o;1030:313::-;1143:4;1181:2;1170:9;1166:18;1158:26;;1230:9;1224:4;1220:20;1216:1;1205:9;1201:17;1194:47;1258:78;1331:4;1322:6;1258:78;:::i;:::-;1250:86;;1030:313;;;;:::o",
-  "source": "pragma solidity >=0.5.0 <0.9.0;\r\n\r\n\r\ncontract SimpleStorage {\r\n  \r\n    \r\n   \r\n    function get() public view returns (string memory) {\r\n        return \"hello contract is working \";\r\n    }\r\n}",
+  "sourceMap": "37:120:0:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "37:120:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;70:84;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;106:13;132:14;;;;;;;;;;;;;;;;;;;70:84;:::o;7:99:2:-;59:6;93:5;87:12;77:22;;7:99;;;:::o;112:169::-;196:11;230:6;225:3;218:19;270:4;265:3;261:14;246:29;;112:169;;;;:::o;287:246::-;368:1;378:113;392:6;389:1;386:13;378:113;;;477:1;472:3;468:11;462:18;458:1;453:3;449:11;442:39;414:2;411:1;407:10;402:15;;378:113;;;525:1;516:6;511:3;507:16;500:27;349:184;287:246;;;:::o;539:102::-;580:6;631:2;627:7;622:2;615:5;611:14;607:28;597:38;;539:102;;;:::o;647:377::-;735:3;763:39;796:5;763:39;:::i;:::-;818:71;882:6;877:3;818:71;:::i;:::-;811:78;;898:65;956:6;951:3;944:4;937:5;933:16;898:65;:::i;:::-;988:29;1010:6;988:29;:::i;:::-;983:3;979:39;972:46;;739:285;647:377;;;;:::o;1030:313::-;1143:4;1181:2;1170:9;1166:18;1158:26;;1230:9;1224:4;1220:20;1216:1;1205:9;1201:17;1194:47;1258:78;1331:4;1322:6;1258:78;:::i;:::-;1250:86;;1030:313;;;;:::o",
+  "source": "pragma solidity >=0.5.0 <0.9.0;\r\n\r\n\r\ncontract SimpleStorage {\r\n \r\n    function get() public view returns (string memory) {\r\n        return \"hello\";\r\n    }\r\n}",
   "sourcePath": "C:\\GANESH\\srms\\blockchain\\contracts\\SimpleStorage.sol",
   "ast": {
     "absolutePath": "project:/contracts/SimpleStorage.sol",
@@ -897,11 +897,11 @@
             "body": {
               "id": 8,
               "nodeType": "Block",
-              "src": "133:54:0",
+              "src": "121:33:0",
               "statements": [
                 {
                   "expression": {
-                    "hexValue": "68656c6c6f20636f6e747261637420697320776f726b696e6720",
+                    "hexValue": "68656c6c6f",
                     "id": 6,
                     "isConstant": false,
                     "isLValue": false,
@@ -909,17 +909,17 @@
                     "kind": "string",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "151:28:0",
+                    "src": "139:7:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_stringliteral_00481d653e469635eeab57240a10d3856df2bc7ac4dc46710f455ff000b61b8a",
-                      "typeString": "literal_string \"hello contract is working \""
+                      "typeIdentifier": "t_stringliteral_1c8aff950685c2ed4bc3174f3472287b56d9517b9c948127319a09a7a36deac8",
+                      "typeString": "literal_string \"hello\""
                     },
-                    "value": "hello contract is working "
+                    "value": "hello"
                   },
                   "functionReturnParameters": 5,
                   "id": 7,
                   "nodeType": "Return",
-                  "src": "144:35:0"
+                  "src": "132:14:0"
                 }
               ]
             },
@@ -929,13 +929,13 @@
             "kind": "function",
             "modifiers": [],
             "name": "get",
-            "nameLocation": "91:3:0",
+            "nameLocation": "79:3:0",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 2,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "94:2:0"
+              "src": "82:2:0"
             },
             "returnParameters": {
               "id": 5,
@@ -949,7 +949,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 9,
-                  "src": "118:13:0",
+                  "src": "106:13:0",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -960,7 +960,7 @@
                     "id": 3,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "118:6:0",
+                    "src": "106:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -969,21 +969,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "117:15:0"
+              "src": "105:15:0"
             },
             "scope": 10,
-            "src": "82:105:0",
+            "src": "70:84:0",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
           }
         ],
         "scope": 11,
-        "src": "37:153:0",
+        "src": "37:120:0",
         "usedErrors": []
       }
     ],
-    "src": "0:190:0"
+    "src": "0:157:0"
   },
   "compiler": {
     "name": "solc",
@@ -993,12 +993,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xC237BaE854d19263fb032456D059f62ffa50aD8c",
-      "transactionHash": "0x1661e43b4eeb9657611faf7c784e74bfea3743c081876aea9f40e165fbaa7aed"
+      "address": "0x0088E979e0d707d9C27d5FfB70764C14541112c6",
+      "transactionHash": "0xbe5caf737c75387031c76d7cb8ea56449c47f35c49c9228c4ea284c092c09ced"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-01-19T10:45:37.953Z",
+  "updatedAt": "2024-02-14T19:08:46.294Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

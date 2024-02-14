@@ -2,7 +2,7 @@ var Web3 = require('web3');
 
 var web3 = new Web3.Web3("http://127.0.0.1:7545");
 // this code is for testing the ganache change the account1 and account2 to test ganache
-// const account1 = '0xe66ED38e74C2c3AE05F9b913405a57471d04E582'
+ const account1 = '0xd0C37d2f7DF0c78E55bc88090568b00FBd3e2514'
 // const account2 = '0x18FC0D0ab797b4f9985AD10DF446b5Dd5A6ED6F6'
 // for (var i =0;i<5;i++)
 // { web3.eth.sendTransaction({
@@ -14,44 +14,66 @@ var web3 = new Web3.Web3("http://127.0.0.1:7545");
 // }
 const contractABI = [
   {
+    "anonymous": false,
     "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "rollNo",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "semester",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "resHash",
+        "type": "string"
+      }
+    ],
+    "name": "ResultAdded",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
       }
     ],
-    "name": "students",
+    "name": "studentResults",
     "outputs": [
       {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "semester",
+        "type": "uint256"
       },
+      {
+        "internalType": "string",
+        "name": "resHash",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
       {
         "internalType": "uint256",
         "name": "rollNo",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "section",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "year",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "branch",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "hod",
-        "type": "string"
       },
       {
         "internalType": "uint256",
@@ -60,58 +82,11 @@ const contractABI = [
       },
       {
         "internalType": "string",
-        "name": "grade",
+        "name": "resHash",
         "type": "string"
       }
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rollNo",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_section",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_year",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_branch",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_hod",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_semester",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_grade",
-        "type": "string"
-      }
-    ],
-    "name": "addStudent",
+    "name": "addResult",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -120,44 +95,39 @@ const contractABI = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_rollNo",
+        "name": "rollNo",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "semester",
         "type": "uint256"
       }
     ],
-    "name": "getStudent",
+    "name": "getResultBySemester",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "rollNo",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllResults",
     "outputs": [
       {
         "components": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rollNo",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "section",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "year",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "branch",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "hod",
-            "type": "string"
-          },
           {
             "internalType": "uint256",
             "name": "semester",
@@ -165,13 +135,13 @@ const contractABI = [
           },
           {
             "internalType": "string",
-            "name": "grade",
+            "name": "resHash",
             "type": "string"
           }
         ],
-        "internalType": "struct Student.Studentstruc",
+        "internalType": "struct Student.Result[]",
         "name": "",
-        "type": "tuple"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -179,73 +149,45 @@ const contractABI = [
     "constant": true
   }
 ]; // Paste your contract's ABI here
-const contractAddress = "0xD600E06eFBFA6BbbAf677bE00C9982E392198487"
- // Replace with your contract's address
-const contractInstance = new web3.eth.Contract(contractABI, contractAddress);
-const rollNo = 12345;
-const name = 'John Doe';
-const section = 'A';
-const year = 2023;
-const branch = 'Computer Science';
-const hod = 'Dr. Smith';
-const semester = 3;
-const grade = 'A';
+const contractAddress = "0x833f4dce6eA781e397BeEE2614953D08Af09CBCc"
 
-//gas estimation
-// contractInstance.methods.addStudent(  rollNo,
-//   name,
-//   section,
-//   year,
-//   branch,
-//   hod,
-//   semester,
-//   grade).estimateGas({from: '0x72d135BC73100613fF86f5AAbE30CCA624D84C13'})
-// .then(function(gasAmount){
-//     console.log("gas estimated is "+gasAmount);
-// })
-// .catch(function(error){
-    
-// });
-
-async function addStudent() {
+const srContract = new web3.eth.Contract(contractABI,contractAddress);
+async function AddResult(rollNo,semester,resHash) {
   try {
-      const rollNo = 12345;
-      const name = 'John Doe';
-      const section = 'A';
-      const year = 2023;
-      const branch = 'Computer Science';
-      const hod = 'Dr. Smith';
-      const semester = 3;
-      const grade = 'A';
+//     const rollNo = 12;
+// const semester = 2;
+// const resHash = "0x1234567890abcdef";
 
-      const transaction = await contractInstance.methods.addStudent(
-          rollNo,
-          name,
-          section,
-          year,
-          branch,
-          hod,
-          semester,
-          grade
-      ).send({ from: '0x72d135BC73100613fF86f5AAbE30CCA624D84C13', gas: '1000000'});
-
-      console.log('Transaction hash:', transaction.transactionHash);
-      console.log('Student added successfully!');
-  } catch (error) {
-      console.error('Error adding student:', error);
-  }
-}
-
-// Retrieve student data
-async function getStudent(rollNo) {
-  try {
-      const studentData = await contractInstance.methods.getStudent(rollNo).call();
+      const studentData = await srContract.methods.addResult(rollNo, semester, resHash).send({from: account1,gas : 1000000})
       console.log('Student Data:', studentData);
   } catch (error) {
       console.error('Error retrieving student:', error);
   }
 }
 
+async function getresult(rollno,sem)
+{
+  srContract.methods.getResultBySemester(rollno, sem).call()
+  .then(resultHash => {
+    console.log("Result for semester", sem, ":", resultHash);
+  })
+  .catch(error => {
+    console.error("Error getting result:", error);
+  });
+}
+async function getAllResult(rollno)
+{
+  srContract.methods.getAllResults(rollno).call()
+  .then(resultHash => {
+    console.log("Result for semester", resultHash);
+  })
+  .catch(error => {
+    console.error("Error getting result:", error);
+  });
+}
+// getresult(12,2)
+
 // Example usage
 //addStudent();
-getStudent(12345);
+//AddResult(12,1,"ASDFsdfsdfs");
+getAllResult(12);

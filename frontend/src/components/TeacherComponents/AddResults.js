@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import crypto from 'crypto-js';
 const StudentResultPage = () => {
   
+
+
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedSemester, setSelectedSemester] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
@@ -107,7 +109,23 @@ const StudentResultPage = () => {
     console.log("average res :",average);
     setAverageGrade(average*10);
     console.log(formData);
+
   };
+  const getResultHash = ()=>{
+    var HashData = "";
+    const dat = new Date();
+    const today = dat.getDate()+"/"+dat.getMonth()+"/"+dat.getFullYear();
+    HashData += selectedStudent+"--"+today+"--"+selectedSemester+"--";
+    HashData += averageGrade.toFixed(2)+"--"+examstatus+"--";
+    for (let item in formData)
+    {
+      HashData += item+"-"+formData[item]+"--";
+    }
+    
+    console.log("data to be hashed:",HashData);
+    const hashval = crypto.SHA256(HashData).toString();
+     console.log(hashval);
+  }
 
   return (
     <div className="flex mx-auto  flex-col items-center ">
@@ -233,7 +251,7 @@ const StudentResultPage = () => {
               </button>
             </form>
           </div>
-          <div className="flex flex-col justify-center ">
+          <div className="flex flex-col justify-center items-center">
             <div className=' mx-5 '>
               {averageGrade !== 0 && (
                 <div className='flex flex-col'>
@@ -253,12 +271,19 @@ const StudentResultPage = () => {
                 </div>
               )}
             </div>
-           
+             <div> <button className='bg-purple-400 p-2 rounded-lg' onClick={()=>
+              getResultHash("datax")
+             }> <h1>Secure</h1></button></div>
           </div>
         </div>
       )}
     </div>
   );
+
+
+ 
 };
+
+
 
 export default StudentResultPage;
