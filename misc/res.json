@@ -1,0 +1,34 @@
+{
+    "roll_no":"20BD166A2",
+    "Department_ID":"DEP003",
+    "Department_Name":"CSM",
+    "Result":[
+        { "AYear" : 4,
+          "Semester" : 7,
+          "SGPA": 8.50,
+          "ExamStatus" : "PASS",
+          "PublishingData":"2024-02-13 9.30 PM",
+          "GradesList" : [
+            {"CSMS001" : "A"},
+            {"CSMS002" : "O"},
+            {"CSMS003" : "A+"}
+          ] ,
+          "SHA_HASH" : "value",
+          "Block_Chain_Txn" :"to be filled" 
+        },
+        { "AYear" : 4,
+          "Semester" : 8,
+          "SGPA": 8.50,
+          "PublishingData":"2024-02-13 9.30 PM",
+          "ExamStatus" : "PASS",
+          "GradesList" : [
+            {"CSMS004" : "A"},
+            {"CSMS005" : "O"},
+            {"CSMS006" : "A+"}
+          ] ,
+          "SHA_HASH" : "value",
+          "Block_Chain_Txn" :"to be filled"
+        }
+    ]
+
+}

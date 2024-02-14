@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Faculty = require('../models/TeacherModel');
 const SubjectModel = require('../models/SubjectModel');
-
+const ResultModel = require('../models/ResultModel');
 router.post('/login', async(req,res)=>{
   console.log('checking for Teacher in srms database');
 
@@ -130,5 +130,44 @@ router.get('/getFacultyDetails',async (req,res)=>
 
 });
 
+router.get('/Uploadresult',async (req,res)=> {
+
+  console.log.log("uplodaing result");
+
+  try{
+    
+    // Find the student's record
+    let studentRecord = await ResultModel.findOne({ roll_no: rollNo });
+
+    if (!studentRecord) {
+      // If the student's record doesn't exist, create a new one
+      studentRecord = new ResultModel({
+        roll_no: rollNo,
+        Department_ID: newResult.Department_ID,
+        Department_Name: newResult.Department_Name,
+        Result: []
+      });
+    }
+
+    // Add or update the new result in the Result array
+    // const index = studentRecord.Result.findIndex(result => 
+    //   result.AYear === newResult.AYear && result.Semester === newResult.Semester);
+
+    // if (index !== -1) {
+    //   // If result for the same year and semester exists, update it
+    //   studentRecord.Result[index] = newResult;
+    // } else {
+      // If not, add the new result
+     await studentRecord.Result.push(newResult);
+    
+
+    await studentRecord.save();
+    
+    console.log('Result updated successfully');
+  } catch (error) {
+    console.error('Error updating result:', error);
+  }
+
+});
 
 module.exports = router;

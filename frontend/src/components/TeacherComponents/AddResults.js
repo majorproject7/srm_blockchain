@@ -10,6 +10,9 @@ const StudentResultPage = () => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [students, setStudents] = useState([]);
   const [formData, setFormData] = useState({});
+  const [totalCredits, setTotalCredits] = useState(0);
+  const [averageGrade, setAverageGrade] = useState(0);
+  const [examstatus, setExamStatus] = useState("PASS");
   useEffect(() => {
    
     const fetchAdmins = async () => {
@@ -34,7 +37,7 @@ const StudentResultPage = () => {
           semnum: selectedSemester // You may need to adjust this depending on how your API expects the request
         };
         const response = await axios.post('http://localhost:5000/api/TeacherRoute/getSubjects', reqdata);
-        console.log(response.data.subjectlist);
+       // console.log(response.data.subjectlist);
         setSemesterSubjects(response.data.subjectlist);
       }
     };
@@ -42,7 +45,16 @@ const StudentResultPage = () => {
   }, [selectedStudent, selectedSemester]);
 
 
-
+ const handleGradePointChange = (subCode, gradePoint) => {
+    const updatedFormData = { ...formData, [subCode]: parseInt(gradePoint) };
+    
+    setFormData(updatedFormData);
+    //console.log("---",subCode,"---",gradePoint);
+    // Calculate total credits
+    const credits = semesterSubjects.find(subject => subject.SubCode === subCode).credits;
+    //console.log("credits",credits)
+    setTotalCredits(prevTotalCredits => prevTotalCredits + credits);
+  };
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -56,12 +68,14 @@ const StudentResultPage = () => {
 
   const handleSemesterChange = (e) => {
     setSelectedSemester(e.target.value);
+    setAverageGrade(0);
     
   };
 
   const handleSectionChange = (e) => {
     setSelectedSection(e.target.value);
-   
+    setStudents([]);
+ 
    
   };
 
@@ -70,24 +84,45 @@ const StudentResultPage = () => {
     setFormData({});
     console.log('Selected student:', e.target.value);
   };
-  const handleGradePointChange = (subjectId, gradePoint) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [subjectId]: gradePoint
-    }));
-  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can handle form submission
+    setExamStatus('PASS');
+    // Calculate weighted sum of grade points
+    let weightedSum = 0;
+    let totalcreditpoints  = 0;
+    for (const subCode in formData) {
+      const gradePoint = formData[subCode];
+      if (gradePoint === 3)
+    { console.log("failed");
+      setExamStatus("FAIL");
+    }
+      const credits = semesterSubjects.find(subject => subject.SubCode === subCode).credits;
+      weightedSum += gradePoint * credits;
+      totalcreditpoints += 10 * credits;
+    }
+
+    console.log("total ",totalcreditpoints);
+    const average = weightedSum / totalcreditpoints;
+    console.log("average res :",average);
+    setAverageGrade(average*10);
     console.log(formData);
   };
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Teacher Page</h1>
+    <div className="flex mx-auto  flex-col items-center ">
+      <div>
+        <h1 className="text-2xl font-bold mb-4">Result Page</h1>
+      </div>
       <div className="mb-4">
-        <label htmlFor="year" className="block font-semibold mb-1">Select Year:</label>
-        <select id="year" className="px-4 py-2 border rounded" onChange={handleYearChange}>
+        <label htmlFor="year" className="block font-semibold mb-1">
+          Select Year:
+        </label>
+        <select
+          id="year"
+          className="px-4 py-2 border rounded"
+          onChange={handleYearChange}
+        >
           <option value="">Select Year</option>
           <option value="4">4</option>
           <option value="3">3</option>
@@ -97,25 +132,36 @@ const StudentResultPage = () => {
       </div>
       {selectedYear && (
         <div className="mb-4">
-          <label htmlFor="semester" className="block font-semibold mb-1">Select Semester:</label>
-          <select id="semester" className="px-4 py-2 border rounded" onChange={handleSemesterChange}>
+          <label htmlFor="semester" className="block font-semibold mb-1">
+            Select Semester:
+          </label>
+          <select
+            id="semester"
+            className="px-4 py-2 border rounded"
+            onChange={handleSemesterChange}
+          >
             <option value="">Select Semester</option>
-            {selectedYear === '4' && <option value="7">7</option>}
-            {selectedYear === '4' && <option value="8">8</option>}
-            {selectedYear === '3' && <option value="5">5</option>}
-            {selectedYear === '3' && <option value="6">6</option>}
-            {selectedYear === '2' && <option value="3">3</option>}
-            {selectedYear === '2' && <option value="4">4</option>}
-            {selectedYear === '1' && <option value="2">2</option>}
-            {selectedYear === '1' && <option value="1">1</option>}
-            
+            {selectedYear === "4" && <option value="7">7</option>}
+            {selectedYear === "4" && <option value="8">8</option>}
+            {selectedYear === "3" && <option value="5">5</option>}
+            {selectedYear === "3" && <option value="6">6</option>}
+            {selectedYear === "2" && <option value="3">3</option>}
+            {selectedYear === "2" && <option value="4">4</option>}
+            {selectedYear === "1" && <option value="2">2</option>}
+            {selectedYear === "1" && <option value="1">1</option>}
           </select>
         </div>
       )}
       {selectedSemester && (
         <div className="mb-4">
-          <label htmlFor="section" className="block font-semibold mb-1">Select Section:</label>
-          <select id="section" className="px-4 py-2 border rounded" onChange={handleSectionChange}>
+          <label htmlFor="section" className="block font-semibold mb-1">
+            Select Section:
+          </label>
+          <select
+            id="section"
+            className="px-4 py-2 border rounded"
+            onChange={handleSectionChange}
+          >
             <option value="">Select Section</option>
             <option value="A">A</option>
             <option value="B">B</option>
@@ -125,37 +171,90 @@ const StudentResultPage = () => {
       )}
       {selectedSection && students.length > 0 && (
         <div className="mb-4">
-          <label htmlFor="student" className="block font-semibold mb-1">Select Student:</label>
-          <select id="student" className="px-4 py-2 border rounded" onChange={handleStudentChange}>
+          <label htmlFor="student" className="block font-semibold mb-1">
+            Select Student:
+          </label>
+          <select
+            id="student"
+            className="px-4 py-2 border rounded"
+            onChange={handleStudentChange}
+          >
             <option value="">Select Student</option>
-            {students.map(student => (
-              <option key={student.roll_no} value={student.roll_no}>{student.name}</option>
+            {students.map((student) => (
+              <option key={student.roll_no} value={student.roll_no}>
+                {student.name}
+              </option>
             ))}
           </select>
         </div>
       )}
-       {selectedStudent && selectedSemester && semesterSubjects.length > 0 && (
-        <div>
-          <h2 className="text-lg font-semibold mb-2">Enter Results:</h2>
-          <form className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3" onSubmit={handleSubmit}>
-            {semesterSubjects.map(subject => (
-              <div key={subject.SubCode}>
-                <label htmlFor={subject.SubCode} className="block font-semibold mb-1">{subject.Name}:</label>
-                <select
-                  id={subject.SubCode}
-                  className="px-4 py-2 border rounded"
-                  onChange={(e) => handleGradePointChange(subject.SubCode, e.target.value)}
-                  value={formData[subject.SubCode] || ""}
-                >
-                  <option value="">Select Grade Point</option>
-                  <option value="10">O</option>
-                  <option value="9">A+</option>
-                  <option value="8">A</option>
-                </select>
-              </div>
-            ))}
-            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
-          </form>
+      {selectedStudent && selectedSemester && semesterSubjects.length > 0 && (
+        <div className="flex flex-row-2 justify-evenly  ">
+          <div className='m-2'>
+            <h2 className="text-lg font-semibold mb-2">Enter Results:</h2>
+            <form
+              className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+              onSubmit={handleSubmit}
+            >
+              {semesterSubjects.map((subject) => (
+                <div key={subject.SubCode}>
+                  <label
+                    htmlFor={subject.SubCode}
+                    className="block font-semibold mb-1"
+                  >
+                    {subject.Name}:
+                  </label>
+                  <select
+                    id={subject.SubCode}
+                    className="px-4 py-2 border rounded"
+                    onChange={(e) =>
+                      handleGradePointChange(subject.SubCode, e.target.value)
+                    }
+                    value={formData[subject.SubCode] || ""}
+                    required
+                  >
+                    <option value="">Select Grade Point</option>
+                    <option value="10">O</option>
+                    <option value="9">A+</option>
+                    <option value="8">A</option>
+                    <option value="7">B+</option>
+                    <option value="6">B</option>
+                    <option value="5">C</option>
+                    <option value="4">D</option>
+                    <option value="3">F- Fail</option>
+                  </select>
+                </div>
+              ))}
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white rounded"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+          <div className="flex flex-col justify-center ">
+            <div className=' mx-5 '>
+              {averageGrade !== 0 && (
+                <div className='flex flex-col'>
+                <div className="h-10 px-2 rounded-lg bg-green-100 flex justify-center items-center">
+                  <p className='font-semibold'>SGPA (Grade) : {averageGrade.toFixed(2)}</p>
+                </div>
+                { examstatus === 'PASS' && (
+                <div className="h-10 px-2 my-1 rounded-lg bg-green-300 flex justify-center items-center">
+                  <p className='font-semibold'>Exam Status : {examstatus}</p>
+                </div>)
+                }
+                { examstatus === 'FAIL' && (
+                <div className="h-10 px-2 my-1 rounded-lg bg-red-300 flex justify-center items-center">
+                  <p className='font-semibold '>Exam Status : {examstatus}</p>
+                </div>)
+                }
+                </div>
+              )}
+            </div>
+           
+          </div>
         </div>
       )}
     </div>
