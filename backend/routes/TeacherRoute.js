@@ -1,8 +1,11 @@
+
 const express = require('express');
 const router = express.Router();
 const Faculty = require('../models/TeacherModel');
 const SubjectModel = require('../models/SubjectModel');
 const ResultModel = require('../models/ResultModel');
+const { getresult, AddResult, getAllResult } = require('C:/GANESH/srms/blockchain/hello.js');
+
 router.post('/login', async(req,res)=>{
   console.log('checking for Teacher in srms database');
 
@@ -132,7 +135,7 @@ router.get('/getFacultyDetails',async (req,res)=>
 
 router.get('/Uploadresult',async (req,res)=> {
 
-  console.log.log("uplodaing result");
+  console.log("uplodaing result");
   
   try{
     
@@ -170,4 +173,26 @@ router.get('/Uploadresult',async (req,res)=> {
 
 });
 
+router.post('/secure',async (req,res)=>{
+   
+  console.log("inside the secure page in teacher route");
+  try
+  {
+     const semesternum = req.body.semnum;
+   const resultHash = req.body.hash;
+  const roll_no = req.body.roll_no;
+  console.log(roll_no+"--"+semesternum+"--"+resultHash);
+    const response = await AddResult(roll_no,semesternum,resultHash);
+    res.json({success:true,message:response})
+
+    const stuout = await getAllResult(roll_no);
+    console.log(stuout);
+  }
+  catch(error)
+  {
+    console.log(error);
+     res.json(error);
+
+  }
+});
 module.exports = router;

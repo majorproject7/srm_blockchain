@@ -1,8 +1,10 @@
 var Web3 = require('web3');
 
 var web3 = new Web3.Web3("http://127.0.0.1:7545");
-// this code is for testing the ganache change the account1 and account2 to test ganache
- const account1 = '0xd0C37d2f7DF0c78E55bc88090568b00FBd3e2514'
+// ikkada mi ganache lo fake account untayi
+// kada dantlo first kakunda
+ //inkedina index account number pettandi
+ const account1 = '0x18Af5D1e9E5931E03E30A6eB29a7A58dE4F8EAD1'
 // const account2 = '0x18FC0D0ab797b4f9985AD10DF446b5Dd5A6ED6F6'
 // for (var i =0;i<5;i++)
 // { web3.eth.sendTransaction({
@@ -18,9 +20,9 @@ const contractABI = [
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "rollNo",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -41,9 +43,9 @@ const contractABI = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "internalType": "uint256",
@@ -65,15 +67,14 @@ const contractABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "rollNo",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "internalType": "uint256",
@@ -94,9 +95,9 @@ const contractABI = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "rollNo",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "internalType": "uint256",
@@ -113,15 +114,14 @@ const contractABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "rollNo",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "getAllResults",
@@ -145,49 +145,45 @@ const contractABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   }
 ]; // Paste your contract's ABI here
-const contractAddress = "0x833f4dce6eA781e397BeEE2614953D08Af09CBCc"
+//ikkada ganache lo contracts lo chuste 
+const contractAddress = "0x93D48a210055d210F49EA2454985535BC977Eb61"
 
 const srContract = new web3.eth.Contract(contractABI,contractAddress);
 async function AddResult(rollNo,semester,resHash) {
   try {
-//     const rollNo = 12;
-// const semester = 2;
-// const resHash = "0x1234567890abcdef";
 
       const studentData = await srContract.methods.addResult(rollNo, semester, resHash).send({from: account1,gas : 1000000})
       console.log('Student Data:', studentData);
+      return studentData.transactionHash;
   } catch (error) {
       console.error('Error retrieving student:', error);
+      return error;
   }
 }
 
-async function getresult(rollno,sem)
-{
-  srContract.methods.getResultBySemester(rollno, sem).call()
-  .then(resultHash => {
-    console.log("Result for semester", sem, ":", resultHash);
-  })
-  .catch(error => {
-    console.error("Error getting result:", error);
-  });
+ async function getresult(rollno,sem)
+{ try{
+ const response =  await srContract.methods.getResultBySemester(rollno, sem).call()
+ console.log(response);    
+ return response;}
+ catch(error)
+ {
+  return error;
+ }
 }
 async function getAllResult(rollno)
 {
-  srContract.methods.getAllResults(rollno).call()
-  .then(resultHash => {
-    console.log("Result for semester", resultHash);
-  })
-  .catch(error => {
-    console.error("Error getting result:", error);
-  });
+  const response = await srContract.methods.getAllResults(rollno).call();
+  
+  return response;
 }
-// getresult(12,2)
+
 
 // Example usage
 //addStudent();
-//AddResult(12,1,"ASDFsdfsdfs");
-getAllResult(12);
+//AddResult(1,1,"ASDFsdfsdfs");
+//getAllResult(12);
+module.exports = {getresult,AddResult,getAllResult};

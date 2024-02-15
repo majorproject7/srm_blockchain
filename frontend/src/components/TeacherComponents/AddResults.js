@@ -111,7 +111,7 @@ const StudentResultPage = () => {
     console.log(formData);
 
   };
-  const getResultHash = ()=>{
+  const getResultHash = async ()=>{
     var HashData = "";
     const dat = new Date();
     const today = dat.getDate()+"/"+dat.getMonth()+"/"+dat.getFullYear();
@@ -125,6 +125,13 @@ const StudentResultPage = () => {
     console.log("data to be hashed:",HashData);
     const hashval = crypto.SHA256(HashData).toString();
      console.log(hashval);
+     const postdata = {
+        roll_no : selectedStudent,
+        semnum : selectedSemester,
+        hash : hashval
+     }
+      const response = await axios.post('http://localhost:5000/api/TeacherRoute/secure',postdata);
+      alert("Transaction Hash "+response.data.message+"/n"+"Result Hash : "+hashval);
   }
 
   return (
@@ -268,12 +275,14 @@ const StudentResultPage = () => {
                   <p className='font-semibold '>Exam Status : {examstatus}</p>
                 </div>)
                 }
-                </div>
-              )}
-            </div>
-             <div> <button className='bg-purple-400 p-2 rounded-lg' onClick={()=>
+                 <div> <button className='bg-purple-400 p-2 rounded-lg' onClick={()=>
               getResultHash("datax")
              }> <h1>Secure</h1></button></div>
+                </div>
+              )}
+             
+            </div>
+             
           </div>
         </div>
       )}
