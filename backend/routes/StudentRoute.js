@@ -111,8 +111,25 @@ router.post('/simple',async (req,res)=>{
   console.log(roll_no+"--"+semesternum+"--");
     //const response = await getresult(roll_no,semesternum);
     const response2 = await getAllResult(roll_no);
-    console.log("all results is here ",response2.slice(-1).resHash);
-    res.json({success:true,data:"ssdfg"})
+   //console.log("single sme hash ",response);
+    console.log("all results hash ",response2);
+
+    //go through every result and and find the result which is latest
+      var resultweneed = "";
+      //console.log((response2[0].semester)+"--"+BigInt(semesternum));
+      for(let i =0;i< response2.length;i++)
+      {     
+            if(response2[i].semester === BigInt(semesternum))
+            {
+              resultweneed = response2[i].resHash;
+            }
+      }
+      //console.log("result ",resultweneed);
+      if(resultweneed === "")
+      {
+        resultweneed = "No Data found on Block chain";
+      }
+    res.json({success:true,data:resultweneed});
 
    // console.log(response);
     
@@ -146,15 +163,15 @@ router.post('/getResultHash',async(req,res)=>
       ];
   
       const sortedResults = await ResultModel.aggregate(aggregationPipeline);
-     console.log("sroted results ",sortedResults);
+     //console.log("sroted results ",sortedResults);
       const RData = sortedResults[0];
-      console.log("RDATA from hash result :",RData);
+     // console.log("RDATA from hash result :",RData);
         var HashData = "";
         const todaydate= new Date(RData.Result[0].PublishingDate);
      
-    console.log("today ",todaydate.toISOString());
+    //console.log("today ",todaydate.toISOString());
      HashData += RData.roll_no + "--" + todaydate.toISOString() + "--" + RData.Result[0].Semester + "--";
-     HashData += RData.Result[0].SGPA + "--" + RData.Result[0].ExamStatus + "--";
+     HashData += RData.Result[0].SGPA.toFixed(2)+ "--" + RData.Result[0].ExamStatus + "--";
      const gradelist = RData.Result[0].GradesList;
      for (let i = 0;i< gradelist.length ;i++) {
       HashData += gradelist[i].SubjectCode + "-" + gradelist[i].grade + "--";
@@ -212,7 +229,7 @@ router.post('/getResults',async(req,res)=>{
           ExamStatus :"$lastResult.ExamStatus",
       } }
     ]);
-    console.log("results grade list ",results)
+   // console.log("results grade list ",results)
     res.json({success:true,data : results[0]});
 
   }

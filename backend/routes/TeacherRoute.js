@@ -53,10 +53,12 @@ router.post('/getSubjects', async(req,res)=>{
       { Department: branch,  "Subjects.Semester": semesterNum},
        { "Subjects.Subject.$": 1, _id: 0 });
 
-         console.log(response[0].Subjects[0]);
+         //console.log(response[0].Subjects[0]);
         if(response)
         {
           res.json({subjectlist : response[0].Subjects[0].Subject});
+console.log("Subject data Obtained and sent");
+
         }
   }
   catch(error){
@@ -125,6 +127,7 @@ router.get('/getFacultyDetails',async (req,res)=>
    
     // Replace with your query criteria if needed
       res.json(FacultyDataResponse[0]);
+      console.log("Faculty Data obtained");
     } catch (err) {
       console.error('Error fetching Faculty details:', err);
       res.status(500).json({ message: 'Error fetching admin details' });
@@ -149,7 +152,7 @@ router.post('/addresult',async (req,res)=> {
       PublishingDate :  dateo,
       GradesList : req.body.Result.GradesList,
   }
-  console.log("today date ",dateo);
+  //console.log("today date ",dateo);
   const studentRecord = await ResultModel.findOneAndUpdate({ roll_no: req.body.roll_no },{$push : {Result : newResult}},{ new: true });
   if (!studentRecord) {
     
@@ -161,7 +164,7 @@ router.post('/addresult',async (req,res)=> {
   }
 
 
-    console.log(studentRecord);
+    //console.log(studentRecord);
     res.json({success:true,message:"done"});
     console.log('Result updated successfully');
   } catch (error) {

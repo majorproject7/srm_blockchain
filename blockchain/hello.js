@@ -67,7 +67,8 @@ const contractABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -114,7 +115,8 @@ const contractABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -145,11 +147,12 @@ const contractABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]; // Paste your contract's ABI here
 //ikkada ganache lo contracts lo chuste 
-const contractAddress = "0xC51fc24A35059c9f3e9B9c441611650fc4a75bfB"
+const contractAddress = "0xF3E01b666F9B9FeAD67ccd09f6fd5B61edb0F7a7"
 
 const srContract = new web3.eth.Contract(contractABI,contractAddress);
 async function AddResult(rollNo,semester,resHash) {

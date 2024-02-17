@@ -38,7 +38,7 @@ contract Student {
     function getResultBySemester(string memory rollNo, uint256 semester) public view returns (string memory) {
         require(semester > 0, "Semester must be greater than 0"); // Validate semester
 
-        for (uint256 i = studentResults[rollNo].length-1; i >0; i--) {
+        for (uint256 i = 0; i < studentResults[rollNo].length; i++) {
             if (studentResults[rollNo][i].semester == semester) {
                 return studentResults[rollNo][i].resHash;
             }
