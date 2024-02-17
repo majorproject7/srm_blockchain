@@ -133,39 +133,36 @@ router.get('/getFacultyDetails',async (req,res)=>
 
 });
 
-router.get('/Uploadresult',async (req,res)=> {
+router.post('/addresult',async (req,res)=> {
 
   console.log("uplodaing result");
   
   try{
+  
+    const dateo = new Date(req.body.Result.PublishingDate);
     
-    // Find the student's record
-    let studentRecord = await ResultModel.findOne({ roll_no: rollNo });
-
-    if (!studentRecord) {
-      // If the student's record doesn't exist, create a new one
-      studentRecord = new ResultModel({
-        roll_no: rollNo,
-        Department_ID: newResult.Department_ID,
-        Department_Name: newResult.Department_Name,
-        Result: []
-      });
-    }
-
-    // Add or update the new result in the Result array
-    // const index = studentRecord.Result.findIndex(result => 
-    //   result.AYear === newResult.AYear && result.Semester === newResult.Semester);
-
-    // if (index !== -1) {
-    //   // If result for the same year and semester exists, update it
-    //   studentRecord.Result[index] = newResult;
-    // } else {
-      // If not, add the new result
-     await studentRecord.Result.push(newResult);
+    const newResult = {
+      AYear : req.body.Result.Ayear,
+      Semester :  req.body.Result.Semester,
+      SGPA : req.body.Result.SGPA,
+      ExamStatus : req.body.Result.ExamStatus,
+      PublishingDate :  dateo,
+      GradesList : req.body.Result.GradesList,
+  }
+  console.log("today date ",dateo);
+  const studentRecord = await ResultModel.findOneAndUpdate({ roll_no: req.body.roll_no },{$push : {Result : newResult}},{ new: true });
+  if (!studentRecord) {
     
+    result = await ResultModel.create({
+      roll_no: req.body.roll_no,
+      Department_Name:req.body.Department_Name,
+      Result: [newResult]
+    });
+  }
 
-    await studentRecord.save();
-    
+
+    console.log(studentRecord);
+    res.json({success:true,message:"done"});
     console.log('Result updated successfully');
   } catch (error) {
     console.error('Error updating result:', error);
@@ -185,8 +182,8 @@ router.post('/secure',async (req,res)=>{
     const response = await AddResult(roll_no,semesternum,resultHash);
     res.json({success:true,message:response})
 
-    const stuout = await getAllResult(roll_no);
-    console.log(stuout);
+    
+    
   }
   catch(error)
   {

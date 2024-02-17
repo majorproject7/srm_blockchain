@@ -6,10 +6,6 @@ const ResultSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  Department_ID: {
-    type: String,
-    required: true
-  },
   Department_Name: {
     type: String,
     required: true
@@ -32,12 +28,12 @@ const ResultSchema = new mongoose.Schema({
       enum: ['PASS', 'FAIL'],
       required: true
     },
-    PublishingData: {
+    PublishingDate: {
       type: Date,
       required: true
     },
     GradesList: [{
-      subjectCode: {
+      SubjectCode: {
         type: String,
         required: true
       },
@@ -46,14 +42,7 @@ const ResultSchema = new mongoose.Schema({
         required: true
       }
     }],
-    SHA_HASH: {
-      type: String,
-      required: true
-    },
-    Block_Chain_Txn: {
-      type: String,
-      required: true
-    }
+    
   }]
 });
 

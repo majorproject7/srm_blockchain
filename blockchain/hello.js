@@ -149,7 +149,7 @@ const contractABI = [
   }
 ]; // Paste your contract's ABI here
 //ikkada ganache lo contracts lo chuste 
-const contractAddress = "0x93D48a210055d210F49EA2454985535BC977Eb61"
+const contractAddress = "0xC51fc24A35059c9f3e9B9c441611650fc4a75bfB"
 
 const srContract = new web3.eth.Contract(contractABI,contractAddress);
 async function AddResult(rollNo,semester,resHash) {

@@ -8,14 +8,6 @@ const DashBoard = ()=>{
   const studentData = location.state.StudentLogin;
   console.log(studentData);
     console.log('StuDashboard component rendered');
-    const studentInfo = new Map([
-        ['Name', 'Rakesh'],
-        ['Roll no', '123'],
-        ['Branch', 'Computer Science'],
-        ['Year', '2023'],
-        // Add more information as needed
-      ]);
-    
 
     return (
 
@@ -29,7 +21,7 @@ const DashBoard = ()=>{
     <div align="center" className="border p-5  grid  bg-slate-600 justify-center ">
         
       <div>  {StuCard(studentData)}</div>
-      <div> {SemSel()}</div>
+      <div> {SemSel(studentData.roll_no,studentData.branch)}</div>
  
         </div>
    

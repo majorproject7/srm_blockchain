@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const StuModel = require('../models/StudentModel')
-
+const StuModel = require('../models/StudentModel');
+const ResultModel = require('../models/ResultModel');
+const { getresult, AddResult, getAllResult } = require('C:/GANESH/srms/blockchain/hello.js');
+const crypto = require('crypto-js');
 // Registration route
 router.post('/login', async (req,res)=>{
 console.log('checking for student in srms database');
@@ -96,4 +98,128 @@ router.post('/getStudentDetails',async(req,res)=>
 
 });
 
+
+
+router.post('/simple',async (req,res)=>{
+   
+  console.log("get hash from  Block chain");
+  try
+  {
+     const semesternum = req.body.semnum;
+  
+  const roll_no = req.body.roll_no;
+  console.log(roll_no+"--"+semesternum+"--");
+    //const response = await getresult(roll_no,semesternum);
+    const response2 = await getAllResult(roll_no);
+    console.log("all results is here ",response2.slice(-1).resHash);
+    res.json({success:true,data:"ssdfg"})
+
+   // console.log(response);
+    
+  }
+  catch(error)
+  {
+    console.log(error);
+     res.json(error);
+
+  }
+});
+router.post('/getResultHash',async(req,res)=>
+{
+    console.log("getting student Result hash");
+    
+    console.log("roll no-",req.body.roll_no,"-",req.body.semnum);
+    try {
+      const aggregationPipeline = [
+        { $match: { roll_no:req.body.roll_no, 'Result.Semester': req.body.semnum } },
+        { $unwind: '$Result' },
+        { $match: { 'Result.Semester': req.body.semnum } },
+        { $sort: { 'Result.PublishingDate': -1 } },
+        {
+          $group: {
+            _id: '$_id',
+            roll_no: { $first: '$roll_no' },
+            Department_Name: { $first: '$Department_Name' },
+            Result: { $push: '$Result' }
+          }
+        }
+      ];
+  
+      const sortedResults = await ResultModel.aggregate(aggregationPipeline);
+     console.log("sroted results ",sortedResults);
+      const RData = sortedResults[0];
+      console.log("RDATA from hash result :",RData);
+        var HashData = "";
+        const todaydate= new Date(RData.Result[0].PublishingDate);
+     
+    console.log("today ",todaydate.toISOString());
+     HashData += RData.roll_no + "--" + todaydate.toISOString() + "--" + RData.Result[0].Semester + "--";
+     HashData += RData.Result[0].SGPA + "--" + RData.Result[0].ExamStatus + "--";
+     const gradelist = RData.Result[0].GradesList;
+     for (let i = 0;i< gradelist.length ;i++) {
+      HashData += gradelist[i].SubjectCode + "-" + gradelist[i].grade + "--";
+     }
+
+     console.log("data to be hashed:", HashData);
+     const hashval = crypto.SHA256(HashData).toString();
+     console.log(hashval);
+     res.json({success:true,message:hashval});
+      
+     } catch (err) {
+       console.error('Error fetching Faculty details:', err);
+       res.status(500).json({ message: 'Error fetching admin details' });
+     }
+
+
+});
+
+router.post('/getsemlist',async(req,res)=>{
+
+  console.log("getting list of semster");
+  try{
+     const rollno = req.body.roll_no;
+
+     const response = await ResultModel.distinct("Result.Semester",{roll_no:rollno},{"Result.Semester":1});
+      console.log(response);
+     res.json({success:true,data:response});
+
+  }
+  catch(error)
+  {
+    res.json(error);
+    console.log(error);
+  }
+});
+
+router.post('/getResults',async(req,res)=>{
+
+  console.log("getting result for ",req.body.roll_no,"sem",req.body.sem);
+  try
+  {
+
+    const results = await ResultModel.aggregate([
+      { $match: { roll_no: req.body.roll_no, "Result.Semester": req.body.sem} },
+      { $unwind: "$Result" },
+      { $match: { "Result.Semester": req.body.sem } },
+      { $group: {
+          _id: { roll_no: "$roll_no", Semester: "$Result.Semester" },
+          lastResult: { $last: "$Result" }
+      } },
+      { $project: {
+          _id: 0,
+          GradesList: "$lastResult.GradesList",
+          SGPA: "$lastResult.SGPA",
+          ExamStatus :"$lastResult.ExamStatus",
+      } }
+    ]);
+    console.log("results grade list ",results)
+    res.json({success:true,data : results[0]});
+
+  }
+  catch(error)
+  {
+    console.log("error occured");
+    res.json({success:false});
+  }
+});
 module.exports = router;
