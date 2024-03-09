@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import Kmithead  from "../DashBoard/KmitHeader";
 const StuGrade = () => {
   const [hashvalforsem, setHashVal] = useState(null);
   const [subjects, setSubjects] = useState(null);
@@ -51,58 +52,65 @@ const StuGrade = () => {
 
   return (
     <>
-      <div align="center">
-        <div className="w-[min] h-[50px] flex justify-center mix-blend-darken bg-yellow-400 rounded-[30px] shadow">
-          <div className="w-[min] h-[50px] text-black text-[32px] font-semibold font-sans flex justify-center items-center ">
-            keshav memorial Institute of technology
-          </div>
-        </div>
-      </div>
+      <Kmithead></Kmithead>
       <div className=" flex flex-col items-center">
         <div className="">
-          <h1 className="text-lg font-sans font-semibold">
+          <h1 className="m-2 text-lg font-sans font-semibold">
             {" "}
             Roll_No : {rollno} SEM RESULTS : {sem_num}{" "}
           </h1>
         </div>
-        <div className=" p-2 flex justify-center border-black border-2">
-          <div className="w-[160px] h-10 text-lg  rounded-[15px] flex justify-center">
+        
+      </div>
+      <div className="flex justify-center">
+        <div className="flex flex-col-3 border-black border justify-center ">
+          <div>
+          <div className="w-[160px] h-10 text-lg  bg-amber-100 flex justify-center items-center">
             {" "}
             Subject Code{" "}
           </div>
-          <div className="w-[260px] h-10 text-lg  rounded-[15px] flex justify-center">
-            {" "}
-            Subject{" "}
-          </div>
-          <div className="w-[260px] h-10 text-lg  rounded-[15px] flex justify-center">
-            {" "}
-            Grade{" "}
-          </div>
-        </div>
-      </div>
-      <div className="flex justify-center">
-        <div className="flex flex-col-2 border-black border justify-center ">
-          <div>
             {subjects ? (
               subjects.map((subject) => (
-                <div className="p-2 flex flex-row-2 justify-center border-black border">
-                  <div className="w-[150px] h-12 text-lg bg-blue-300 rounded-[15px] flex justify-center items-center">
+
+                <div className=" flex my-1 flex-col-1 bg-blue-50  justify-center border-black border ">
+                  <div className=" h-12 text-lg   flex flex-col-1  items-center">
                     {subject.SubCode}{" "}
                   </div>
-                  <div className="w-[260px] py-2 text-lg bg-green-300 rounded-[15px] flex justify-center">
-                    {subject.Name}{" "}
-                  </div>
+                  
                 </div>
               ))
             ) : (
               <div>no data</div>
             )}
           </div>
-          <div className="flex flex-col border-black border justify-center">
+          <div >
+          <div className=" h-10 text-lg bg-amber-100 flex justify-center items-center">
+            {" "}
+            Subject{" "}
+          </div>
+            {subjects ? (
+              subjects.map((subject) => (
+
+                <div className="flex flex-col-1 my-1 bg-green-50 justify-center border-black border">
+                  <div className=" p-1 h-12 text-lg  flex flex-col items-center">
+                    {subject.Name}{" "}
+                  </div>
+                  
+                </div>
+              ))
+            ) : (
+              <div>no data</div>
+            )}
+          </div>
+          <div>
+          <div className="w-[260px] h-10 text-lg  bg-amber-100 flex justify-center items-center">
+            {" "}
+            Grade{" "}
+          </div>
             {grades ? (
               grades.map((subject) => (
-                <div className="p-2 flex flex-col justify-center  border-black border">
-                  <div className="w-[250px] py-3 text-lg bg-green-300 rounded-[15px] flex justify-center ">
+                <div className="flex flex-col my-1 justify-center  border-black border">
+                  <div className=" p-1 h-12 text-lg bg-green-200  flex flex-col items-center">
                     {subject.grade}{" "}
                   </div>
                 </div>
@@ -127,8 +135,8 @@ const StuGrade = () => {
             {status  ? (
               <div className="rounded-lg p-2">
                 {
-                   (status === 'FAIL') ? (<div> <p className="text-red-700 font-semibold">Status is {status}</p></div>) :
-                    (<div><p className="text-green-700 text-xl font-semibold">Status :{status}</p></div>)
+                   (status === 'FAIL') ? (<div> <p className="text-red-700 text-xl font-semibold">Status is {status}</p></div>) :
+                    (<div><p className="text-green-700 text-xl font-semibold">Status is :{status}</p></div>)
                 }
                 
               </div>
@@ -142,19 +150,20 @@ const StuGrade = () => {
           {hashvalforsem != null ? (
             <div className="p-2">
             <div className="p-2 rounded-md  bg-slate-100">
-              <h2>
+              <h2 className="font-semibold">
                 Hash of Result from BlockChain : <h3>{hashvalforsem}</h3>{" "}
               </h2>
             </div>
             </div>
           ) : (
-            <div></div>
+            <div className="p-4 border border-red-300 flex justify-center"> 
+            <h1> Error Loading Data from Block Chain. Please Contact Admin.</h1></div>
           )}
           {calcHash != null ? (
             <div className="p-2">
             <div className="p-2 rounded-md  bg-slate-100">
-              <h2>
-                Hash of Result from Result : <h3>{calcHash}</h3>{" "}
+              <h2 className="font-semibold">
+                Hash of Result from Database : <h3>{calcHash}</h3>{" "}
               </h2>
             </div>
             </div>
@@ -164,9 +173,9 @@ const StuGrade = () => {
           <div className="flex flex-col items-center">
           {
             (calcHash === hashvalforsem) ? (
-              <div> <p className="text-green-700" > Matched </p> </div>
+              <div> <p className="text-green-700 text-xl font-semibold" > Matched Hash values. Data Secured</p> </div>
             ): (<div>
-                  <p className="text-red-700" > Not Matched </p>
+                  <p className="text-red-700 text-xl font-semibold" > Hash Values doesn't match. Data Might be Corrupted. </p>
             </div>)
           }
           </div>

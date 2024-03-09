@@ -21,13 +21,13 @@ try{
       if(response.length > 0)
       {
         res.json({success : true , 
-          message : 'Login Successful',StudentData : response[0]})
+          message : 'Login Successful. Click Ok to continue.',StudentData : response[0]})
       }
       else
       {
         res.json({
           success:false,
-          message : 'Please check your credentials',
+          message : 'Student Data Not Found. Please Check Credentials',
         })
       }
 
