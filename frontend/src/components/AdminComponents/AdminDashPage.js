@@ -1,57 +1,104 @@
 import Kmithead from "../DashBoard/KmitHeader";
 import { Link } from "react-router-dom";
 
-function AdminDash()
-{  
-    const studentInfo = new Map([
-        ['Name', 'Rakesh'],
-        ['Mobile', '+91 8000000780'],
-        ['email', 'srmAdmin@edu.in'],
-        ['Role', 'SRM Admin'],
-        // Add more information as needed
-      ]);
+import { useLocation } from "react-router-dom";
+function AdminDash() {
+  const location = useLocation();
+  const adminData = location.state.AdminLogin;
+  console.log(adminData);
 
-    return(
-        <>
-        <Kmithead></Kmithead>
-        
-    <div>
-        <div align="center"  className=" grid grid-cols-1 justify-items-center">
-    <div className=" w-[200px] h-[200px] text-lg bg-blue-300 rounded-[15px]  " > <img src="/person_profile.jpg" alt="gadfg"></img> </div>
-    
-    <div align="center" className=" p-3 grid grid-cols-1   justify-items-center">
-    { Array.from(studentInfo.entries()).map(([subject, mark], index) => (
-        
-        <div className=" grid grid-cols-2 justify-center">
-        <div className="w-[160px] h-10 text-lg gap-2 bg-cyan-100 rounded-[15px] flex justify-center" >{subject}   </div>
-        <div className="w-[160px] h-10 text-lg bg-cyan-50 rounded-[15px] flex justify-center" >{mark}   </div>
+  return (
+    <>
+      <Kmithead></Kmithead>
+      <div className="flex flex-row justify-center">
+         <h1 className="text-xl m-2"> Admin DashBoard</h1>
+      </div>
+      <div>
+        <div align="center" className=" grid grid-cols-1 justify-items-center">
+          <div>{AdminDetCard(adminData)}</div>
+
+          <div
+            align="center"
+            className=" p-3 grid grid-cols-1   justify-items-center"
+          >
+            <div className="w-[320px] h-[160px]  flex flex-col justify justify-around">
+              <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center ">
+                <Link to="/facultyManage">
+                  {" "}
+                  <h2 className="text-white font-semibold">
+                    Faculty Management
+                  </h2>
+                </Link>
+              </div>
+
+              <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center ">
+                <Link to="/StudentManagePage">
+                  {" "}
+                  <h2 className="text-white font-semibold">
+                    Student Management
+                  </h2>
+                </Link>
+              </div>
+
+              <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center ">
+                <Link to="/AdminManage">
+                  {" "}
+                  <h2 className="text-white font-semibold">Admin Management</h2>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      ))
-    }
-    <div className="w-[320px] h-[160px]  flex flex-col justify justify-around">
-    <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center " >  
-    <Link to="/facultyManage">    <h2 className="text-white font-semibold">Faculty Management</h2>
-            </Link>
-     </div>
-
-     <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center " >  
-         <Link to="/StudentManagePage">   <h2 className="text-white font-semibold">Student Management</h2>
-         </Link>
-     </div>
-
-
-     <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center " >  
-           <Link to="/AdminManage"> <h2 className="text-white font-semibold">Admin Management</h2></Link>
-     
-     
-     
-     </div>
-     </div>
-    </div>
-    </div>
-    </div>
-        </>
-    );
-
+      </div>
+    </>
+  );
 }
+
+const AdminDetCard = (stuCardData) => {
+  const StudentInfo = stuCardData;
+  return (
+    <div className=" flex flex-col-1 justify-center items-center">
+      <div className=" w-[200px] h-[200px] text-lg flex flex-col ">
+        <img
+          src={StudentInfo.image}
+          alt="image"
+          className="rounded-[100px]"
+        ></img>
+      </div>
+
+      <div className="m-2 flex flex-col-2 justify-center items-stretch">
+        <div className=" flex flex-col justify-center items-center">
+          <div className="w-[150px] h-10 text-lg my-1 bg-blue-100 flex justify-center items-center">
+            Name{" "}
+          </div>
+          <div className="w-[150px] h-10 text-lg  my-1 bg-blue-100  flex justify-center items-center">
+            Email{" "}
+          </div>
+          <div className="w-[150px] h-10 text-lg my-1 bg-blue-100  flex justify-center items-center">
+            contact{" "}
+          </div>
+          <div className="w-[150px] h-10 text-lg  my-1 bg-blue-100 flex justify-center items-center">
+            admin_id{" "}
+          </div>
+        </div>
+
+        <div className=" flex flex-col  justify-center items-center">
+          <div className="w-[250px] h-10 text-lg bg-green-300  my-1 flex justify-center items-center">
+            {StudentInfo.name}{" "}
+          </div>
+          <div className="w-[250px] h-10 text-lg  bg-green-300 my-1 flex justify-center items-center">
+            {StudentInfo.email}{" "}
+          </div>
+          <div className="w-[250px] h-10 text-lg  bg-green-300 my-1 flex justify-center items-center">
+            {StudentInfo.contact}{" "}
+          </div>
+          <div className="w-[250px] h-10 text-lg  bg-green-300 my-1 flex justify-center items-center">
+            {StudentInfo.admin_id}{" "}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default AdminDash;

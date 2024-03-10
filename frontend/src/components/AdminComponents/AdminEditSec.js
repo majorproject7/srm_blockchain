@@ -11,81 +11,16 @@ import {useState,useEffect} from 'react';
         <div>
             <Kmithead></Kmithead>
            {AdminForm()}
-            {AdminDetails()}
+            {/* {AdminDetails()} */}
         </div>
     );
 
 }
-const AdminCard = ({ data }) => {
-  const { name, email, contact, admin_id } = data;
-
-  return (
-    <div className="flex flex-col rounded-lg text-center bg-gray-200 p-4 hover:bg-gray-300">
-      {/* Name */}
-      <div className="font-bold text-xl mb-2">{name}</div>
-
-      {/* Flexbox for other details */}
-      <div className="flex flex-row justify-between">
-        {/* Admin ID */}
-        <div className="flex flex-col items-center mr-4">
-          <span className="text-base font-medium">Admin ID:</span>
-          <span className="text-sm">{admin_id}</span>
-        </div>
-
-        {/* Contact */}
-        <div className="flex flex-col items-center">
-          <span className="text-base font-medium">Contact:</span>
-          <span className="text-sm">{contact}</span>
-        </div>
-
-        {/* Email */}
-        <div className="flex flex-col items-center ml-4">
-          <span className="text-base font-medium">Email:</span>
-          <span className="text-sm overflow-hidden truncate">{email}</span>
-        </div>
-      </div>
-    </div>
-  );
-};
-const AdminDetails = ()=>
- { 
-  const [admins, setAdmins] = useState([]);
-
-  useEffect(() => {
-    const fetchAdmins = async () => {
-      const response = await  axios.get('http://localhost:5000/api/AdminRoute/getAdminDetails');// Replace with your API call
-      setAdmins(response.data);
-    };
-
-    fetchAdmins();
-  },[] );
-
- 
-console.log(admins);
- 
-
-
-     return(
-      <div>
-          <div className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold text-center mb-4">Admin List</h1>
-      <div className="flex flex-row flex-wrap justify-center gap-4">
-      {admins.length > 0 ? (
-            admins.map((admin) => (
-              <AdminCard key={admin.admin_id} data={admin} />
-            ))
-          ) : (
-            <p>No admins found</p>
-          )}
-      </div>
-    </div>
-      </div>
-     );
-
-}
 
 const AdminForm = () => {
-    const [formData, setFormData] = useState({
+    
+   const [imageData,setImage] = useState("");
+    var [formData, setFormData] = useState({
      
       name: '',
       email: '',
@@ -93,8 +28,24 @@ const AdminForm = () => {
       admin_id: '',
       dob:'',
       passwd : '',
+      
     });
- 
+    
+
+     const handleImageChange = (event)=>{
+      console.log("image",event);
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload= ()=>{
+        console.log(typeof(reader.result));
+        setImage(reader.result);
+        
+      };
+      reader.onerror = error=>{
+        console.log("error ",error);
+      };
+     
+     }
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setFormData((prevData) => ({
@@ -105,10 +56,26 @@ const AdminForm = () => {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
+      console.log(formData);
+      // admin_id: '',
+      // dob:'',
+      // passwd : '',
       // Handle form submission logic, e.g., send data to the server or perform validation
-      console.log('Form data submitted:', formData);
+      const newFormData = {
+       
+      name: formData.name,
+      email: formData.email,
+      contact: formData.contact,
+      admin_id: formData.admin_id,
+      dob:formData.dob,
+      passwd : formData.passwd,
+      image: imageData
+      };
+      console.log('Form data submitted:', newFormData);
+     
+     
      try{
-      const response= await axios.post('http://localhost:5000/api/AdminRoute/add', formData);
+      const response= await axios.post('http://localhost:5000/api/AdminRoute/add', newFormData);
         
       if (response.data.success) {
         alert(response.data.message);
@@ -123,7 +90,7 @@ const AdminForm = () => {
     };
   
     return (
-      <div className="mx-auto max-w-md p-4 bg-gray-100 border rounded-md shadow-md">
+      <div className="mx-auto max-w-md p-4 bg-blue-200 border rounded-md shadow-md">
         <form onSubmit={handleSubmit} className="space-y-4">
         
           <div>
@@ -215,7 +182,22 @@ const AdminForm = () => {
               className="mt-1 p-2 w-full border rounded-md"
               required
             /></div>
-
+           <div>
+            <label htmlFor="photo" className="block text-sm font-medium text-gray-600">
+              Profile Photo
+            </label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              
+              onChange={handleImageChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+            
+            </div>
           <button
             type="submit"
             className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"

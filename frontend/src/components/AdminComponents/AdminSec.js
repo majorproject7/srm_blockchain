@@ -1,107 +1,129 @@
 import Kmithead from "../DashBoard/KmitHeader";
 import {Link} from "react-router-dom";
-
+import {useState,useEffect} from 'react';
+import axios from 'axios';
 function AdminManagePage(){
 
     return (
  <div> 
     <Kmithead> </Kmithead>
-    <Adminhead></Adminhead>
-    <div className="flex justify-center items-center ">
-    <div className="flex justify-center">
+   
+    <div className="flex flex-col justify-center items-center ">
     
-    <Adminlistcomponent></Adminlistcomponent>
-    {AdminDetailscard()}
     <AbuttonPanel></AbuttonPanel>
-    </div>
+    {AdminDetails()}
     </div>
  </div>
     );
 }
-function AdminDetailscard()
-{   const studentInfo = new Map([
-    ['Name', 'Rakesh'],
-    ['Mobile', '+91 8000000780'],
-    ['email', 'srmAdmin@edu.in'],
-    ['Role', 'SRM Admin'],
-    // Add more information as needed
-  ]);
+
+const AdminDetails = ()=>
+ { 
+  const [admins, setAdmins] = useState([]);
+
+  useEffect(() => {
+    const fetchAdmins = async () => {
+      const response = await  axios.get('http://localhost:5000/api/AdminRoute/getAllAdmin');// Replace with your API call
+      setAdmins(response.data);
+    };
+
+    fetchAdmins();
+  },[] );
+
+ 
+//console.log(admins);
+ 
 
 
-    return(
-        <>
-        
+     return (
+       <div className="flex flex-col justify-center items-center">
+         <div className="flex flex-col">
+           <h1 className=" text-2xl font-bold text-center m-4">
+             Admin List
+           </h1>
+         </div>
 
-    <div align="center" className=" grid grid-cols-1   justify-items-center">
-    <div className=" w-[150px] h-[150px] text-lg bg-blue-300 rounded-[15px]  " >
-     <img src="/person_profile.jpg" alt="gadfg"></img> </div>
-    { Array.from(studentInfo.entries()).map(([subject, mark], index) => (
-        
-        <div className=" grid grid-cols-2 justify-center">
-        <div className="w-[160px] h-10 text-lg gap-2 bg-cyan-100 rounded-[15px] flex justify-center" >{subject}   </div>
-        <div className="w-[160px] h-10 text-lg bg-cyan-50 rounded-[15px] flex justify-center" >{mark}   </div>
-        </div>
-      ))
-    }
-    </div>
+         <div className="grid grid-cols-3 m-1  justify-center ">
+           {admins.length > 0 ? (
+             admins.map((admin) => (
+               <AdminCard key={admin.admin_id} data={admin} />
+             ))
+           ) : (
+             <p>No admins found</p>
+           )}</div>
+         
+       </div>
+     );
+
+};
+
+const AdminCard = ({ data }) => {
+    const { name, email, contact, admin_id,image } = data;
+    //console.log("imagedata ",image);
+    const base64String = image
    
-        </>
+    const imageData = {
+      base64: base64String || null, // Only include if you converted
+      mimeType: 'image/png' // Or 'image/jpeg' based on the image format
+  };
+  
+    return (
+      
+      <div className="flex flex-col m-1 rounded-lg text-center bg-gray-200 p-4 hover:bg-gray-300 justify-center items-center">
+        {/* Name */}
+        {/* <div> <img src={'data:image/jpg;base64, ${image}'} alt="profile image"></img></div> */}
+        <div>
+          {imageData && (
+             <img src={image} width="200" height="200"></img>
+          )}
+      </div>
+        <div className="font-bold text-xl m-2">{name}</div>
+  
+          {/* Admin ID */}
+          <div className="flex flex-row justify-center items-center">
+            <div className="text-base font-medium">Admin ID : </div>
+            <div className="text-sm">{admin_id}</div>
+          </div>
+  
+          {/* Contact */}
+          <div className="flex flex-row justify-center items-center">
+            <span className="text-base font-medium">Contact : </span>
+            <span className="text-sm">{contact}</span>
+          </div>
+  
+          {/* Email */}
+          <div className="flex flex-row justify-center items-center">
+            <span className="text-base font-medium">Email : </span>
+            <span className="text-sm overflow-hidden truncate">{email}</span>
+          </div>
+        
+      </div>
+      
     );
-    
-
-}
+  };
+  
+  
 function AbuttonPanel()
 {
       return (
-        <div className="flex flex-col justify-center">
-        <div className="p-1">
-        <div className=" w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
+        <div className="flex flex-col justify-center my-1">
+       
+        <div className=" p-1 my-1  bg-amber-100 flex justify-center ">
           <h2 className=" font-semibold text-xl">EDIT ADMIN DETAILS</h2>
         </div>
-        </div>
-        <div className="p-1">
-        <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
+        
+        
+        <div className=" my-1 p-1 bg-amber-100  flex justify-center ">
           <h2 className=" font-semibold text-xl">REMOVE ADMIN</h2>
         </div>
-        </div>
+        <div className="flex flex-col bg-amber-100 p-1 my-1 items-center justify-center">
+        <Link to='/AdminActions'> <h2 className=" font-semibold text-xl">ADD ADMIN</h2>
+         </Link>
+          </div>
+        
       </div>
       );
 }
-function Adminhead()
-{
-    return(
-        <div className="w-full h-8 text-lg bg-cyan-100 rounded-[15px] flex justify-center ">
- <h1 className="text-lg font-semibold"> Admin Section</h1>
- </div>
-    );
-}
 
-function Adminlistcomponent()
-{
-    return(
-<div className="p-1 my-10 w-[350px] h-[250px] flex flex-col justify-evenly">
-          <div className="w-[300px] h-8 text-lg bg-green-200 rounded-[15px] flex justify-center ">
-            <h2 className=" font-semibold text-xl">Current Admins</h2>
-          </div>
-          <div className="w-[300px] h-8 text-lg bg-green-100 rounded-[15px] flex justify-center ">
-            <h2 className=" font-semibold text-xl">Ganesh</h2>
-          </div>
-          <div className="w-[300px] h-8 text-lg bg-green-100 rounded-[15px] flex justify-center ">
-            <h2 className=" font-semibold text-xl">Rakesh</h2>
-          </div>
-          <div className="w-[300px] h-8 text-lg bg-green-100 rounded-[15px] flex justify-center ">
-            <h2 className=" font-semibold text-xl">Akhil</h2>
-          </div>
-          <div className="w-[300px] h-8 text-lg bg-green-100 rounded-[15px] flex justify-center ">
-            <h2 className=" font-semibold text-xl">Chandu</h2>
-          </div>
-          
-    <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
-         <Link to='/AdminActions'> <h2 className=" font-semibold text-xl">Add ADMIN</h2>
-         </Link> </div>
 
-        </div>
-      
-    )
-}
 export default AdminManagePage;

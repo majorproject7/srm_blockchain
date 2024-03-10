@@ -11,9 +11,10 @@ router.post('/login', async (req, res) => {
   try {
     console.log(req.body.admin_id+" "+req.body.passwd);
     const admin = await Admin.find({admin_id : req.body.admin_id,passwd : req.body.passwd});
-    console.log("response got  "+admin.length);
+    //console.log("admin details ",admin);
+    //console.log("response got  "+admin.length);
     if (admin.length > 0) {
-      res.json({ success: true ,message:"login Successful"});
+      res.json({ success: true ,message:"login Successful",AdminData : admin[0]});
     } else {
       res.json({ success: false, message :" check your credentials" });
     }
@@ -29,8 +30,8 @@ router.post('/add', async (req, res) => {
 
   console.log("request came to Admin Backend for admin addition");
     try {
-     
-  
+      console.log(req.body.name);
+     // console.log("image data ",req.body.image);
       const response = await Admin.insertMany({
       name : req.body.name,
       email : req.body.email,
@@ -38,6 +39,7 @@ router.post('/add', async (req, res) => {
       admin_id : req.body.admin_id,
       dob : req.body.dob,
       passwd: req.body.passwd,
+      image: req.body.image,
       });
       if (response) {
         // Student data added successfully
@@ -55,9 +57,25 @@ router.post('/add', async (req, res) => {
     
   });
 
-router.get('/getAdminDetails',async (req,res)=>
+  router.post('/getAdmin',async (req,res)=>
+  {
+      console.log("geting single admin details");
+     
+      try {
+       const AdminDataResponse  = await Admin.find({});
+     
+      
+        res.json(AdminDataResponse);
+      } catch (err) {
+        console.error('Error fetching admin details:', err);
+        res.status(500).json({ message: 'Error fetching admin details' });
+      }
+     
+  
+  });
+router.get('/getAllAdmin',async (req,res)=>
 {
-    console.log("geting amdin details");
+    console.log("geting admin details");
    
     try {
      const AdminDataResponse  = await Admin.find({});

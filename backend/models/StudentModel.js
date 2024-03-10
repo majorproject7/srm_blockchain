@@ -35,6 +35,10 @@ const studentSchema = new mongoose.Schema({
   dob : {
     type: Date,
     required : true,
+  },
+  image : {
+    type : Buffer,
+    required : true
   }
 });
 

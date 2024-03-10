@@ -58,7 +58,7 @@ const HomePage=() =>
     const response = await axios.post('http://localhost:5000/api/AdminRoute/login', formData);
         
          if (response.data.success) {
-           navigate('/AdminDash');
+           navigate('/AdminDash',{ state: { AdminLogin : response.data.AdminData } });
            alert(response.data.message);
             
      } else {

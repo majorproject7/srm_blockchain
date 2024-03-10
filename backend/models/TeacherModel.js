@@ -35,6 +35,10 @@ const teacherSchema = new mongoose.Schema({
  login_pwd : {
   type : String,
   required : true,
+ },
+ image : {
+   type : Buffer,
+   required : true
  }
  
 }
