@@ -76,10 +76,10 @@ console.log("Subject data Obtained and sent");
 
 
 router.post('/addfaculty', async(req,res)=>{
-  console.log('checking for student in srms database');
+  console.log('adding faculty data in srms database');
 
   try{
-         
+         //console.log(req.body);
         const response = await Faculty.insertMany({
           name : req.body.name,
           faculty_id : req.body.faculty_id,
@@ -89,8 +89,9 @@ router.post('/addfaculty', async(req,res)=>{
           dob : req.body.dob,
           department_id : req.body.department_id,
           qualification : req.body.qualification,
+          image : req.body.image,
           });
-        console.log(response);
+        //console.log("response", response);
         if(response)
         {
           res.json({success : true , 
@@ -107,7 +108,7 @@ router.post('/addfaculty', async(req,res)=>{
   }
   catch(error){
   
-    console.log("error occured while logging in");
+    console.log(error);
     res.status(500).json(
       {
         success : false,
@@ -123,10 +124,10 @@ router.get('/getFacultyDetails',async (req,res)=>
     console.log("geting Faculty details");
    
     try {
-     const FacultyDataResponse  = await Faculty.find({});
+     const FacultyDataResponse  = await Faculty.find({},{name:1,faculty_id:1});
    
     // Replace with your query criteria if needed
-      res.json(FacultyDataResponse[0]);
+      res.json({FacData : FacultyDataResponse});
       console.log("Faculty Data obtained");
     } catch (err) {
       console.error('Error fetching Faculty details:', err);
@@ -195,4 +196,117 @@ router.post('/secure',async (req,res)=>{
 
   }
 });
+
+router.post('/removeFaculty',async (req,res)=>
+{
+    console.log("deleting Faculty details");
+   
+    try {
+     const AdminDelResponse  = await Faculty.deleteMany({faculty_id:req.body.id});
+    console.log("Faculty to be deleted ",req.body)
+     console.log("deleted response",AdminDelResponse)
+    //Replace with your query criteria if needed
+    res.json({success : true , AdminData : AdminDelResponse,message : "Faculty Deleted successfully.Please Refresh" });
+    
+    } catch (err) {
+      console.error('Error fetching Faculty details:', err);
+      res.status(500).json({ message: 'Error fetching Faculty details' });
+    }
+   
+
+});
+
+
+router.post('/getUserForm', async (req, res) => {
+
+  console.log("request came to Faculty Backend for Faculty form ");
+    try {
+      console.log(req.body.faculty_id);
+     // console.log("image data ",req.body.image);
+      const response = await Faculty.find({faculty_id:req.body.faculty_id},{image:0,_id:0});
+      if (response) {
+        console.log("successful");
+        console.log(response);
+        // Student data added successfully
+        res.json({ success: true, message: 'Faculty data fetched successfully!',facdata : response[0] });
+      } else {
+        console.log("Unsuccessful");
+        // Failed to add student data
+        res.json({ success: false, message: 'Failed to fetch admin data.' });
+      }
+  
+    } catch (error) {
+    //console.error('Error processing login:', error);
+      res.status(500).json({ success: false, message: 'An error occurred while adding student data.' });
+   
+    }
+    
+  });
+ 
+  router.post('/UpdateFaculty', async (req, res) => {
+
+    console.log("request came to Admin  for admin details updation");
+      try {
+        console.log("new data ",req.body);
+       // console.log("image data ",req.body.image);
+        const response = await Faculty.updateMany({faculty_id:req.body.faculty_id},{
+          $set:{
+            name : req.body.name,
+            faculty_id : req.body.faculty_id,
+            login_pwd : req.body.passwd,
+            contact : req.body.contact,
+            email : req.body.email,
+            dob : req.body.dob,
+            department_id : req.body.department_id,
+            qualification : req.body.qualification,
+            
+          }
+        });
+        if (response) {
+          console.log("successful");
+          console.log(response);
+          // Student data added successfully
+          res.json({ success: true, message: 'Admin data updated successfully!',admindata : response[0] });
+        } else {
+          console.log("Unsuccessful");
+          // Failed to add student data
+          res.json({ success: false, message: 'Failed to fetch admin data.' });
+        }
+    
+      } catch (error) {
+      //console.error('Error processing login:', error);
+        res.status(500).json({ success: false, message: 'An error occurred while adding student data.' });
+     
+      }
+      
+    });
+
+
+    router.post('/getBranchFaculty', async (req, res) => {
+
+      console.log("request came to Admin  for admin details updation");
+        try {
+          console.log("new data ",req.body);
+         // console.log("image data ",req.body.image);
+          const response = await Faculty.find({department_id : req.body.dept},{name : 1,faculty_id : 1, email : 1});
+          if (response) {
+            console.log("successful");
+            console.log(response);
+            // Student data added successfully
+            res.json({ success: true, message: 'Admin data updated successfully!',facdata : response });
+          } else {
+            console.log("Unsuccessful");
+            // Failed to add student data
+            res.json({ success: false, message: 'Failed to fetch admin data.' });
+          }
+      
+        } catch (error) {
+        //console.error('Error processing login:', error);
+          res.status(500).json({ success: false, message: 'An error occurred while adding student data.' });
+       
+        }
+        
+      });
+  
+
 module.exports = router;

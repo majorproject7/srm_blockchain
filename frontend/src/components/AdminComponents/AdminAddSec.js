@@ -10,6 +10,10 @@ import {useState,useEffect} from 'react';
    return (
         <div>
             <Kmithead></Kmithead>
+            <div className="h-10 m-2 bg-blue-100 flex flex-row justify-center items-center rounded-sm">
+        {" "}
+        <h1 className="text-xl font-semibold"> Admin Addition Section </h1>
+      </div>
            {AdminForm()}
             {/* {AdminDetails()} */}
         </div>
@@ -69,9 +73,9 @@ const AdminForm = () => {
       admin_id: formData.admin_id,
       dob:formData.dob,
       passwd : formData.passwd,
-      image: imageData
+      image : imageData
       };
-      console.log('Form data submitted:', newFormData);
+      //console.log('Form data submitted:', newFormData);
      
      
      try{

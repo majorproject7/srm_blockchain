@@ -137,6 +137,7 @@ router.post('/add', async (req, res) => {
      
   
   });
+  
 router.get('/getAllAdmin',async (req,res)=>
 {
     console.log("geting admin details");
