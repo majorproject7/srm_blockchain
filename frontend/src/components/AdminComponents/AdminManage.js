@@ -24,7 +24,7 @@ const AdminDetails = ()=>
   useEffect(() => {
     const fetchAdmins = async () => {
       const response = await  axios.get('http://localhost:5000/api/AdminRoute/getAllAdmin');// Replace with your API call
-      setAdmins(response.data);
+      setAdmins(response.data.AdminData);
     };
 
     fetchAdmins();
@@ -109,13 +109,13 @@ function AbuttonPanel()
         <div className="flex flex-col justify-center my-1">
        
         <div className=" p-1 my-1  bg-amber-100 flex justify-center ">
-          <h2 className=" font-semibold text-xl">EDIT ADMIN DETAILS</h2>
-        </div>
+         <Link to="/AdminUpdate"> <h2 className=" font-semibold text-xl">UPDATE ADMIN DETAILS</h2>
+         </Link></div>
         
         
         <div className=" my-1 p-1 bg-amber-100  flex justify-center ">
-          <h2 className=" font-semibold text-xl">REMOVE ADMIN</h2>
-        </div>
+        <Link to="/AdminRemove"> <h2 className=" font-semibold text-xl">REMOVE ADMIN</h2>
+        </Link>  </div>
         <div className="flex flex-col bg-amber-100 p-1 my-1 items-center justify-center">
         <Link to='/AdminActions'> <h2 className=" font-semibold text-xl">ADD ADMIN</h2>
          </Link>

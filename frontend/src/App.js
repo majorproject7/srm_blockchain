@@ -6,12 +6,14 @@ import StuGrade from './components/StudentComponents/studentGrade.js';
 import HomePage from './components/DashBoard/DashBoard.js';
 import AdminDash from './components/AdminComponents/AdminDashPage.js';
 import FacultyManage from './components/AdminComponents/FacultySec.js';
-import AdminManagePage from './components/AdminComponents/AdminSec.js';
+import AdminManagePage from './components/AdminComponents/AdminManage.js';
 import TeacherDetailsContainer from './components/TeacherComponents/TeacherDashBoard.js';
 import SMP from './components/AdminComponents/StudentSec.js';
-import AdminActions from './components/AdminComponents/AdminEditSec.js';
+import AdminActions from './components/AdminComponents/AdminAddSec.js';
 import FacultyAction from './components/AdminComponents/FacultyEditSec.js';
 import StudentResultPage from './components/TeacherComponents/AddResults.js';
+import AdminRemovalPage from './components/AdminComponents/AdminRemove.js';
+import AdminDetailsUpdate from './components/AdminComponents/AdminUpdate.js';
 const App = () => {
     return (
       
@@ -23,6 +25,8 @@ const App = () => {
            <Route path="/TeacherDashBoard" element={<TeacherDetailsContainer/>} /> 
            <Route path="/studashboard" element={<DashBoard/>} />
           
+          <Route path="/AdminUpdate" element={<AdminDetailsUpdate/>}></Route>
+          <Route path="/AdminRemove" element={<AdminRemovalPage/>}></Route>
           <Route path="/AdminManage" element={<AdminManagePage/>} />
           <Route path="/facultyManage" element={<FacultyManage/>}></Route>
           <Route path="/StudentManagePage" element={<SMP/>}></Route>
