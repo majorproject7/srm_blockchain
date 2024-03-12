@@ -1,191 +1,121 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Kmithead from '../DashBoard/KmitHeader';
 import axios from 'axios';
-
+import { Link } from "react-router-dom";
 const StudentManagementPage = ( ) => {
+  const [deptval, setDept]= useState(null);
+  const [Ayear, setAyear] = useState(null);
+  const [StuDet,setStuDetails] = useState(null);
+
+  const handleBranchClick=(deptname)=>{
+    
+    setDept(deptname);
   
+};
+const handleClick = async (ayear)=>{
+  
+  await setAyear(ayear);};
+
+
+useEffect( ()=>{
+
+  if(deptval !==null && Ayear !== null)
+ {const getdata= async()=>{
+   
+    const data = { dept : deptval, Ayear : Ayear};
+   
+    setStuDetails(data);
+    console.log("Student", StuDet);
+     
+      
+    }
+    getdata();}
+
+},[Ayear]);
+
 
     return(
         
         <div>
             <Kmithead></Kmithead>
             {/* {StudentManagementPage(Sdata)} */}
-            <div className="h-10 bg-blue-200 rounded-lg flex items-center justify-center"> <h1 className='font-bold'>Add Student</h1></div>
-            {StudentForm()}
+
+            <div className="h-10 m-1  bg-blue-200 rounded-sm flex items-center justify-center"> <h1 className='text-xl font-semibold'>Student Management</h1></div>
+            <div className="flex justify-center">
+
+            <div className="flex flex-col justify-evenly">
+          <div className="w-[250px] h-8 text-lg bg-blue-200 rounded-sm m-1 flex justify-center ">
+            <h2 className=" font-semibold text-xl">Branch</h2>
+            </div>
+          <div className="w-[250px] h-8 text-lg bg-blue-100 rounded-sm m-1 flex justify-center ">
+          <button onClick={()=>{handleBranchClick("CSE")}} ><h2 className=" font-semibold text-xl">CSE</h2></button>
+          </div>
+          <div className="w-[250px] h-8 text-lg bg-blue-100 rounded-sm m-1 flex justify-center ">
+           <button onClick={()=>{handleBranchClick("CSM")}} > <h2 className=" font-semibold text-xl">CSM</h2></button>
+          </div>
+          <div className="w-[250px] h-8 text-lg bg-blue-100 rounded-sm m-1 flex justify-center ">
+           <button onClick={()=>{handleBranchClick("CSD")}}><h2 className=" font-semibold text-xl">CSD</h2>
+           </button> </div>
+          <div className="w-[250px] h-8 text-lg bg-blue-100 rounded-sm m-1 flex justify-center ">
+          <button onClick={()=>{handleBranchClick("IT")}}>  <h2 className=" font-semibold text-xl">IT</h2>
+          </button></div>
+          </div>
+
+        {/* Year Panel */}
+        <div className="flex flex-col justify-evenly">
+          <div className="w-[250px] h-8 text-lg bg-blue-200 rounded-sm m-1 flex justify-center ">
+            <h2 className=" font-semibold text-xl"> Academic Year</h2>
+            </div>
+          <div className="w-[250px] h-8 text-lg bg-blue-100 rounded-sm m-1 flex justify-center ">
+          <button onClick={()=>{handleClick(4)}} ><h2 className=" font-semibold text-xl">4 Year</h2></button>
+          </div>
+          <div className="w-[250px] h-8 text-lg bg-blue-100 rounded-sm m-1 flex justify-center ">
+           <button onClick={()=>{handleClick(3)}} > <h2 className=" font-semibold text-xl">3 Year</h2></button>
+          </div>
+          <div className="w-[250px] h-8 text-lg bg-blue-100 rounded-sm m-1 flex justify-center ">
+           <button onClick={()=>{handleClick(2)}}><h2 className=" font-semibold text-xl">2 Year</h2>
+           </button> </div>
+          <div className="w-[250px] h-8 text-lg bg-blue-100 rounded-sm m-1 flex justify-center ">
+          <button onClick={()=>{handleClick(1)}}>  <h2 className=" font-semibold text-xl">1 Year</h2>
+          </button></div>
+          </div>
+        
+       
+        </div>
+
+        <div className="flex flex-col justify-center items-center m-2">
+          <div className="p-2 m-1  bg-amber-200 h-8 flex justify-center items-center rounded-sm">{ deptval !== null ? (<div> 
+            <h1 className="text-xl font-semibold"> {deptval}</h1>
+          </div>):(<div> Select Branch and Year</div>)}</div>
+
+          <div>{ Ayear !== null ? (<div className="w-[150px] m-1 bg-amber-200 h-8 flex justify-center items-center rounded-sm"> 
+            <h1 className="text-xl font-semibold"> {Ayear}</h1>
+          </div>):(<div></div>)}</div>
+          
+          
+        { Ayear !== null && deptval !== null  ? (
+          <div>
+        <div className="w-[300px] h-8 text-lg bg-blue-200 rounded m-1 flex justify-center ">
+           <Link to="/StudentAdd"  state={StuDet}><h2 className=" font-semibold text-xl">Add Student</h2>
+           </Link>  </div>
+          <div className="w-[300px] h-8 text-lg bg-blue-200 rounded m-1 flex justify-center ">
+            <Link to="/StudentUpdate" state={StuDet}>
+              <h2 className=" font-semibold text-xl">Update Student</h2>
+            </Link>
+          </div>
+          <div className="w-[300px] h-8 text-lg bg-blue-200 rounded m-1 flex justify-center ">
+            <Link to="/StudentRemove" state={StuDet}>
+              {" "}
+              <h2 className=" font-semibold text-xl">Remove Student</h2>
+            </Link>{" "}
+          </div>
+          </div>):(<div></div>)
+}
+        </div>
         </div>
     );
 }
 
 
-const StudentForm = () => {
-    const [formData, setFormData] = useState({
-      year: 2024,
-      Ayear: '1',
-      name: '',
-      email: '',
-      branch: 'CSD',
-      section: 'A',
-      roll_no: '',
-      dob:'',
-    });
-  const branches=['CSD','CSE','CSM','IT'];
-  const sections=['A','B'];
-  const Ayears=[1,2,3,4]
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      // Handle form submission logic, e.g., send data to the server or perform validation
-      console.log('Form data submitted:', formData);
-     try{
-      const response= await axios.post('http://localhost:5000/api/StudentRoute/add', formData);
-        
-      if (response.data.success) {
-        alert(response.data.message);
-      } else {
-        alert(response.data.message);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while processing the request.');
-    }
 
-    };
-  
-    return (
-      <div className="mx-auto max-w-md p-4 bg-gray-100 border rounded-md shadow-md">
-        <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-600">
-              Academic Year
-            </label>
-            <select
-              type="text"
-              id="Ayear"
-              name="Ayear"
-              value={formData.Ayear}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            >
-              {Ayears.map((branch)=> (
-              <option key={branch} value={branch}>{branch}</option>))
-}</select>
-          
-          </div>
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-600">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
-            
-            </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">
-              Date Of Birth
-            </label>
-            <input
-              type="date"
-              id="dob"
-              name="dob"
-              value={formData.dob}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
-          </div>
-  
-          <div>
-            <label htmlFor="branch" className="block text-sm font-medium text-gray-600">
-              Branch
-            </label>
-            <select
-              id="branch"
-              name="branch"
-              value={formData.branch}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            >
-                {branches.map((branch)=> (
-              <option key={branch} value={branch}>{branch}</option>))
-            
-            }
-            </select>
-          </div>
-  
-          <div>
-            <label htmlFor="section" className="block text-sm font-medium text-gray-600">
-              Section
-            </label>
-            <select
-              id="section"
-              name="section"
-              value={formData.section}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            > 
-               {sections.map((branch)=> (
-              <option key={branch} value={branch}>{branch}</option>))
-            
-            }
-              {/* Add options for other sections */}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-600">
-              Roll_No/Student_id
-            </label>
-            <input
-              type="text"
-              id="roll"
-              name="roll_no"
-              value={formData.rollno}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
-            
-            </div>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
-    );
-  };
 export default StudentManagementPage;

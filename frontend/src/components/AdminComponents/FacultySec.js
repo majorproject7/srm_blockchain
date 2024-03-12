@@ -26,17 +26,17 @@ function buttonPanel()
       return (
         <div className="h-[150px] flex flex-col justify-evenly">
           <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
-           <Link to="/FacultyUpdate"><h2 className=" font-semibold text-xl">EDIT Professor</h2>
+           <Link to="/FacultyUpdate"><h2 className=" font-semibold text-xl">Update Faculty Details</h2>
            </Link>  </div>
           <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
             <Link to="/FacultyActions">
-              <h2 className=" font-semibold text-xl">ADD Professor</h2>
+              <h2 className=" font-semibold text-xl">ADD Faculty</h2>
             </Link>
           </div>
           <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
             <Link to="/FacultyRemove">
               {" "}
-              <h2 className=" font-semibold text-xl">REMOVE Professor</h2>
+              <h2 className=" font-semibold text-xl">REMOVE Faculty</h2>
             </Link>{" "}
           </div>
         </div>

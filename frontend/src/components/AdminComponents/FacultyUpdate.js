@@ -64,7 +64,7 @@ const FacultyDetailsUpdate=()=>{
     return (
         <>
         <Kmithead></Kmithead>
-        <div className="h-10 bg-orange-100 flex justify-center items-center"><h1 className="font-semibold text-xl">Admin Details Update Section</h1></div>
+        <div className="h-10 bg-orange-100 flex justify-center items-center"><h1 className="font-semibold text-xl">Faculty Details Update Section</h1></div>
         <div>
             {AdminList !== null && AdminList.length !== 0 ? 
                 (AdminList.map((Admin)=>(
