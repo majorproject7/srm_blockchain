@@ -37,7 +37,7 @@ const AdminForm = () => {
     
 
      const handleImageChange = (event)=>{
-      console.log("image",event);
+      console.log("image ",event);
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload= ()=>{

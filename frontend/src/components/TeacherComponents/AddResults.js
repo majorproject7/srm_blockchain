@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import crypto from "crypto-js";
 import { useLocation } from "react-router-dom";
+import Kmithead from "../DashBoard/KmitHeader";
 const StudentResultPage = () => {
   const location = useLocation();
   const deptname = location.state.branch;
+
+  const [ResultData,setResultData] = useState(null);
 
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedSemester, setSelectedSemester] = useState(null);
@@ -27,8 +30,8 @@ const StudentResultPage = () => {
         const response = await axios.post(
           "http://localhost:5000/api/StudentRoute/getStudentDetails",
           reqdata
-        ); // Replace with your API call
-        setStudents(response.data);
+        ); 
+        setStudents(response.data.StudentList);
       }
     };
 
@@ -40,18 +43,38 @@ const StudentResultPage = () => {
       if (selectedStudent && selectedSemester) {
         const reqdata = {
           branch: deptname,
-          semnum: selectedSemester, // You may need to adjust this depending on how your API expects the request
+          semnum: selectedSemester,  
         };
         const response = await axios.post(
           "http://localhost:5000/api/TeacherRoute/getSubjects",
           reqdata
         );
-        // console.log(response.data.subjectlist);
+        
         setSemesterSubjects(response.data.subjectlist);
       }
     };
     fetchSemesterSubjects();
   }, [selectedStudent, selectedSemester]);
+  
+  useEffect(()=>{
+      
+    if(selectedStudent !== null )
+    {
+    const getAllResult= async ()=>{
+        const Response = await axios.post("http://localhost:5000/api/TeacherRoute/getPreviousResult",{roll_no : selectedStudent});
+        console.log("Result ",Response.data.ResultData);
+        if(Response.data.ResultData !== null && Response.data.ResultData.length !== 0)
+        {
+          console.log("list not empty");
+          console.log(Response.data.ResultData[0].Result[0].SGPA);
+        setResultData(Response.data.ResultData[0].Result);
+    }
+    else
+    {setResultData(null);}
+  }
+    getAllResult();
+  }
+  },[selectedStudent]);
 
   const handleGradePointChange = (subCode, gradePoint) => {
     const updatedFormData = { ...formData, [subCode]: parseInt(gradePoint) };
@@ -89,6 +112,7 @@ const StudentResultPage = () => {
   const handleStudentChange = (e) => {
     setSelectedStudent(e.target.value);
     setFormData({});
+    setAverageGrade(0);
     console.log("Selected student:", e.target.value);
   };
 
@@ -153,29 +177,30 @@ const StudentResultPage = () => {
       semnum: selectedSemester,
       hash: hashval,
     };
-    axios.post('http://localhost:5000/api/TeacherRoute/secure', postdata)
-    .then((response3) => {
-      // Second POST request
-      return axios.post('http://localhost:5000/api/TeacherRoute/addresult', resultrecord);
-    })
-    .then((response4) => {
-      // Handle success of the fourth request
-      console.log("All requests completed successfully");
-    })
-    .catch((error) => {
+    
+    try{
+   const bchain = await axios.post('http://localhost:5000/api/TeacherRoute/secure', postdata)
+    alert(bchain.data.message);
+   const db  = await axios.post('http://localhost:5000/api/TeacherRoute/addresult', resultrecord);
+    alert(db.data.message);
+    }
+    catch(error){
       // Handle errors for any of the requests
       console.error("An error occurred:", error);
-    });
+    }
     //console.log(response,"/n",response2,"/n",response3,"/n",response4);
 }// alert("Transaction Hash "+response.data.message+"/n"+"Result Hash : "+hashval);
  
 
   return (
-    <div className="flex mx-auto  flex-col items-center ">
-      <div>
-        <h1 className="text-2xl font-bold mb-4">Result Page</h1>
+    <>
+    <Kmithead></Kmithead>
+    <div className="h-8 flex justify-center items-center m-1 bg-green-200">
+        <h1 className="text-xl font-semibold ">Result Page</h1>
       </div>
-      <div className="mb-4">
+    <div className="ml-2 mr-2 flex bg-green-100 justify-center">
+      
+      <div className="m-2">
         <label htmlFor="year" className="block font-semibold mb-1">
           Select Year:
         </label>
@@ -191,6 +216,7 @@ const StudentResultPage = () => {
           <option value="1">1</option>
         </select>
       </div>
+      <div className="m-2">
       {selectedYear && (
         <div className="mb-4">
           <label htmlFor="semester" className="block font-semibold mb-1">
@@ -213,8 +239,10 @@ const StudentResultPage = () => {
           </select>
         </div>
       )}
+      </div>
+      <div className="m-2">
       {selectedSemester && (
-        <div className="mb-4">
+        <div className="mb-4 ">
           <label htmlFor="section" className="block font-semibold mb-1">
             Select Section:
           </label>
@@ -230,6 +258,8 @@ const StudentResultPage = () => {
           </select>
         </div>
       )}
+      </div>
+      <div className="m-2">
       {selectedSection && students.length > 0 && (
         <div className="mb-4">
           <label htmlFor="student" className="block font-semibold mb-1">
@@ -243,15 +273,18 @@ const StudentResultPage = () => {
             <option value="">Select Student</option>
             {students.map((student) => (
               <option key={student.roll_no} value={student.roll_no}>
-                {student.name}
+                {student.roll_no}
               </option>
             ))}
           </select>
         </div>
-      )}
+        
+      )}</div>
+      </div>
+      <div>
       {selectedStudent && selectedSemester && semesterSubjects.length > 0 && (
-        <div className="flex flex-row-2 justify-evenly  ">
-          <div className="m-2">
+        <div className="flex flex-row-2 justify-center  ">
+          <div className="m-1 bg-amber-100 p-2">
             <h2 className="text-lg font-semibold mb-2">Enter Results:</h2>
             <form
               className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
@@ -288,15 +321,15 @@ const StudentResultPage = () => {
               ))}
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded"
+                className="px-4 py-2 bg-amber-300 font-semibold rounded"
               >
                 Calculate GPA
               </button>
             </form>
           </div>
-          <div className="flex flex-col justify-center items-center">
-            <div className=" mx-5 ">
-              {averageGrade !== 0 && (
+          <div className="flex flex-col justify-center items-center bg-amber-100 p-2 m-1">
+            <div className=" mx-5  p-2 ">
+              {averageGrade !== 0 ? (
                 <div className="flex flex-col">
                   <div className="h-10 px-2 rounded-lg bg-green-100 flex justify-center items-center">
                     <p className="font-semibold">
@@ -317,24 +350,50 @@ const StudentResultPage = () => {
                       </p>
                     </div>
                   )}
-                  <div className="flex ">
-                    
+                  <div className="flex justify-center ">
+                    <div>
                     <button
-                      className="bg-purple-400 p-2 rounded-lg"
+                      className="bg-blue-300 p-2 rounded-lg"
                       onClick={() => getResultHash("datax")}
                     >
                       
                       <h1>Secure</h1>
                     </button>
-                    
+                    </div>
                   </div>
                 </div>
-              )}
+              ):(<div> <h1> Score will be displayed here</h1></div>)}
             </div>
           </div>
+          
         </div>
       )}
+      
     </div>
+    <div>
+         
+                    
+        <div className="flex flex-col justify-center items-center "> 
+        <div><h1 className="text-lg"> Previous Result of Student</h1></div>
+{   ResultData !==null && ResultData.length !== 0 ? ( <div className="flex flex-row justify-center m-2"> 
+ 
+  {ResultData.map((result, index) => (
+            
+           <div className="m-2 bg-amber-100 rounded-md p-1">
+            <p className="m-1 p-1 bg-amber-50 text-lg">Semester : {result.Semester}</p>
+            <p className="m-1 p-1 bg-amber-50 text-lg">SGPA : {result.SGPA}</p>
+            {/* <p>Publishing Date: {result.PublishingDate}</p> */}
+            <p className="m-1 p-1 bg-amber-50 text-lg">Status : {result.ExamStatus}</p>
+            </div>
+            
+          
+        ))}
+</div>):(<div> </div>)
+
+          }</div>            
+
+      </div>
+    </>
   );
 };
 

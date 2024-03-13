@@ -41,7 +41,7 @@ const AdminDetailsUpdate=()=>{
     const handleSubmit = e => {
       e.preventDefault();
       // Send updated user data to backend
-      alert("Confirm the new Details ");
+      alert("Updating the details.... please wait");
       axios.post('http://localhost:5000/api/AdminRoute/UpdateAdmin', formData)
         .then(response => {
           console.log(response.data.message);
@@ -137,6 +137,7 @@ const AdminDetailsUpdate=()=>{
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
+              disabled
             />
             
             </div>

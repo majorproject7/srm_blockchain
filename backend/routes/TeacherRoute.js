@@ -165,10 +165,11 @@ router.post('/addresult',async (req,res)=> {
   }
 
 
-    //console.log(studentRecord);
-    res.json({success:true,message:"done"});
+    
+    res.json({success:true,message:"Result Stored in Data Base Successfully"});
     console.log('Result updated successfully');
   } catch (error) {
+    res.json({success:false,message:"error in DB"});
     console.error('Error updating result:', error);
   }
 
@@ -184,15 +185,21 @@ router.post('/secure',async (req,res)=>{
   const roll_no = req.body.roll_no;
   console.log(roll_no+"--"+semesternum+"--"+resultHash);
     const response = await AddResult(roll_no,semesternum,resultHash);
-    res.json({success:true,message:response})
+    console.log("code ",response.code)
+   if(response.code !== undefined )
+   { res.json({success:false,message:"Block chain not working Properly"})
+   }
+   else
+   {
+    res.json({success:true,message:"Successfully Added Data to Block chain"});
+   }
+    console.log("response from blockchain ",response );
 
-    
-    
   }
   catch(error)
   {
-    console.log(error);
-     res.json(error);
+   // console.log(error);
+    res.json({success:false,message:"Error with storing Data on Block chain."});
 
   }
 });
@@ -307,6 +314,33 @@ router.post('/getUserForm', async (req, res) => {
         }
         
       });
+
+
   
+router.post('/getPreviousResult', async (req, res) => {
+
+        console.log("request came for student repvious result");
+          try {
+            console.log("data for previous result ",req.body);
+           // console.log("image data ",req.body.image);
+            const response = await ResultModel.find({roll_no : req.body.roll_no},{_id:0});
+            if (response) {
+              console.log("successful");
+              console.log(response);
+              // Student data added successfully
+              res.json({ success: true, message: 'Admin data updated successfully!',ResultData : response });
+            } else {
+              console.log("Unsuccessful");
+              // Failed to add student data
+              res.json({ success: false, message: 'Failed to fetch admin data.' });
+            }
+        
+          } catch (error) {
+          //console.error('Error processing login:', error);
+            res.status(500).json({ success: false, message: 'An error occurred while adding student data.' });
+         
+          }
+          
+        });
 
 module.exports = router;

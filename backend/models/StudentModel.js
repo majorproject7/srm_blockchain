@@ -20,7 +20,7 @@ const studentSchema = new mongoose.Schema({
   branch: {
     type: String,
     required: true,
-    enum: ['CSE', 'CSM', 'CSD'], // Add more branches if needed
+    enum: ['CSE', 'CSM', 'CSD','IT'], // Add more branches if needed
   },
   section: {
     type: String,

@@ -8,7 +8,7 @@ return(
     
         <div  className=" flex flex-col-1 justify-center items-center">
     <div className=" w-[200px] h-[200px] text-lg flex flex-col " > 
-    <img src="/photo.jpeg" alt="image" className="rounded-[100px]" ></img>
+    <img src={stuCardData.image} alt="Profile image" className="rounded-[100px]" ></img>
      </div>
     
     <div  className="m-2 flex flex-col-2 justify-center items-stretch">

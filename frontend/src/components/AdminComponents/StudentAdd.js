@@ -7,16 +7,32 @@ const StudentAddPage=()=>{
    const data = location.state;
    
     const deptval = data.dept;
-    const ayear = data.Ayear
+    const ayear = data.Ayear;
     return (<div>
                 <Kmithead></Kmithead>
                 <div className=" h-10 flex justify-center bg-blue-100 m-2"> <h1 className="text-xl font-semibold"> Student Registration Section</h1> </div>
-                <div>{StudentForm(deptval,ayear)}</div>
+                <div className="flex justify-center">{StudentForm(deptval,ayear)}</div>
     </div>);
 };
 
 
 const StudentForm = (deptval,ayear) => {
+  const [imageData,setImage] = useState("");
+
+  const handleImageChange = (event)=>{
+    console.log("image ",event);
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload= ()=>{
+      console.log(typeof(reader.result));
+      setImage(reader.result);
+      
+    };
+    reader.onerror = error=>{
+      console.log("error ",error);
+    };
+   
+   }
     const [formData, setFormData] = useState({
       year: 2024,
       Ayear: ayear,
@@ -41,15 +57,29 @@ const StudentForm = (deptval,ayear) => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       // Handle form submission logic, e.g., send data to the server or perform validation
-      console.log('Form data submitted:', formData);
+      //console.log('Form data submitted:', formData);
+      const newFormData = {
+       
+        year : formData.year,
+      Ayear : formData.Ayear,
+      name : formData.name,
+      email : formData.email,
+      branch : formData.branch,
+      section : formData.section,
+      roll_no : formData.roll_no,
+      dob : formData.dob,
+      image : imageData,
+        };
      try{
-      const response= await axios.post('http://localhost:5000/api/StudentRoute/add', formData);
+      
+        console.log("new form data ",newFormData);
+     const response= await axios.post('http://localhost:5000/api/StudentRoute/add', newFormData);
         
-      if (response.data.success) {
+       if (response.data.success) {
         alert(response.data.message);
-      } else {
-        alert(response.data.message);
-      }
+       } else {
+         alert(response.data.message);
+       }
     } catch (error) {
       console.error('Error:', error);
       alert('An error occurred while processing the request.');
@@ -58,7 +88,7 @@ const StudentForm = (deptval,ayear) => {
     };
   
     return (
-      <div className="mx-auto max-w-md p-4 bg-blue-300 border rounded-md shadow-md">
+      <div className="mx-4 max-w-md p-4 bg-blue-300 border rounded-md shadow-md">
         <form onSubmit={handleSubmit} className="space-y-4">
         <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-600">
@@ -182,6 +212,27 @@ const StudentForm = (deptval,ayear) => {
             />
             
             </div>
+
+            <div>
+            <label htmlFor="photo" className="block text-sm font-medium text-gray-600">
+              Profile Photo
+            </label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              
+              onChange={handleImageChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+            
+            </div>
+            <div>
+              { imageData?(<div> <img src={imageData} width="200" height="200"></img></div>):(<div></div>)}
+            </div>
+
           <button
             type="submit"
             className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
