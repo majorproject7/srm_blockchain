@@ -2,48 +2,50 @@ const mongoose = require('mongoose');
 
 // Define a schema
 const ResultSchema = new mongoose.Schema({
-  roll_no: {
-    type: String,
-    required: true
+  roll_no : {
+    type : String,
+    required : true
   },
-  Department_Name: {
-    type: String,
-    required: true
+  Department_Name : {
+    type : String,
+    required : true
   },
-  Result: [{
-    AYear: {
+  Published : { type : Boolean,
+    required : true
+  },
+
+  AYear : {
+      type : Number,
+      required: true
+    },
+    Semester : {
+      type : Number,
+      required : true
+    },
+    SGPA : {
       type: Number,
       required: true
     },
-    Semester: {
-      type: Number,
-      required: true
-    },
-    SGPA: {
-      type: Number,
-      required: true
-    },
-    ExamStatus: {
-      type: String,
-      enum: ['PASS', 'FAIL'],
-      required: true
+    ExamStatus : {
+      type : String,
+      enum : ['PASS', 'FAIL'],
+      required : true
     },
     PublishingDate: {
-      type: Date,
+      type : Date,
       required: true
     },
-    GradesList: [{
-      SubjectCode: {
-        type: String,
+    GradesList : [{
+      SubjectCode : {
+        type :  String,
         required: true
       },
       grade: {
-        type: String,
+        type : String,
         required: true
-      }
-    }],
-    
-  }]
+      }  
+  }],
+
 });
 
 // Create a model

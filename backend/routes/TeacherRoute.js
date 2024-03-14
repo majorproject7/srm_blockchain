@@ -4,7 +4,7 @@ const router = express.Router();
 const Faculty = require('../models/TeacherModel');
 const SubjectModel = require('../models/SubjectModel');
 const ResultModel = require('../models/ResultModel');
-const { getresult, AddResult, getAllResult } = require('C:/GANESH/srms/blockchain/hello.js');
+const { getresult, AddResult, getAllResult } = require('../../blockchain/Result_Block_Chain.js');
 
 router.post('/login', async(req,res)=>{
   console.log('checking for Teacher in srms database');
@@ -15,7 +15,7 @@ router.post('/login', async(req,res)=>{
         const response = await Faculty.find({faculty_id : fac_id,
           login_pwd : passwd,
           });
-        console.log(response);
+        console.log("Teacher Daetails obtained");
         if(response.length > 0)
         {
           res.json({success : true , 
@@ -57,7 +57,7 @@ router.post('/getSubjects', async(req,res)=>{
         if(response)
         {
           res.json({subjectlist : response[0].Subjects[0].Subject});
-console.log("Subject data Obtained and sent");
+console.log("Subject data Obtained and sent ");
 
         }
   }
@@ -143,26 +143,20 @@ router.post('/addresult',async (req,res)=> {
   
   try{
   
-    const dateo = new Date(req.body.Result.PublishingDate);
-    
-    const newResult = {
-      AYear : req.body.Result.Ayear,
-      Semester :  req.body.Result.Semester,
-      SGPA : req.body.Result.SGPA,
-      ExamStatus : req.body.Result.ExamStatus,
-      PublishingDate :  dateo,
-      GradesList : req.body.Result.GradesList,
-  }
+    const dateo = new Date(req.body.PublishingDate);
   //console.log("today date ",dateo);
-  const studentRecord = await ResultModel.findOneAndUpdate({ roll_no: req.body.roll_no },{$push : {Result : newResult}},{ new: true });
-  if (!studentRecord) {
-    
-    result = await ResultModel.create({
-      roll_no: req.body.roll_no,
-      Department_Name:req.body.Department_Name,
-      Result: [newResult]
-    });
-  }
+
+  const studentRecord = await ResultModel.insertMany({
+    roll_no : req.body.roll_no,
+    Department_Name : req.body.Department_Name,
+    AYear : req.body.Ayear,
+    Semester :  req.body.Semester,
+    SGPA : req.body.SGPA,
+    ExamStatus : req.body.ExamStatus,
+    PublishingDate :  dateo,
+    GradesList : req.body.GradesList,
+    Published : req.body.Published,
+  })
 
 
     
@@ -295,7 +289,7 @@ router.post('/getUserForm', async (req, res) => {
         try {
           console.log("new data ",req.body);
          // console.log("image data ",req.body.image);
-          const response = await Faculty.find({department_id : req.body.dept},{name : 1,faculty_id : 1, email : 1});
+          const response = await Faculty.find({department_id : req.body.dept},{name : 1,faculty_id : 1, email : 1,contact:1});
           if (response) {
             console.log("successful");
             console.log(response);
@@ -323,7 +317,7 @@ router.post('/getPreviousResult', async (req, res) => {
           try {
             console.log("data for previous result ",req.body);
            // console.log("image data ",req.body.image);
-            const response = await ResultModel.find({roll_no : req.body.roll_no},{_id:0});
+            const response = await ResultModel.find({roll_no : req.body.roll_no, Semester : req.body.sem},{_id:0});
             if (response) {
               console.log("successful");
               console.log(response);

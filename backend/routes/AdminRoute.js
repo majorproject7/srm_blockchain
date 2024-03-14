@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Admin = require('../models/AdminModel');
-
+const Result = require('../models/ResultModel');
 // Registration route
 
 // Login route
@@ -185,6 +185,49 @@ router.post('/removeAdmin',async (req,res)=>
     } catch (err) {
       console.error('Error fetching admin details:', err);
       res.status(500).json({ message: 'Error fetching admin details' });
+    }
+   
+
+});
+
+
+
+router.post('/getResultPublishStatusList',async (req,res)=>
+{
+    console.log("deleting admin details");
+   
+    try {
+     const ResultList  = await Result.find({Semester : req.body.semval , Department_Name: req.body.deptval},
+      {roll_no : 1, Published : 1, ExamStatus : 1 ,SGPA : 1,_id :0});
+    console.log("semester and branch",req.body)
+     console.log("list response",ResultList)
+    //Replace with your query criteria if needed
+    res.json({success : true , ResultData : ResultList,message : "Result list acquired successfully.Please Refresh" });
+    
+    } catch (err) {
+      console.error('Error fetching admin details:', err);
+      res.status(500).json({ message: 'Error fetching admin details' });
+    }
+   
+
+});
+
+router.post('/PublishResult',async (req,res)=>
+{
+    console.log("Publishing student details");
+   
+    try {
+
+     const ResultList  = await Result.updateMany(
+      {Department_Name : req.body.deptval ,Semester : req.body.semval },{ $set : {Published : req.body.Published}});
+    console.log("semester and branch",req.body)
+     console.log("list response",ResultList)
+    //Replace with your query criteria if needed
+    res.json({success : true , message : "Result Publish Status Updated successfully" });
+    
+    } catch (err) {
+      console.error('Error Publishing details:', err);
+      res.status(500).json({ message: 'Error publishing details' });
     }
    
 

@@ -14,7 +14,7 @@ const StudentManagementPage = ( ) => {
 };
 const handleClick = async (ayear)=>{
   
-  await setAyear(ayear);};
+   setAyear(ayear);};
 
 
 useEffect( ()=>{

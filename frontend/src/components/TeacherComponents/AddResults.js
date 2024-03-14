@@ -61,13 +61,13 @@ const StudentResultPage = () => {
     if(selectedStudent !== null )
     {
     const getAllResult= async ()=>{
-        const Response = await axios.post("http://localhost:5000/api/TeacherRoute/getPreviousResult",{roll_no : selectedStudent});
+        const Response = await axios.post("http://localhost:5000/api/TeacherRoute/getPreviousResult",{roll_no : selectedStudent,sem : selectedSemester});
         console.log("Result ",Response.data.ResultData);
         if(Response.data.ResultData !== null && Response.data.ResultData.length !== 0)
         {
           console.log("list not empty");
-          console.log(Response.data.ResultData[0].Result[0].SGPA);
-        setResultData(Response.data.ResultData[0].Result);
+          console.log(Response.data.ResultData[0].SGPA);
+        setResultData(Response.data.ResultData);
     }
     else
     {setResultData(null);}
@@ -102,11 +102,17 @@ const StudentResultPage = () => {
   const handleSemesterChange = (e) => {
     setSelectedSemester(e.target.value);
     setAverageGrade(0);
+    setSelectedSection(null);
+    setSelectedStudent(null);
+    setStudents([]);
+    setFormData({});
+    setSemesterSubjects([]);
   };
 
   const handleSectionChange = (e) => {
     setSelectedSection(e.target.value);
     setStudents([]);
+
   };
 
   const handleStudentChange = (e) => {
@@ -161,14 +167,13 @@ const StudentResultPage = () => {
     const resultrecord = { 
       roll_no : selectedStudent,
       Department_Name : deptname,
-      Result : { 
-        Ayear : selectedYear,
-        Semester : selectedSemester,
-        SGPA : averageGrade.toFixed(2),
-        ExamStatus : examstatus,
-        PublishingDate : today,
-        GradesList : gradelist,
-      }
+      Ayear : selectedYear,
+      Semester : selectedSemester,
+      SGPA : averageGrade.toFixed(2),
+      ExamStatus : examstatus,
+      PublishingDate : today,
+      GradesList : gradelist,
+      Published : false,
     }
     alert("please confirm the details : "+JSON.stringify(resultrecord, null, 2));
    // console.log("result record ",resultrecord);

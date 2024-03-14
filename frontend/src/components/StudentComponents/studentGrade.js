@@ -19,45 +19,53 @@ const StuGrade = () => {
     async function fetchHashval() {
       try {
         const formdata = { roll_no: rollno, semnum: sem_num };
-        const response = await axios.post(
-          "http://localhost:5000/api/StudentRoute/simple",
-          formdata
-        );
+
         const subjectlist = await axios.post(
           "http://localhost:5000/api/TeacherRoute/getSubjects",
           { semnum: sem_num, branch: branchdep }
         );
+        setSubjects(subjectlist.data.subjectlist);
+
         const gradelist = await axios.post(
           "http://localhost:5000/api/StudentRoute/getResults",
           { sem: sem_num, roll_no: rollno }
         );
+        setGrades(gradelist.data.data.GradesList);
+        setSGPA(gradelist.data.data.SGPA);
+        setExamStatus(gradelist.data.data.ExamStatus);
+        
+       
         const resHash = await axios.post(
           "http://localhost:5000/api/StudentRoute/getResultHash",
           { semnum: sem_num, roll_no: rollno }
         );
 
         setCalcHash(resHash.data.message);
-        setSubjects(subjectlist.data.subjectlist);
+        const response = await axios.post(
+          "http://localhost:5000/api/StudentRoute/BlockchainHash",
+          formdata
+        );
+     
         setHashVal(response.data.data);
-        setGrades(gradelist.data.data.GradesList);
-        setSGPA(gradelist.data.data.SGPA);
-        setExamStatus(gradelist.data.data.ExamStatus);
+        
+        
+        
       } catch (error) {
         alert(error);
       }
     }
 
     fetchHashval();
-  }, [rollno]);
+  }, []);
 
   return (
     <>
       <Kmithead></Kmithead>
       <div className=" flex flex-col items-center">
         <div className="">
-          <h1 className="m-2 text-lg font-sans font-semibold">
+          <h1 className="ml-4 text-lg font-sans font-semibold">
             {" "}
-            Roll_No : {rollno} SEM RESULTS : {sem_num}{" "}
+            Roll_No : {rollno} SEM  : {sem_num}{" "}
           </h1>
         </div>
         

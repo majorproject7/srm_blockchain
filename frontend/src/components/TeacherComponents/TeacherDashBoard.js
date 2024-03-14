@@ -14,15 +14,17 @@ const TeacherDetailsContainer = () => {
   return (
     <div>
  <Kmithead></Kmithead>
-
+ <div className="flex justify-center">
+ <div className="w-[500px] h-8 my-1 text-lg bg-blue-200 rounded flex justify-center ">
+          <h2 className=" font-semibold text-xl">Faculty Details</h2>
+        </div>
+        </div>
     <div className=" my-2 flex justify-center items-center ">
         <div>
           <img src={teacherData.image} alt="profile_image"></img>
         </div>
-        <div className='h-[300px] flex flex-col items-center'>
-          <div className="w-[300px] h-8 my-1 text-lg bg-blue-200 rounded flex justify-center ">
-          <h2 className=" font-semibold text-xl">Faculty Details</h2>
-        </div>
+        <div className=' flex flex-col items-center'>
+         
 
          <div className="flex ">
          <div className="w-[150px] h-8 my-1 m-1 bg-blue-100 rounded flex justify-center ">

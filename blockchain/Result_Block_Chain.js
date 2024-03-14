@@ -180,7 +180,8 @@ async function AddResult(rollNo,semester,resHash) {
 async function getAllResult(rollno)
 {
   const response = await srContract.methods.getAllResults(rollno).call();
-  
+  //console.log("respone from chain ",response);
+ 
   return response;
 }
 

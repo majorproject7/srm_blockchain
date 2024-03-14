@@ -21,8 +21,8 @@ function AdminDash() {
             align="center"
             className=" p-3 grid grid-cols-1   justify-items-center"
           >
-            <div className="w-[320px] h-[160px]  flex flex-col justify justify-around">
-              <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center ">
+            <div className="w-[320px]   flex flex-col justify-evenly items-center">
+              <div className="w-[320px] h-10 text-lg m-1  bg-cyan-500 rounded-md flex justify-center items-center">
                 <Link to="/facultyManage">
                   {" "}
                   <h2 className="text-white font-semibold">
@@ -31,7 +31,7 @@ function AdminDash() {
                 </Link>
               </div>
 
-              <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center ">
+              <div className="w-[320px] h-10 text-lg m-1 bg-cyan-500 rounded-md flex justify-center items-center">
                 <Link to="/StudentManagePage">
                   {" "}
                   <h2 className="text-white font-semibold">
@@ -40,12 +40,20 @@ function AdminDash() {
                 </Link>
               </div>
 
-              <div className="w-[320px] h-10 text-lg bg-cyan-500 rounded-[15px] flex justify-center ">
+              <div className="w-[320px] h-10 text-lg m-1 bg-cyan-500 rounded-md flex justify-center items-center ">
                 <Link to="/AdminManage">
                   {" "}
                   <h2 className="text-white font-semibold">Admin Management</h2>
                 </Link>
               </div>
+ 
+              <div className="w-[320px] h-10 text-lg m-1 bg-cyan-500 rounded-md flex justify-center items-center ">
+                <Link to="/ResultManagePage">
+                  {" "}
+                  <h2 className="text-white font-semibold">Result Management</h2>
+                </Link>
+              </div>
+
             </div>
           </div>
         </div>
@@ -66,7 +74,7 @@ const AdminDetCard = (stuCardData) => {
         ></img>
       </div>
 
-      <div className="m-2 flex flex-col-2 justify-center items-stretch">
+      <div className="m-2 flex flex-col-2 justify-center items-center">
         <div className=" flex flex-col justify-center items-center">
           <div className="w-[150px] h-10 text-lg my-1 bg-blue-100 flex justify-center items-center">
             Name{" "}
@@ -78,7 +86,7 @@ const AdminDetCard = (stuCardData) => {
             contact{" "}
           </div>
           <div className="w-[150px] h-10 text-lg  my-1 bg-blue-100 flex justify-center items-center">
-            admin_id{" "}
+           admin_id{" "}
           </div>
         </div>
 

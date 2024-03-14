@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const StuModel = require('../models/StudentModel');
 const ResultModel = require('../models/ResultModel');
-const { getresult, AddResult, getAllResult } = require('C:/GANESH/srms/blockchain/hello.js');
+const { getresult, AddResult, getAllResult } = require('../../blockchain/Result_Block_Chain.js');
 const crypto = require('crypto-js');
 // Registration route
 router.post('/login', async (req,res)=>{
@@ -101,7 +101,7 @@ router.post('/getStudentDetails',async(req,res)=>
 
 
 
-router.post('/simple',async (req,res)=>{
+router.post('/BlockchainHash',async (req,res)=>{
    
   console.log("get hash from  Block chain");
   try
@@ -113,7 +113,7 @@ router.post('/simple',async (req,res)=>{
     //const response = await getresult(roll_no,semesternum);
     const response2 = await getAllResult(roll_no);
    //console.log("single sme hash ",response);
-    console.log("all results hash ",response2);
+    //console.log("all results hash ",response2);
 
     //go through every result and and find the result which is latest
       var resultweneed = "";
@@ -137,7 +137,7 @@ router.post('/simple',async (req,res)=>{
   }
   catch(error)
   {
-    console.log(error);
+   // console.log(error);
      res.json(error);
 
   }
@@ -148,32 +148,19 @@ router.post('/getResultHash',async(req,res)=>
     
     console.log("roll no-",req.body.roll_no,"-",req.body.semnum);
     try {
-      const aggregationPipeline = [
-        { $match: { roll_no:req.body.roll_no, 'Result.Semester': req.body.semnum } },
-        { $unwind: '$Result' },
-        { $match: { 'Result.Semester': req.body.semnum } },
-        { $sort: { 'Result.PublishingDate': -1 } },
-        {
-          $group: {
-            _id: '$_id',
-            roll_no: { $first: '$roll_no' },
-            Department_Name: { $first: '$Department_Name' },
-            Result: { $push: '$Result' }
-          }
-        }
-      ];
+      
   
-      const sortedResults = await ResultModel.aggregate(aggregationPipeline);
+      const sortedResults = await ResultModel.find({Semester : req.body.semnum,roll_no : req.body.roll_no}).sort( {PublishingDate : -1});
      //console.log("sroted results ",sortedResults);
       const RData = sortedResults[0];
-     // console.log("RDATA from hash result :",RData);
+      console.log("RDATA from hash result :",RData);
         var HashData = "";
-        const todaydate= new Date(RData.Result[0].PublishingDate);
+        const todaydate= new Date(RData.PublishingDate);
      
     //console.log("today ",todaydate.toISOString());
-     HashData += RData.roll_no + "--" + todaydate.toISOString() + "--" + RData.Result[0].Semester + "--";
-     HashData += RData.Result[0].SGPA.toFixed(2)+ "--" + RData.Result[0].ExamStatus + "--";
-     const gradelist = RData.Result[0].GradesList;
+     HashData += RData.roll_no + "--" + todaydate.toISOString() + "--" + RData.Semester + "--";
+     HashData += RData.SGPA.toFixed(2)+ "--" + RData.ExamStatus + "--";
+     const gradelist = RData.GradesList;
      for (let i = 0;i< gradelist.length ;i++) {
       HashData += gradelist[i].SubjectCode + "-" + gradelist[i].grade + "--";
      }
@@ -197,7 +184,7 @@ router.post('/getsemlist',async(req,res)=>{
   try{
      const rollno = req.body.roll_no;
 
-     const response = await ResultModel.distinct("Result.Semester",{roll_no:rollno},{"Result.Semester":1});
+     const response = await ResultModel.find({roll_no : req.body.roll_no,Published : true},{Semester : 1});
       console.log(response);
      res.json({success:true,data:response});
 
@@ -215,22 +202,8 @@ router.post('/getResults',async(req,res)=>{
   try
   {
 
-    const results = await ResultModel.aggregate([
-      { $match: { roll_no: req.body.roll_no, "Result.Semester": req.body.sem} },
-      { $unwind: "$Result" },
-      { $match: { "Result.Semester": req.body.sem } },
-      { $group: {
-          _id: { roll_no: "$roll_no", Semester: "$Result.Semester" },
-          lastResult: { $last: "$Result" }
-      } },
-      { $project: {
-          _id: 0,
-          GradesList: "$lastResult.GradesList",
-          SGPA: "$lastResult.SGPA",
-          ExamStatus :"$lastResult.ExamStatus",
-      } }
-    ]);
-   // console.log("results grade list ",results)
+    const results = await ResultModel.find({roll_no : req.body.roll_no , Semester : req.body.sem });
+   console.log("results grade list ",results)
     res.json({success:true,data : results[0]});
 
   }

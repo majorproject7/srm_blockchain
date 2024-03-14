@@ -19,7 +19,7 @@ import FacultyDetailsUpdate from './components/AdminComponents/FacultyUpdate.js'
 import StudentAddPage from './components/AdminComponents/StudentAdd.js';
 import StudentRemovePage from './components/AdminComponents/StudentRemove.js';
 import StudentUpdatePage from './components/AdminComponents/StudentUpdate.js';
-
+import ResultManagementPage from './components/AdminComponents/ResultManage.js';
 const App = () => {
     return (
       
@@ -43,6 +43,8 @@ const App = () => {
           <Route path="/StudentRemove" element={<StudentRemovePage/>}></Route>
           <Route path="/StudentUpdate" element={<StudentUpdatePage></StudentUpdatePage>}></Route>
          
+          <Route path="/ResultManagePage" element={<ResultManagementPage></ResultManagementPage>}></Route>
+
           <Route path="/StudentManagePage" element={<SMP/>}></Route>
           <Route path="/AdminActions" element={<AdminActions/>}></Route>
          <Route path="/FacultyActions" element={<FacultyAction></FacultyAction>}></Route>
