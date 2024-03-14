@@ -20,19 +20,3 @@ console.log("Contract address:", contractAddress);
 
 this line is used to call the contract and get the value.
 
-
-db.Result.aggregate([
-  { $match: { roll_no: "20BD1A6687", "Result.Semester": 8} },
-  { $unwind: "$Result" },
-  { $match: { "Result.Semester": 8 } },
-  { $group: {
-      _id: { roll_no: "$roll_no", Semester: "$Result.Semester" },
-      lastResult: { $last: "$Result" }
-  } },
-  { $project: {
-      _id: 0,
-      GradesList: "$lastResult.GradesList",
-      SGPA: "$lastResult.SGPA"
-  } }
-])
-

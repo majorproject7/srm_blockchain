@@ -30,7 +30,7 @@ const TeacherDetailsContainer = () => {
          <div className="w-[150px] h-8 my-1 m-1 bg-blue-100 rounded flex justify-center ">
           <h2 className=" font-semibold text-xl">Name</h2>
         </div>
-        <div className="w-[150px] h-8 my-1 text-lg bg-blue-200 rounded flex justify-center ">
+        <div className="p-1 h-8 my-1 text-lg bg-blue-200 rounded flex justify-center items-center">
           <h2 className=" font-semibold text-xl">{teacherData.name}</h2>
         </div>
         </div>

@@ -1,6 +1,6 @@
 db.Subjects.insertOne({
-    "Department": "CSM",
-    "Dep_ID": "DEP003",
+    "Department": "CSD",
+    "Dep_ID": "DEP004",
     "Subjects": [
         {
             "Semester" : 1,
@@ -229,8 +229,653 @@ db.Subjects.insertOne({
 )
 
 
+db.Subjects.insertOne({
+    "Department": "CSE",
+    "Dep_ID": "DEP001",
+    "Subjects": [
+      {
+        "Semester": 1,
+        "Subject": [
+          {
+            "Name": "Applied Physics",
+            "SubCode": "CSES001",  
+            "credits": 2
+          },
+          {
+            "Name": "Mathematics I",
+            "SubCode": "CSES002",  
+            "credits": 3
+          },
+          {
+            "Name": "C Programming",
+            "SubCode": "CSES003",  
+            "credits": 3
+          },
+          {
+            "Name": "Engineering Graphics",
+            "SubCode": "CSES004",  
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 2,
+        "Subject": [
+          {
+            "Name": "Mathematics II",
+            "SubCode": "CSES005",  
+            "credits": 3
+          },
+          {
+            "Name": "Chemistry",
+            "SubCode": "CSES006", 
+            "credits": 3
+          },
+          {
+            "Name": "English",
+            "SubCode": "CSES007", 
+            "credits": 2
+          },
+          {
+            "Name": "Basic Electrical Engineering",
+            "SubCode": "CSES008",  
+            "credits": 3
+          }
+        ]
+      }
+    ]
+  })
+  
+  db.Subjects.insertOne({
+    "Department": "CSE",
+    "Dep_ID": "DEP001",
+    "Subjects": [
+      {
+        "Semester": 1,
+        "Subject": [
+          {
+            "Name": "Applied Physics",
+            "SubCode": "CSES001",
+            "credits": 2
+          },
+          {
+            "Name": "Mathematics I",
+            "SubCode": "CSES002",
+            "credits": 3
+          },
+          {
+            "Name": "C Programming",
+            "SubCode": "CSES003",
+            "credits": 3
+          },
+          {
+            "Name": "Engineering Graphics",
+            "SubCode": "CSES004",
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 2,
+        "Subject": [
+          {
+            "Name": "Mathematics II",
+            "SubCode": "CSES005",
+            "credits": 3
+          },
+          {
+            "Name": "Chemistry",
+            "SubCode": "CSES006",
+            "credits": 3
+          },
+          {
+            "Name": "English",
+            "SubCode": "CSES007",
+            "credits": 2
+          },
+          {
+            "Name": "Basic Electrical Engineering",
+            "SubCode": "CSES008",
+            "credits": 3
+          }
+        ]
+      },
+      {
+        "Semester": 3,
+        "Subject": [
+          {
+            "Name": "Mathematics",
+            "SubCode": "CSES009",
+            "credits": 3
+          },
+          {
+            "Name": "Object Oriented Programming through C++",
+            "SubCode": "CSES010",
+            "credits": 4
+          },
+          {
+            "Name": "Operating Systems",
+            "SubCode": "CSES011",
+            "credits": 3
+          },
+          {
+            "Name": "Software Engineering",
+            "SubCode": "CSES012",
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 4,
+        "Subject": [
+          {
+            "Name": "Probability and Statistics",
+            "SubCode": "CSES013",
+            "credits": 3
+          },
+          {
+            "Name": "Database Management Systems",
+            "SubCode": "CSES014",
+            "credits": 4
+          },
+          {
+            "Name": "Formal Languages and Automata Theory",
+            "SubCode": "CSES015",
+            "credits": 2
+          },
+          {
+            "Name": "Java Programming",
+            "SubCode": "CSES016",
+            "credits": 3
+          }
+        ]
+      },
+      {
+        "Semester": 5,
+        "Subject": [
+          {
+            "Name": "Computer Networks",
+            "SubCode": "CSES017",
+            "credits": 3
+          },
+          {
+            "Name": "Design and Analysis of Algorithms",
+            "SubCode": "CSES018",
+            "credits": 4
+          },
+          {
+            "Name": "Data Warehousing and Data Mining",
+            "SubCode": "CSES019",
+            "credits": 3
+          },
+          {
+            "Name": "Artificial Intelligence",
+            "SubCode": "CSES020",
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 6,
+        "Subject": [
+          {
+            "Name": "Machine Learning",
+            "SubCode": "CSES017",
+            "credits": 3
+          },
+          {
+            "Name": "Compiler Design",
+            "SubCode": "CSES018",
+            "credits": 4
+          },
+          {
+            "Name": "Cryptography and Network Security",
+            "SubCode": "CSES019",
+            "credits": 3
+          },
+          {
+            "Name": "Big Data Analytics",
+            "SubCode": "CSES020",
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 7,
+        "Subject": [
+          {
+            "Name": "Cloud Computing",
+            "SubCode": "CSES021",
+            "credits": 3
+          },
+          {
+            "Name": "Deep Learning Techniques",
+            "SubCode": "CSES022",
+            "credits": 4
+          },
+          {
+            "Name": "Blockchain Technologies",
+            "SubCode": "CSES023",  
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 8,
+        "Subject": [
+          {
+            "Name": "Management Science",
+            "SubCode": "CSES024",
+            "credits": 3
+          },
+          {
+            "Name": "Knowledge Representation",
+            "SubCode": "CSES025",
+            "credits": 4
+          }
+        ]
+      }
+    ]})
 
-db.Subjects.findOne(
-  { Department: "CSM", Dep_ID: "DEP003", "Subjects.Semester": 7}, 
-  { "Subjects.Subject.$": 1, _id: 0 } 
-)
+
+
+    db.Subjects.insertOne({
+        "Department": "IT",  
+        "Dep_ID": "DEP002",
+        "Subjects": [
+          {
+            "Semester": 1,
+            "Subject": [
+              {
+                "Name": "Basic Electrical Engineering",
+                "SubCode": "ITIS001",  
+                "credits": 3  
+              },
+              {
+                "Name": "Mathematics-1",
+                "SubCode": "ITIS002", 
+                "credits": 3
+              },
+              {
+                "Name": "Applied Physics",
+                "SubCode": "ITIS003", 
+                "credits": 2
+              },
+              {
+                "Name": "Programming for Problem Solving using C",
+                "SubCode": "ITIS004", 
+                "credits": 3
+              }
+            ]
+          },
+          {
+            "Semester": 2,
+            "Subject": [
+              {
+                "Name": "Mathematics-2",
+                "SubCode": "ITIS005", 
+                "credits": 3
+              },
+              {
+                "Name": "Applied Chemistry",
+                "SubCode": "ITIS006",  
+                "credits": 3
+              },
+              {
+                "Name": "Computer Organization",
+                "SubCode": "ITIS007",  
+                "credits": 3
+              },
+              {
+                "Name": "Analog and Digital Electronics",
+                "SubCode": "ITIS008",  
+                "credits": 4
+              }
+            ]
+          },
+          {
+            "Semester": 3,
+            "Subject": [
+              {
+                "Name": "Data Structures using Python",
+                "SubCode": "ITIS009", 
+                "credits": 3
+              },
+              {
+                "Name": "Managerial Economics and Financial Analysis",
+                "SubCode": "ITIS010", 
+                "credits": 3
+              },
+              {
+                "Name": "Operating Systems",
+                "SubCode": "ITIS011",  
+                "credits": 3
+              },
+              {
+                "Name": "Software Engineering",
+                "SubCode": "ITIS012",  
+                "credits": 2
+              }
+            ]
+          },
+          {
+            "Semester": 4,
+            "Subject": [
+              {
+                "Name": "Probability and Statistics",
+                "SubCode": "ITIS013", 
+                "credits": 3
+              },
+              {
+                "Name": "Database Management Systems",
+                "SubCode": "ITIS014", 
+                "credits": 4
+              },
+              {
+                "Name": "Discrete Mathematics",
+                "SubCode": "ITIS015",  
+                "credits": 2
+              },
+              {
+                "Name": "Java Programming",
+                "SubCode": "ITIS016",  
+                "credits": 3
+              }
+            ]
+          },
+          {
+            "Semester": 5, 
+            "Subject": [
+              {
+                "Name": "Computer Networks",
+                "SubCode": "ITIS017", 
+                "credits": 3
+              },
+              {
+                "Name": "Design and Analysis of Algorithms",
+                "SubCode": "ITIS018", 
+                "credits": 3
+              },
+              {
+                "Name": "Web Application Development",
+                "SubCode": "ITIS019", 
+                "credits": 4
+              },
+              {
+                "Name": "Image Processing",
+                "SubCode": "ITIS020",  
+                "credits": 2
+              }
+            ]
+          },
+          {
+            "Semester": 6,
+            "Subject": [
+              {
+                "Name": "Mobile Application Development",
+                "SubCode": "ITIS021",  
+                "credits": 3
+              },
+              {
+                "Name": "Compiler Design",
+                "SubCode": "ITIS022",
+                "credits": 4
+              },
+              {
+                "Name": "Embedded Systems Design",
+                "SubCode": "ITIS023", 
+                "credits": 3
+              },
+              {
+                "Name": "Big Data Analytics",
+                "SubCode": "ITIS024",  
+                "credits": 2
+              }
+            ]
+          },
+          {
+            "Semester": 7,
+            "Subject": [
+              {
+                "Name": "Cyber Security",
+                "SubCode": "ITIS025", 
+                "credits": 3
+              },
+              {
+                "Name": "Text Analytics and Natural Language Processing",
+                "SubCode": "ITIS026",  
+                "credits": 4
+              },
+              {
+                "Name": "Blockchain Technologies",
+                "SubCode": "ITIS027", 
+                "credits": 2
+              }
+            ]
+          },
+          {
+            "Semester": 8,
+            "Subject": [
+              {
+                "Name": "Augmented and Virtual Reality",
+                "SubCode": "ITIS028", 
+                "credits": 3
+              },
+              {
+                "Name": "Cloud Computing",
+                "SubCode": "ITIS029", 
+                "credits": 3
+              },
+              {
+                "Name": "Major Project",
+                "SubCode": "ITIS030",  
+                "credits": 5
+              }
+            ]
+          }
+        ]
+      })
+
+Data science
+
+db.Subjects.insertOne({
+    "Department": "CSD",
+    "Dep_ID": "DEP004",
+    "Subjects": [
+      {
+        "Semester": 1,
+        "Subject": [
+          {
+            "Name": "Applied Physics",
+            "SubCode": "CSDS001",
+            "credits": 2
+          },
+          {
+            "Name": "Mathematics I",
+            "SubCode": "CSDS002",
+            "credits": 3
+          },
+          {
+            "Name": "C Programming",
+            "SubCode": "CSDS003",
+            "credits": 3
+          },
+          {
+            "Name": "Engineering Graphics",
+            "SubCode": "CSDS004",
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 2,
+        "Subject": [
+          {
+            "Name": "Mathematics II",
+            "SubCode": "CSDS005",
+            "credits": 3
+          },
+          {
+            "Name": "Chemistry",
+            "SubCode": "CSDS006",
+            "credits": 3
+          },
+          {
+            "Name": "English",
+            "SubCode": "CSDS007",
+            "credits": 2
+          },
+          {
+            "Name": "Basic Electrical Engineering",
+            "SubCode": "CSDS008",
+            "credits": 3
+          }
+        ]
+      },
+      {
+        "Semester": 3, 
+        "Subject": [
+          {
+            "Name": "Data Structures",
+            "SubCode": "CSDS009",  
+            "credits": 3  
+          },
+          {
+            "Name": "Mathematical and Statistical Foundations",
+            "SubCode": "CSDS010", 
+            "credits": 3 
+          },
+          {
+            "Name": "Computer Organization and Architecture",
+            "SubCode": "CSDS011",  
+            "credits": 4  
+          },
+          {
+            "Name": "Python Programming",
+            "SubCode": "CSDS012", 
+            "credits": 3  
+          }
+        ]
+      },
+      {
+        "Semester": 4,  
+        "Subject": [
+          {
+            "Name": "Software Engineering",
+            "SubCode": "CSDS013",  
+            "credits": 3  
+          },
+          {
+            "Name": "Operating Systems",
+            "SubCode": "CSDS014",  
+            "credits": 3  
+          },
+          {
+            "Name": "Database Management Systems",
+            "SubCode": "CSDS015",  
+            "credits": 4  
+          },
+          {
+            "Name": "Object Oriented Programming using Java",
+            "SubCode": "CSDS016",  
+            "credits": 3  
+          }
+        ]
+      },{
+        "Semester": 5,  
+        "Subject": [
+          {
+            "Name": "Design and Analysis of Algorithms",
+            "SubCode": "CSDS017",  
+            "credits": 3
+          },
+          {
+            "Name": "Introduction to Data Science",
+            "SubCode": "CSDS018",  
+            "credits": 3
+          },
+          {
+            "Name": "Computer Networks",
+            "SubCode": "CSDS019",  
+            "credits": 4
+          },
+          {
+            "Name": "Data Mining",
+            "SubCode": "CSDS020",  
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 6,
+        "Subject": [
+          {
+            "Name": "Machine Learning",
+            "SubCode": "CSDS021", 
+            "credits": 3
+          },
+          {
+            "Name": "Compiler Design",
+            "SubCode": "CSDS022", 
+            "credits": 4
+          },
+          {
+            "Name": "Big Data Analytics",
+            "SubCode": "CSDS023",  
+            "credits": 3
+          },
+          {
+            "Name": "Data Warehousing",
+            "SubCode": "CSDS024",  
+            "credits": 2
+          }
+        ]
+      },
+      {
+        "Semester": 7,
+        "Subject": [
+          {
+            "Name": "Predictive Analytics",
+            "SubCode": "CSDS025", 
+            "credits": 3
+          },
+          {
+            "Name": "Web and Social Media Analytics",
+            "SubCode": "CSDS026", 
+            "credits": 4
+          },
+          {
+            "Name": "Quantum Computing",
+            "SubCode": "CSDS027",  
+            "credits": 2
+          },
+          {
+            "Name": "Cloud Computing",
+            "SubCode": "CSDS028",
+            "credits": 3
+          }
+        ]
+      },
+      {
+        "Semester": 8,
+        "Subject": [
+          {
+            "Name": "Data Stream Mining",
+            "SubCode": "CSDS029", 
+            "credits": 3
+          },
+          {
+            "Name": "Major Project",
+            "SubCode": "CSDS030",  
+            "credits": 5 
+          },
+          {
+            "Name": "Management Science",
+            "SubCode": "CSDS031", 
+            "credits": 3
+          }
+        ]
+      }
+    ]
+  })
+  
