@@ -194,18 +194,18 @@ router.post('/removeAdmin',async (req,res)=>
 
 router.post('/getResultPublishStatusList',async (req,res)=>
 {
-    console.log("deleting admin details");
+    console.log("getting Result Status details");
    
     try {
      const ResultList  = await Result.find({Semester : req.body.semval , Department_Name: req.body.deptval},
-      {roll_no : 1, Published : 1, ExamStatus : 1 ,SGPA : 1,_id :0});
+      {roll_no : 1, Published : 1, ExamStatus : 1 ,SGPA : 1,_id :0,name:1});
     console.log("semester and branch",req.body)
      console.log("list response",ResultList)
     //Replace with your query criteria if needed
     res.json({success : true , ResultData : ResultList,message : "Result list acquired successfully.Please Refresh" });
     
     } catch (err) {
-      console.error('Error fetching admin details:', err);
+      console.error('Error fetching Result Status details:', err);
       res.status(500).json({ message: 'Error fetching admin details' });
     }
    

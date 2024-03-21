@@ -1,19 +1,9 @@
 var Web3 = require('web3');
 
 var web3 = new Web3.Web3("http://127.0.0.1:7545");
-// ikkada mi ganache lo fake account untayi
-// kada dantlo first kakunda
- //inkedina index account number pettandi
- const account1 = '0x18Af5D1e9E5931E03E30A6eB29a7A58dE4F8EAD1'
-// const account2 = '0x18FC0D0ab797b4f9985AD10DF446b5Dd5A6ED6F6'
-// for (var i =0;i<5;i++)
-// { web3.eth.sendTransaction({
-//   from: account1,
-//   to: account2,
-//   value: web3.utils.toWei('1','ether')
-// })
-// console.log(i+"--transaction done");
-// }
+
+ const account1 = '0xACea4a9336bc12f33066344E02B1d7aFdF95f0D3'
+
 const contractABI = [
   {
     "anonymous": false,
@@ -151,29 +141,32 @@ const contractABI = [
     "constant": true
   }
 ]; // Paste your contract's ABI here
-//ikkada ganache lo contracts lo chuste 
-const contractAddress = "0xF3E01b666F9B9FeAD67ccd09f6fd5B61edb0F7a7"
+
+const contractAddress = "0x1D273a6453221671C0bE43f932F85Da06b99fb0E"
 
 const srContract = new web3.eth.Contract(contractABI,contractAddress);
 async function AddResult(rollNo,semester,resHash) {
   try {
-
+      console.log("adding student data")
       const studentData = await srContract.methods.addResult(rollNo, semester, resHash).send({from: account1,gas : 1000000})
       console.log('Student Data:', studentData);
       return studentData.transactionHash;
   } catch (error) {
-      console.error('Error retrieving student:', error);
+      console.error('Error retrieving student Data :', error);
       return error;
   }
 }
 
- async function getresult(rollno,sem)
+ async function getresult(rollno,sem,rescount)
 { try{
- const response =  await srContract.methods.getResultBySemester(rollno, sem).call()
+  const resNo = BigInt(rescount);
+  console.log(resNo);
+ const response =  await srContract.methods.getResultBySemester(rollno, sem,resNo).call()
  console.log(response);    
  return response;}
  catch(error)
  {
+  console.log(error);
   return error;
  }
 }

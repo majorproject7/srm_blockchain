@@ -14,11 +14,12 @@ const StuGrade = () => {
   const rollno = location.state.roll_no;
   const sem_num = location.state.sem;
   const branchdep = location.state.branched;
+  const ResNo = location.state.ResNo;
   console.log("roll " + rollno + "sem " + sem_num);
   useEffect(() => {
     async function fetchHashval() {
       try {
-        const formdata = { roll_no: rollno, semnum: sem_num };
+        const formdata = { roll_no: rollno, semnum: sem_num,Resval : ResNo };
 
         const subjectlist = await axios.post(
           "http://localhost:5000/api/TeacherRoute/getSubjects",
@@ -37,7 +38,7 @@ const StuGrade = () => {
        
         const resHash = await axios.post(
           "http://localhost:5000/api/StudentRoute/getResultHash",
-          { semnum: sem_num, roll_no: rollno }
+          { semnum: sem_num, roll_no: rollno  }
         );
 
         setCalcHash(resHash.data.message);

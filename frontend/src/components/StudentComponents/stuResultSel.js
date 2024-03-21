@@ -44,7 +44,7 @@ const[list, setList] = useState([])
                <div><button
                   onClick={() => {
                     navigate("/result", {
-                      state: { roll_no: rollno, sem : (item.Semester), branched: branch },
+                      state: { roll_no: rollno, sem : (item.Semester), branched: branch,ResNo : item.ResNo },
                     });
                   }}
                 >

@@ -13,7 +13,15 @@ const ResultSchema = new mongoose.Schema({
   Published : { type : Boolean,
     required : true
   },
-
+  Released : {
+    type : Boolean,
+    required : true
+  },
+  ResNo :{
+    type : Number,
+    required : true
+  }
+   ,
   AYear : {
       type : Number,
       required: true

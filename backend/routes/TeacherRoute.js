@@ -145,7 +145,9 @@ router.post('/addresult',async (req,res)=> {
   
     const dateo = new Date(req.body.PublishingDate);
   //console.log("today date ",dateo);
-
+  
+  var Rescount = await ResultModel.countDocuments({roll_no : req.body.roll_no});
+  Rescount += 1
   const studentRecord = await ResultModel.insertMany({
     roll_no : req.body.roll_no,
     Department_Name : req.body.Department_Name,
@@ -156,6 +158,8 @@ router.post('/addresult',async (req,res)=> {
     PublishingDate :  dateo,
     GradesList : req.body.GradesList,
     Published : req.body.Published,
+    Released : false,
+    ResNo : Rescount,
   })
 
 

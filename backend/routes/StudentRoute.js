@@ -4,6 +4,9 @@ const StuModel = require('../models/StudentModel');
 const ResultModel = require('../models/ResultModel');
 const { getresult, AddResult, getAllResult } = require('../../blockchain/Result_Block_Chain.js');
 const crypto = require('crypto-js');
+const { parse } = require('json2csv');
+const fs = require('fs');
+
 // Registration route
 router.post('/login', async (req,res)=>{
 console.log('checking for student in srms database');
@@ -111,12 +114,14 @@ router.post('/BlockchainHash',async (req,res)=>{
   const roll_no = req.body.roll_no;
   console.log(roll_no+"--"+semesternum+"--");
     //const response = await getresult(roll_no,semesternum);
-    const response2 = await getAllResult(roll_no);
-   //console.log("single sme hash ",response);
+    const response2 = await  getAllResult(roll_no);
+    console.log("single sme hash ",response2);
+
+    const csvData = parse()
     //console.log("all results hash ",response2);
 
     //go through every result and and find the result which is latest
-      var resultweneed = "";
+    var resultweneed = "";
       //console.log((response2[0].semester)+"--"+BigInt(semesternum));
       for(let i =0;i< response2.length;i++)
       {     
@@ -131,8 +136,6 @@ router.post('/BlockchainHash',async (req,res)=>{
         resultweneed = "No Data found on Block chain";
       }
     res.json({success:true,data:resultweneed});
-
-   // console.log(response);
     
   }
   catch(error)
@@ -151,6 +154,9 @@ router.post('/getResultHash',async(req,res)=>
       
   
       const sortedResults = await ResultModel.find({Semester : req.body.semnum,roll_no : req.body.roll_no}).sort( {PublishingDate : -1});
+    
+
+      
      //console.log("sroted results ",sortedResults);
       const RData = sortedResults[0];
       console.log("RDATA from hash result :",RData);
@@ -184,7 +190,7 @@ router.post('/getsemlist',async(req,res)=>{
   try{
      const rollno = req.body.roll_no;
 
-     const response = await ResultModel.find({roll_no : req.body.roll_no,Published : true},{Semester : 1});
+     const response = await ResultModel.find({roll_no : req.body.roll_no,Published : true},{Semester : 1,ResNo:1});
       console.log(response);
      res.json({success:true,data:response});
 
