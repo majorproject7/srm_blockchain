@@ -2,17 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Admin = require('../models/AdminModel');
 const Result = require('../models/ResultModel');
-// Registration route
 
-// Login route
+
 router.post('/login', async (req, res) => {
 
-  console.log("request came to login Backend for admin login");
+  console.log("request came to Backend for admin login");
   try {
     console.log(req.body.admin_id+" "+req.body.passwd);
     const admin = await Admin.find({admin_id : req.body.admin_id,passwd : req.body.passwd});
-    //console.log("admin details ",admin);
-    //console.log("response got  "+admin.length);
     if (admin.length > 0) {
       res.json({ success: true ,message:"login Successful",AdminData : admin[0]});
     } else {
@@ -20,7 +17,7 @@ router.post('/login', async (req, res) => {
     }
   } catch (error) {
     console.error('Error processing login:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ success: false, message: 'An error occurred while loggin in.' });
   }
   
 });
@@ -31,7 +28,6 @@ router.post('/add', async (req, res) => {
   console.log("request came to Admin Backend for admin addition");
     try {
       console.log(req.body.name);
-     // console.log("image data ",req.body.image);
       const response = await Admin.insertMany({
       name : req.body.name,
       email : req.body.email,
@@ -43,17 +39,15 @@ router.post('/add', async (req, res) => {
       });
       if (response) {
         console.log("successful");
-        // Student data added successfully
         res.json({ success: true, message: 'Admin data added successfully!' });
       } else {
         console.log("Unsuccessful");
-        // Failed to add student data
         res.json({ success: false, message: 'Failed to add Admin data.' });
       }
   
     } catch (error) {
-    //console.error('Error processing login:', error);
-      res.status(500).json({ success: false, message: 'An error occurred while adding student data.' });
+      console.log(error);
+      res.status(500).json({ success: false, message: 'An error occurred while adding Admin data.' });
    
     }
     
@@ -64,22 +58,19 @@ router.post('/add', async (req, res) => {
     console.log("request came to Admin Backend for admin Updation");
       try {
         console.log(req.body.admin_id);
-       // console.log("image data ",req.body.image);
         const response = await Admin.find({admin_id:req.body.admin_id},{image:0,_id:0});
         if (response) {
           console.log("successful");
           console.log(response);
-          // Student data added successfully
           res.json({ success: true, message: 'Admin data fetched successfully!',admindata : response[0] });
         } else {
           console.log("Unsuccessful");
-          // Failed to add student data
           res.json({ success: false, message: 'Failed to fetch admin data.' });
         }
     
       } catch (error) {
-      //console.error('Error processing login:', error);
-        res.status(500).json({ success: false, message: 'An error occurred while adding student data.' });
+      
+        res.status(500).json({ success: false, message: 'An error occurred while getting Admin data.' });
      
       }
       
@@ -90,7 +81,6 @@ router.post('/add', async (req, res) => {
       console.log("request came to Admin  for admin details updation");
         try {
           console.log("new data ",req.body);
-         // console.log("image data ",req.body.image);
           const response = await Admin.updateMany({admin_id:req.body.admin_id},{
             $set:{
               name : req.body.name,
@@ -104,17 +94,16 @@ router.post('/add', async (req, res) => {
           if (response) {
             console.log("successful");
             console.log(response);
-            // Student data added successfully
+            
             res.json({ success: true, message: 'Admin data updated successfully!',admindata : response[0] });
           } else {
             console.log("Unsuccessful");
-            // Failed to add student data
             res.json({ success: false, message: 'Failed to fetch admin data.' });
           }
       
         } catch (error) {
-        //console.error('Error processing login:', error);
-          res.status(500).json({ success: false, message: 'An error occurred while adding student data.' });
+        
+          res.status(500).json({ success: false, message: 'An error occurred while adding Admin data.' });
        
         }
         
@@ -144,7 +133,6 @@ router.get('/getAllAdmin',async (req,res)=>
    
     try {
      const AdminDataResponse  = await Admin.find({});
-      //console.log("admin list ",AdminDataResponse);
       console.log("fetched admin details");
       res.json({success : true , AdminData : AdminDataResponse,message : "Admin details retrieved successfully." });
     } catch (err) {
@@ -156,11 +144,11 @@ router.get('/getAllAdmin',async (req,res)=>
 });
 router.get('/getAdminListForRemoval',async (req,res)=>
 {
-    console.log("geting admin details");
+    console.log("geting admin details for removal");
    
     try {
      const AdminDataResponse = await Admin.find({},{name:1,admin_id:1});
-      //console.log("admin list ",AdminDataResponse);
+      
       console.log("fetched admin details");
       console.log("list of admin ",AdminDataResponse);
       res.json({success : true , AdminData : AdminDataResponse,message : "Admin details retrieved successfully." });
@@ -174,12 +162,11 @@ router.get('/getAdminListForRemoval',async (req,res)=>
 router.post('/removeAdmin',async (req,res)=>
 {
     console.log("deleting admin details");
-   
     try {
      const AdminDelResponse  = await Admin.deleteMany({admin_id:req.body.id});
     console.log("admin to be deleted ",req.body)
      console.log("deleted response",AdminDelResponse)
-    //Replace with your query criteria if needed
+    
     res.json({success : true , AdminData : AdminDelResponse,message : "Admin Deleted successfully.Please Refresh" });
     
     } catch (err) {
@@ -201,7 +188,7 @@ router.post('/getResultPublishStatusList',async (req,res)=>
       {roll_no : 1, Published : 1, ExamStatus : 1 ,SGPA : 1,_id :0,name:1});
     console.log("semester and branch",req.body)
      console.log("list response",ResultList)
-    //Replace with your query criteria if needed
+   
     res.json({success : true , ResultData : ResultList,message : "Result list acquired successfully.Please Refresh" });
     
     } catch (err) {
@@ -220,9 +207,7 @@ router.post('/PublishResult',async (req,res)=>
 
      const ResultList  = await Result.updateMany(
       {Department_Name : req.body.deptval ,Semester : req.body.semval },{ $set : {Published : req.body.Published}});
-    console.log("semester and branch",req.body)
-     console.log("list response",ResultList)
-    //Replace with your query criteria if needed
+   
     res.json({success : true , message : "Result Publish Status Updated successfully" });
     
     } catch (err) {

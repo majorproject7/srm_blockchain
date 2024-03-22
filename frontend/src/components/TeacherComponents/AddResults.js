@@ -80,12 +80,11 @@ const StudentResultPage = () => {
     const updatedFormData = { ...formData, [subCode]: parseInt(gradePoint) };
 
     setFormData(updatedFormData);
-    //console.log("---",subCode,"---",gradePoint);
-    // Calculate total credits
+ 
     const credits = semesterSubjects.find(
       (subject) => subject.SubCode === subCode
     ).credits;
-    //console.log("credits",credits)
+  
     setTotalCredits((prevTotalCredits) => prevTotalCredits + credits);
   };
 
@@ -125,7 +124,7 @@ const StudentResultPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setExamStatus("PASS");
-    // Calculate weighted sum of grade points
+  
     let weightedSum = 0;
     let totalcreditpoints = 0;
     for (const subCode in formData) {
@@ -176,7 +175,7 @@ const StudentResultPage = () => {
       Published : false,
     }
     alert("please confirm the details : "+JSON.stringify(resultrecord, null, 2));
-   // console.log("result record ",resultrecord);
+   
     const postdata = {
       roll_no: selectedStudent,
       semnum: selectedSemester,
@@ -190,11 +189,11 @@ const StudentResultPage = () => {
     alert(db.data.message);
     }
     catch(error){
-      // Handle errors for any of the requests
+   
       console.error("An error occurred:", error);
     }
-    //console.log(response,"/n",response2,"/n",response3,"/n",response4);
-}// alert("Transaction Hash "+response.data.message+"/n"+"Result Hash : "+hashval);
+
+}
  
 
   return (
@@ -387,7 +386,6 @@ const StudentResultPage = () => {
            <div className="m-2 bg-amber-100 rounded-md p-1">
             <p className="m-1 p-1 bg-amber-50 text-lg">Semester : {result.Semester}</p>
             <p className="m-1 p-1 bg-amber-50 text-lg">SGPA : {result.SGPA}</p>
-            {/* <p>Publishing Date: {result.PublishingDate}</p> */}
             <p className="m-1 p-1 bg-amber-50 text-lg">Status : {result.ExamStatus}</p>
             </div>
             

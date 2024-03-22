@@ -1,27 +1,26 @@
-run backend and frontend server both to use mongo
+npm start script is mentioned in package.json file.
 
-npm run start to start server and see pages.
-always mention the fucntions in used in react components in camelcase.
-
-
-why block chain.
-
-at any point of time in the traditional database management system.
-
-there exists a database admin who monitors the database and can do anything with the data.
-
-story of bank and their security.
-
-
-Software used : 
- Figma - > frontend styling
- ganache -> fake ethereum network
- lucid chart -> database designing
- Bard & chat gpt -> code help & brain storming.
-
-
- npm start script is mentioned in package.json file.
-
- for backend code us nodemon server.js for development purpose.
+for backend code us nodemon server.js for development purpose.
 
 mongodb in localhost will connect to ipv6 generally to over come that use 127.0.0.1
+
+git remote add origin https://github.com/majorproject7/srm_blockchain.git
+git branch -M main
+git push -u origin main
+
+
+
+truffle compiler version should be 0.8.19
+then ganache and truffle will correctly.
+
+
+contract address is found in migration details or ganache details in transaction.
+contract abi is found in artifacts or build/contracts :
+ in json format.
+
+
+ const contractAddress = await deployer.deployedContracts.YourContractName.address;
+console.log("Contract address:", contractAddress);
+
+this line is used to call the contract and get the value.
+

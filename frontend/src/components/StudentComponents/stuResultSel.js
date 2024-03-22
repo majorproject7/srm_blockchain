@@ -22,8 +22,7 @@ const[list, setList] = useState([])
     fetchData();
 }, [rollno]); 
 
-  console.log("list ",list);
-  console.log("Stu result component rendered");
+ 
   return (
     <div className="flex flex-col border border-green-300 justify-center">
       <div className="w-[600px] flex flex-col-2 justify-evenly">

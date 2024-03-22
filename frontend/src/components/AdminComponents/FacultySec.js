@@ -62,7 +62,7 @@ function Branchcomponent() {
   }, [deptval]);
 
   return (
-    <div >
+    <div>
       <div className=" h-[250px] flex flex-col justify-evenly">
         <div className="w-[300px] h-8 text-lg bg-blue-200 rounded-[15px] flex justify-center ">
           <h2 className=" font-semibold text-xl">Branch</h2>

@@ -40,14 +40,14 @@ const AdminDetailsUpdate=()=>{
   
     const handleSubmit = e => {
       e.preventDefault();
-      // Send updated user data to backend
+      
       alert("Updating the details.... please wait");
       axios.post('http://localhost:5000/api/AdminRoute/UpdateAdmin', formData)
         .then(response => {
           console.log(response.data.message);
           alert(response.data.message);
           setSelectedUser(null);
-          // Optionally, perform additional actions after successful update
+        
         })
         .catch(error => {
           console.error('Error updating user:', error);

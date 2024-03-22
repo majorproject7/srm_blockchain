@@ -1,14 +1,11 @@
 import Kmithead from "../DashBoard/KmitHeader";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import * as fileSaver from 'file-saver';
-
+import * as fileSaver from "file-saver";
 
 const ResultManagementPage = () => {
-  let converter = require('json-2-csv');
- const[downclick, setdownclick] = useState(null);
+  let converter = require("json-2-csv");
   const [dept, setDept] = useState(null);
-  const [csvData, setCsvData] = useState(null);
   const [Ayear, setAyear] = useState(null);
   const [sem, setSem] = useState(null);
   const [ResultList, setResult] = useState(null);
@@ -17,100 +14,67 @@ const ResultManagementPage = () => {
     setAyear(null);
     setResult(null);
   };
-  
-function transformToCsvRecord(record) {
-  // Extract desired fields and format them (if necessary)
-  const { roll_no , SGPA,ExamStatus } = record;
-  return {
-    // Convert _id to string
-    Roll_No : roll_no,
-    SGPA ,
-    Status : ExamStatus,
-    
-   
+
+  function transformToCsvRecord(record) {
+    const { roll_no, SGPA, ExamStatus } = record;
+    return {
+      Roll_No: roll_no,
+      SGPA,
+      Status: ExamStatus,
+    };
+  }
+
+  const handleDownload = async () => {
+    const records = ResultList;
+
+    const csvData = [];
+
+    for await (const record of records) {
+      const csvRecord = transformToCsvRecord(record);
+      csvData.push(csvRecord);
+    }
+    console.log("csv data ", csvData);
+    const csvString = await converter.json2csv(csvData);
+    console.log("data csv ", csvString);
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+    const filename =
+      "Result_" + Ayear + "_" + dept + "_" + sem + "_" + Date.now();
+    await fileSaver.saveAs(blob, filename);
   };
-}
- const fileConversion = async ()=> {
-  
-
-  const records = ResultList;
-
-  const csvData = [];
-
-  for await(const record of records) {
-    const csvRecord =  transformToCsvRecord(record);
-    csvData.push(csvRecord);
-  }
-
-  return csvData;
-}
-
-// useEffect(() => {
-//   if(downclick )
-//   {
-//     console.log("export button clciked");
-//   const fetchData = async () => {
-//     console.log("data fetched")
-//     const data = await fileConversion();
-//     setCsvData(data);
-//     console.log("data converted ",csvData);
-//   };
-
-//   fetchData();
-// }
-// }, [downclick]);
-
-const handleDownload = async () => {
-
-  const records = ResultList;
-
-  const csvData = [];
-
-  for await(const record of records) {
-    const csvRecord =  transformToCsvRecord(record);
-    csvData.push(csvRecord);
-  }
-  console.log("csv data ",csvData);
-  const csvString = await converter.json2csv(csvData);
-  console.log("data csv ",csvString);
-  const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8' });
-  const filename = "Result_"+Ayear+"_"+dept+"_"+sem+"_"+Date.now();
-  await fileSaver.saveAs(blob, filename);
-};
-
-
 
   const handleYearClick = (year) => {
     setAyear(year);
     setResult(null);
-    
   };
   const handleSemClick = (sem) => {
     setSem(sem);
   };
 
-  const handlePublish= async ()=>{
-    alert("please wait Publishing result")
-            const data={deptval : dept,semval : sem,Published : true}  ;
-            const response = await axios.post("http://localhost:5000/api/AdminRoute/PublishResult",data);
-            //console.log(response); 
-            alert(response.data.message);         
+  const handlePublish = async () => {
+    alert("please wait Publishing result");
+    const data = { deptval: dept, semval: sem, Published: true };
+    const response = await axios.post(
+      "http://localhost:5000/api/AdminRoute/PublishResult",
+      data
+    );
 
-  }
+    alert(response.data.message);
+  };
 
-  const handleHideResult= async ()=>{
-    alert("please wait Publishing result")
-            const data={deptval : dept,semval : sem, Published : false}  ;
-            const response = await axios.post("http://localhost:5000/api/AdminRoute/PublishResult",data);
-            //console.log(response);  
-            alert(response.data.message);        
+  const handleHideResult = async () => {
+    alert("please wait Hiding result");
+    const data = { deptval: dept, semval: sem, Published: false };
+    const response = await axios.post(
+      "http://localhost:5000/api/AdminRoute/PublishResult",
+      data
+    );
 
-  }
+    alert(response.data.message);
+  };
 
   useEffect(() => {
     if (sem !== null) {
       const getResultData = async () => {
-        
         const response = await axios.post(
           "http://localhost:5000/api/AdminRoute/getResultPublishStatusList",
           { deptval: dept, semval: sem }
@@ -335,26 +299,45 @@ const handleDownload = async () => {
           )}
         </div>
       </div>
-        
 
-       <div className="flex justify-center">
-         <button className="bg-green-200 px-4 py-1 rounded-sm m-1" onClick={()=>{handlePublish()}}> <h1> Publish Result</h1></button>
-       </div>
-       <div className="flex justify-center">
-         <button className="bg-red-300 px-4 py-1 rounded-sm m-1" onClick={()=>{handleHideResult()}}> <h1> conceal Result</h1></button>
-       </div>
-        
-        <div className="flex justify-center items-center  m-1">
-          {
-            (dept != null && sem != null) && (
-              <div>
-                <button onClick={()=>{ handleDownload()}} className=" bg-blue-200 p-1 justify-center"><h1> Export Result</h1></button>
-                </div>
+      <div className="flex justify-center">
+        <button
+          className="bg-green-200 px-4 py-1 rounded-sm m-1"
+          onClick={() => {
+            handlePublish();
+          }}
+        >
+          {" "}
+          <h1> Publish Result</h1>
+        </button>
+      </div>
+      <div className="flex justify-center">
+        <button
+          className="bg-red-300 px-4 py-1 rounded-sm m-1"
+          onClick={() => {
+            handleHideResult();
+          }}
+        >
+          {" "}
+          <h1> conceal Result</h1>
+        </button>
+      </div>
 
-            )
-          }
-        </div>
-        {/* Student Result section  */}
+      <div className="flex justify-center items-center  m-1">
+        {dept != null && sem != null && (
+          <div>
+            <button
+              onClick={() => {
+                handleDownload();
+              }}
+              className=" bg-blue-200 p-1 justify-center"
+            >
+              <h1> Export Result</h1>
+            </button>
+          </div>
+        )}
+      </div>
+      {/* Student Result section  */}
       <div>
         <div className=" flex justify-center  ">
           <div className="w-[500px] ">

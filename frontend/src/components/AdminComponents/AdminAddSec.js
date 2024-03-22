@@ -61,10 +61,7 @@ const AdminForm = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(formData);
-      // admin_id: '',
-      // dob:'',
-      // passwd : '',
-      // Handle form submission logic, e.g., send data to the server or perform validation
+    
       const newFormData = {
        
       name: formData.name,
@@ -75,8 +72,7 @@ const AdminForm = () => {
       passwd : formData.passwd,
       image : imageData
       };
-      //console.log('Form data submitted:', newFormData);
-     
+      
      
      try{
       const response= await axios.post('http://localhost:5000/api/AdminRoute/add', newFormData);

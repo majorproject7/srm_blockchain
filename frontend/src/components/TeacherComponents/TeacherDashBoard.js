@@ -1,9 +1,6 @@
-import React, { useState, useEffect} from 'react';
-import {useNavigate, useLocation} from 'react-router-dom';
-import { CircularProgress } from '@mui/material'; // Assuming you are using Material UI for the progress indicator
-import axios from 'axios'; // Assuming you are using Axios for making HTTP requests
+import React from 'react';
+import {useNavigate, useLocation} from 'react-router-dom'; 
 import Kmithead from '../DashBoard/KmitHeader';
-import {Link} from 'react-router-dom';
 const TeacherDetailsContainer = () => {
  const location = useLocation();
  const navigate = useNavigate();

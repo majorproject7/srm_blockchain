@@ -20,14 +20,13 @@ const AdminRemovalPage = () => {
   const deleteUser = async () => {
     try {
       console.log("deleteduser ",adminIdRemove);
-     const response= await axios.post('http://localhost:5000/api/AdminRoute/removeAdmin',{id:adminIdRemove}); // Assuming your API endpoint is /api/users/:id
-      // Handle success (e.g., update user list)
+     const response= await axios.post('http://localhost:5000/api/AdminRoute/removeAdmin',{id:adminIdRemove}); 
       alert(response.data.message);
     } catch (error) {
       console.error('Error deleting user:', error);
-      // Handle error (show error message, etc.)
+     
     } finally {
-      setShowAlert(false); // Close the confirmation dialog
+      setShowAlert(false);
     }
   };
 
@@ -35,7 +34,7 @@ const AdminRemovalPage = () => {
     setAdminId(userId);
     
     setShowAlert(true);
-    console.log("user is ",adminIdRemove); // Show confirmation dialog
+    console.log("user is ",adminIdRemove);
   };
 
   const handleConfirmDelete = () => {
@@ -44,7 +43,7 @@ const AdminRemovalPage = () => {
   };
 
   const handleCancelDelete = () => {
-    setShowAlert(false); // Close the confirmation dialog
+    setShowAlert(false); 
   };
 
   return (

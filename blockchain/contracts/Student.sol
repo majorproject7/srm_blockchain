@@ -3,12 +3,9 @@ pragma solidity >=0.5.0 <0.9.0;
 
 
 contract Student {
-    // Structure to represent a single result object
-    
     struct Result {
         uint256 semester;
-        string resHash;
-        
+        string resHash; 
     }
 
     // Mapping to store student results based on their roll number
@@ -39,7 +36,7 @@ contract Student {
         }
         }
 
-        return "not found data"; // Return empty string if result not found
+        return "not found data"; 
     }
 
     // Function to get all results for a student

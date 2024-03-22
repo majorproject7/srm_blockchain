@@ -10,7 +10,7 @@ function AdminManagePage(){
    
     <div className="flex flex-col justify-center items-center ">
     
-    <AbuttonPanel></AbuttonPanel>
+    <buttonPanel></buttonPanel>
     {AdminDetails()}
     </div>
  </div>
@@ -30,9 +30,6 @@ const AdminDetails = ()=>
     fetchAdmins();
   },[] );
 
- 
-//console.log(admins);
- 
 
 
      return (
@@ -59,19 +56,18 @@ const AdminDetails = ()=>
 
 const AdminCard = ({ data }) => {
     const { name, email, contact, admin_id,image } = data;
-    //console.log("imagedata ",image);
+   
     const base64String = image
    
     const imageData = {
-      base64: base64String || null, // Only include if you converted
-      mimeType: 'image/png' // Or 'image/jpeg' based on the image format
+      base64: base64String || null, 
+      mimeType: 'image/png' 
   };
   
     return (
       
       <div className="flex flex-col m-1 rounded-lg text-center bg-gray-200 p-4 hover:bg-gray-300 justify-center items-center">
-        {/* Name */}
-        {/* <div> <img src={'data:image/jpg;base64, ${image}'} alt="profile image"></img></div> */}
+     
         <div>
           {imageData && (
              <img src={image} width="200" height="200"></img>
@@ -103,7 +99,7 @@ const AdminCard = ({ data }) => {
   };
   
   
-function AbuttonPanel()
+function buttonPanel()
 {
       return (
         <div className="flex flex-col justify-center my-1">
