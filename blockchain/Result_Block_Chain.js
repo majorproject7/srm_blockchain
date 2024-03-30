@@ -140,7 +140,7 @@ const contractABI = [
     "type": "function",
     "constant": true
   }
-]; // Paste your contract's ABI here
+]; 
 
 const contractAddress = "0x1D273a6453221671C0bE43f932F85Da06b99fb0E"
 
@@ -173,14 +173,11 @@ async function AddResult(rollNo,semester,resHash) {
 async function getAllResult(rollno)
 {
   const response = await srContract.methods.getAllResults(rollno).call();
-  //console.log("respone from chain ",response);
+
  
   return response;
 }
 
 
-// Example usage
-//addStudent();
-//AddResult(1,1,"ASDFsdfsdfs");
-//getAllResult(12);
+
 module.exports = {getresult,AddResult,getAllResult};

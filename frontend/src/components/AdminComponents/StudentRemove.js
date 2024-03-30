@@ -10,17 +10,17 @@ const StudentRemovePage = () => {
 
   const [secVal, setSection] = useState("A");
   const [showAlert, setShowAlert] = useState(false);
-  const [adminIdRemove, setAdminId] = useState("");
-  const [AdminList, setAdmin] = useState(null);
+  const [StudentIdRemove, setStudentId] = useState("");
+  const [StudentList, setStudents] = useState(null);
   useEffect(() => {
     console.log("use effect called");
     const getlist = async () => {
-      const AdminDataResponse = await axios.post(
+      const StudentDataResponse = await axios.post(
         "http://localhost:5000/api/StudentRoute/getStudentDetails",
         { dept: deptval, section: secVal, year: ayear }
       );
-      console.log(AdminDataResponse.data.StudentList);
-      setAdmin(AdminDataResponse.data.StudentList);
+      console.log(StudentDataResponse.data.StudentList);
+      setStudents(StudentDataResponse.data.StudentList);
     };
     getlist();
   }, [secVal]);
@@ -29,18 +29,18 @@ const StudentRemovePage = () => {
     setSection(section);
   };
   const handleDeleteClick = (userId) => {
-    setAdminId(userId);
+    setStudentId(userId);
 
     setShowAlert(true);
-    console.log("user is ", adminIdRemove);
+    console.log("user is ", StudentIdRemove);
   };
 
   const deleteUser = async () => {
     try {
-      console.log("deleteduser ", adminIdRemove);
+      console.log("deleteduser ", StudentIdRemove);
       const response = await axios.post(
         "http://localhost:5000/api/StudentRoute/removeStudent",
-        { id: adminIdRemove }
+        { id: StudentIdRemove }
       );
       alert(response.data.message);
     } catch (error) {
@@ -93,9 +93,10 @@ const StudentRemovePage = () => {
       </div>
       <div className="flex justify-center">
         {/* Confirmation dialog */}
-        {showAlert && adminIdRemove != null && (
-          <div className="confirmation-dialog justify-center">
-            <p>Are you sure you want to delete {adminIdRemove} ?</p>
+        {showAlert && StudentIdRemove != null && (
+          <div className=" flex flex-col confirmation-dialog justify-center items-center">
+            <p>Confirm deletion of  {StudentIdRemove} ?</p>
+            <p className="text-red-500">This action cannot be reversed</p>
             <div className="flex justify-center">
               {" "}
               <button
@@ -115,28 +116,55 @@ const StudentRemovePage = () => {
         )}
       </div>
       <div>
-        <div>
-          {AdminList !== null && AdminList.length !== 0 ? (
-            AdminList.map((Admin) => (
-              <div className="flex flex-col-3 h-10 m-2 p- justify-evenly items-center border border-red-400">
-                <div className="p-1 m-1">{Admin.name}</div>
-                <div className="p-1 m-1">{Admin.roll_no}</div>
-                <div>
-                  <button
-                    className="bg-red-300 p-1 m-1 rounded-md"
-                    onClick={() => {
-                      handleDeleteClick(Admin.roll_no);
-                    }}
-                  >
-                    Remove
-                  </button>
+      <div>
+        {StudentList !== null && StudentList.length !== 0 ? (
+          <div align="center">
+          <div className="w-[800px] flex flex-row  m-2 p-1 justify-evenly items-center ">
+            <div >
+              {" "}
+              {StudentList.map((Student) => (
+                <div className="border border-red-200 px-1 mb-1 ">
+                  {" "}
+                  <div className="flex flex-row p-1 m-1">
+                    <h1>{Student.roll_no}</h1></div>
+                 
                 </div>
-              </div>
-            ))
-          ) : (
-            <div>No Data Found</div>
-          )}
-        </div>
+              ))}
+            </div>
+            <div>
+              {" "}
+              {StudentList.map((Student) => (
+                <div className="border  border-red-200 px-1 mb-1">
+                  {" "}
+                  <div className="p-1 m-1">{Student.name}</div>
+                 
+                </div>
+              ))}
+            </div>
+           
+            <div>
+              {" "}
+              {StudentList.map((Student) => (
+                <div>
+                 
+                  <div  className=" px-1 mb-1">
+                    <button
+                      className="bg-red-300 p-1 m-1 rounded-md shadow-md shadow-red-200"
+                      onClick={() => {
+                        handleDeleteClick(Student.roll_no);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div> ) : (
+          <div>No Data Found</div>
+        )}
+      </div>
       </div>
     </div>
   );

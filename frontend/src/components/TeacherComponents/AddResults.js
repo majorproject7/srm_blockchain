@@ -378,9 +378,11 @@ const StudentResultPage = () => {
          
                     
         <div className="flex flex-col justify-center items-center "> 
-        <div><h1 className="text-lg"> Previous Result of Student</h1></div>
-{   ResultData !==null && ResultData.length !== 0 ? ( <div className="flex flex-row justify-center m-2"> 
- 
+        
+{   ResultData !==null && ResultData.length !== 0 ? ( <div className="flex flex-col">
+  <div><h1 className="text-lg"> Previous Result of Student</h1></div>
+  <div className="flex flex-row justify-center m-2"> 
+
   {ResultData.map((result, index) => (
             
            <div className="m-2 bg-amber-100 rounded-md p-1">
@@ -390,7 +392,7 @@ const StudentResultPage = () => {
             </div>
             
           
-        ))}
+        ))}</div>
 </div>):(<div> </div>)
 
           }</div>            

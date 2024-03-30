@@ -100,7 +100,7 @@ router.get("/getFacultyDetails", async (req, res) => {
   try {
     const FacultyDataResponse = await Faculty.find(
       {},
-      { name: 1, faculty_id: 1 }
+      { name: 1, faculty_id: 1,department_id : 1 }
     );
 
     res.json({ FacData: FacultyDataResponse });

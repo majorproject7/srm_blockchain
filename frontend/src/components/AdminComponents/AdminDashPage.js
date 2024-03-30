@@ -11,7 +11,7 @@ function AdminDash() {
     <>
       <Kmithead></Kmithead>
       <div className="flex flex-row justify-center">
-         <h1 className="text-xl m-2"> Admin DashBoard</h1>
+        <div className=" w-[600px] flex justify-center h-8 bg-blue-300 items-center m-1 shadow-md shadow-blue-200"><h1 className="text-xl m-2"> Admin DashBoard</h1></div> 
       </div>
       <div>
         <div align="center" className=" grid grid-cols-1 justify-items-center">
@@ -70,7 +70,7 @@ const AdminDetCard = (stuCardData) => {
         <img
           src={StudentInfo.image}
           alt="image"
-          className="rounded-[100px]"
+          className="rounded-[100px] shadow shadow-md shadow-blue-400"
         ></img>
       </div>
 

@@ -2,18 +2,18 @@ import Kmithead from "../DashBoard/KmitHeader";
 import { useState, useEffect } from "react";
 import axios from "axios";
 const FacultyDetailsUpdate = () => {
-  const [AdminList, setAdmin] = useState(null);
+  const [FacultyList, setFaculty] = useState(null);
   const [selectedUserId, setSelectedUser] = useState(null);
 
   const [formData, setUserData] = useState({});
   useEffect(() => {
     console.log("use effect called");
     const getlist = async () => {
-      const AdminDataResponse = await axios.get(
+      const FacultyDataResponse = await axios.get(
         "http://localhost:5000/api/TeacherRoute/getFacultyDetails"
       );
-      console.log(AdminDataResponse.data.FacData);
-      setAdmin(AdminDataResponse.data.FacData);
+      console.log(FacultyDataResponse.data.FacData);
+      setFaculty(FacultyDataResponse.data.FacData);
     };
     getlist();
   }, []);
@@ -48,7 +48,6 @@ const FacultyDetailsUpdate = () => {
         console.log(response.data.message);
         alert(response.data.message);
         setSelectedUser(null);
-      
       })
       .catch((error) => {
         console.error("Error updating user:", error);
@@ -63,30 +62,68 @@ const FacultyDetailsUpdate = () => {
   return (
     <>
       <Kmithead></Kmithead>
+      <div>
       <div className="h-10 bg-orange-100 flex justify-center items-center">
         <h1 className="font-semibold text-xl">
           Faculty Details Update Section
         </h1>
       </div>
+      </div>
       <div>
-        {AdminList !== null && AdminList.length !== 0 ? (
-          AdminList.map((Admin) => (
-            <div className="flex flex-col-3 h-10 m-2 p-1 justify-evenly items-center border border-blue-400">
-              <div className="p-1 m-1">{Admin.name}</div>
-              <div className="p-1 m-1">{Admin.faculty_id}</div>
-              <div>
-                <button
-                  className="bg-blue-300 p-1 m-1 rounded-md"
-                  onClick={() => {
-                    handleUserSelect(Admin.faculty_id);
-                  }}
-                >
-                  Update
-                </button>
-              </div>
+        {FacultyList !== null && FacultyList.length !== 0 ? (
+          <div align="center">
+          <div className="w-[800px] flex flex-row  m-2 p-1 justify-evenly items-center ">
+            <div >
+              {" "}
+              {FacultyList.map((Faculty) => (
+                <div className="border border-blue-200 px-1 mb-1 ">
+                  {" "}
+                  <div className="flex flex-row p-1 m-1">
+                    <h1>{Faculty.faculty_id}</h1></div>
+                 
+                </div>
+              ))}
             </div>
-          ))
-        ) : (
+            <div>
+              {" "}
+              {FacultyList.map((Faculty) => (
+                <div className="border  border-blue-200 px-1 mb-1">
+                  {" "}
+                  <div className="p-1 m-1">{Faculty.name}</div>
+                 
+                </div>
+              ))}
+            </div>
+            <div>
+              {" "}
+              {FacultyList.map((Faculty) => (
+                <div className="border  border-blue-200 px-1 mb-1">
+                  {" "}
+                  <div className="p-1 m-1">{Faculty.department_id}</div>
+                 
+                </div>
+              ))}
+            </div>
+            <div>
+              {" "}
+              {FacultyList.map((Faculty) => (
+                <div>
+                 
+                  <div  className=" px-1 mb-1">
+                    <button
+                      className="bg-blue-300 p-1 m-1 rounded-md shadow-md shadow-blue-200"
+                      onClick={() => {
+                        handleUserSelect(Faculty.faculty_id);
+                      }}
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div> ) : (
           <div>No Data Found</div>
         )}
       </div>

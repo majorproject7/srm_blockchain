@@ -22,7 +22,7 @@ function buttonPanel() {
     <div className="h-[150px] flex flex-col justify-evenly">
       <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
         <Link to="/FacultyUpdate">
-          <h2 className=" font-semibold text-xl">Update Faculty Details</h2>
+          <h2 className=" font-semibold text-xl">UPDATE Faculty Details</h2>
         </Link>{" "}
       </div>
       <div className="w-[300px] h-8 text-lg bg-red-200 rounded-[15px] flex justify-center ">
@@ -111,8 +111,8 @@ function Branchcomponent() {
         {faclist !== null && faclist.length !== 0 ? (
           faclist.map((faculty) => (
             <div className="flex flex-col m-1 rounded-lg text-center bg-blue-200 p-4 hover:bg-gray-300 justify-center items-center">
-              <div className="font-bold text-xl m-2">{faculty.name}</div>
-
+              <div className="font-bold text-xl m-1">{faculty.name}</div>
+              <div className="font-bold text-l ">{deptval}</div>
               {/* Admin ID */}
               <div className="flex flex-row justify-center items-center">
                 <div className="text-base font-medium">Faculty ID : </div>

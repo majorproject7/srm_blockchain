@@ -63,17 +63,57 @@ const AdminDetailsUpdate=()=>{
     return (
         <>
         <Kmithead></Kmithead>
-        <div className="h-10 bg-orange-100 flex justify-center items-center"><h1 className="font-semibold text-xl">Admin Details Update Section</h1></div>
+        <div className="h-10 m-1 bg-orange-100 flex justify-center items-center"><h1 className="font-semibold text-xl">Admin Details Update Section</h1></div>
         <div>
-            {AdminList !== null && AdminList.length !== 0 ? 
-                (AdminList.map((Admin)=>(
-                    <div className="flex flex-col-3 h-10 m-2 p-1 justify-evenly items-center border border-blue-400"> 
-                      <div className="p-1 m-1">{Admin.name}</div>
-                      <div className="p-1 m-1">{Admin.admin_id}</div>
-                      <div><button className="bg-blue-300 p-1 m-1 rounded-md" onClick={()=>{handleUserSelect(Admin.admin_id)}}>Update</button></div>
-                      </div>
-                  ))) : (<div>No Data Found</div>)}
-        </div>
+        {AdminList !== null && AdminList.length !== 0 ? (
+          <div align="center">
+          <div className="w-[800px] flex flex-row  m-2 p-1 justify-evenly items-center ">
+            <div >
+              {" "}
+              {AdminList.map((admin) => (
+                <div className="border border-blue-200 px-1 mb-1 ">
+                  {" "}
+                  <div className="flex flex-row p-1 m-1">
+                    <h1>{admin.admin_id}</h1></div>
+                 
+                </div>
+              ))}
+            </div>
+            <div>
+              {" "}
+              {AdminList.map((admin) => (
+                <div className="border  border-blue-200 px-1 mb-1">
+                  {" "}
+                  <div className="p-1 m-1">{admin.name}</div>
+                 
+                </div>
+              ))}
+            </div>
+           
+            <div>
+              {" "}
+              {AdminList.map((admin) => (
+                <div>
+                 
+                  <div  className=" px-1 mb-1">
+                    <button
+                      className="bg-blue-300 p-1 m-1 rounded-md shadow-md shadow-blue-200"
+                      onClick={() => {
+                        handleUserSelect(admin.admin_id);
+                      }}
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div> ) : (
+          <div>No Data Found</div>
+        )}
+      </div>
+
         <div>
         {selectedUserId != null ? ( <div className="mx-auto max-w-md p-4 bg-blue-200 border rounded-md shadow-md">
         <form onSubmit={handleSubmit} className="space-y-4">

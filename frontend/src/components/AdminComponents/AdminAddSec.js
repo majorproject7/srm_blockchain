@@ -166,6 +166,7 @@ const AdminForm = () => {
               name="contact"
               value={formData.contact}
               onChange={handleInputChange}
+              maxLength={10}
               className="mt-1 p-2 w-full border rounded-md"
               required
             /></div>
@@ -196,7 +197,7 @@ const AdminForm = () => {
               className="mt-1 p-2 w-full border rounded-md"
               required
             />
-            
+            <div>{imageData  && <img src={imageData} alt='image'></img>}</div>
             </div>
           <button
             type="submit"

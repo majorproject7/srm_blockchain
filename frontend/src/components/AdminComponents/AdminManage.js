@@ -9,8 +9,7 @@ function AdminManagePage(){
     <Kmithead> </Kmithead>
    
     <div className="flex flex-col justify-center items-center ">
-    
-    <buttonPanel></buttonPanel>
+    {buttonPanel()}
     {AdminDetails()}
     </div>
  </div>
@@ -66,7 +65,7 @@ const AdminCard = ({ data }) => {
   
     return (
       
-      <div className="flex flex-col m-1 rounded-lg text-center bg-gray-200 p-4 hover:bg-gray-300 justify-center items-center">
+      <div className="flex flex-col m-1 rounded-lg text-center bg-amber-100 p-4 hover:bg-gray-300 justify-center items-center">
      
         <div>
           {imageData && (

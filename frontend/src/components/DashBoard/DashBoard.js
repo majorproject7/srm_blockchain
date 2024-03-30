@@ -99,17 +99,14 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="bg-slate-500">
-        <div className="text-2xl text-center  w-[full] h-[50px] border-solid  border-4 bg-yellow-400 rounded-[30px] shadow ">
-          <div className="w-[full] ">
-            Keshav Memorial Institute of Techology
-          </div>
-        </div>
+
+      <Kmithead></Kmithead>
+
+      <div className="flex justify-center">
+      <div className=" w-[600px] flex justify-center mt-5  shadow-amber-200 shadow-md"><h1 className="text-xl font-semibold  p-2">Student Result Management System</h1></div>
       </div>
-
-      <div></div>
       <div className=" min-h-screen flex flex-row items-center justify-center ">
-
+       
         <div className=" p-10 flex flex-row   justify-center rounded-[30px]">
           <div className="  justify-center text-center">
             <div className=" border-amber-300 border-4 mx-1 my-2 w-[230px] h-[380px]   shadow-white shadow-md bg-amber-200 rounded-[30px]  flex items-center ">
@@ -149,7 +146,7 @@ const HomePage = () => {
           <div className="  justify-center text-center">
             <div className="border-blue-400 border-4   mx-1 my-2 w-[230px] h-[380px] shadow-white shadow-md   bg-blue-300 rounded-[30px]  flex items-center ">
               <form onSubmit={handleSubmit}>
-                <h2 className="text-lg"> Faculty Login</h2>
+                <h2 className="text-lg font-semibold"> Faculty Login</h2>
                 <br></br>
                 <label>
                   Faculty Id :
@@ -186,7 +183,7 @@ const HomePage = () => {
           <div className="  justify-center text-center">
             <div className="border-green-400 border-4   mx-1 my-2 w-[230px] h-[380px] shadow-white shadow-md  bg-green-200 rounded-[30px]  flex items-center ">
               <form onSubmit={handleAdminSubmit}>
-                <h2 className="text-lg"> Admin Login</h2>
+                <h2 className="text-lg font-semibold"> Admin Login</h2>
                 <br></br>
                 <label>
                   Admin/Id:

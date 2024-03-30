@@ -8,7 +8,7 @@ const StudentUpdatePage = () => {
   const deptval = data.dept;
   const ayear = data.Ayear;
   const sections = ["A", "B"];
-  const [StudentList, setAdmin] = useState(null);
+  const [StudentList, setStudent] = useState(null);
   const [selectedUserId, setSelectedUser] = useState(null);
   const [secVal, setSection] = useState("A");
   const [formData, setUserData] = useState({});
@@ -34,7 +34,7 @@ const StudentUpdatePage = () => {
         { dept: deptval, section: secVal, year: ayear }
       );
       console.log("data list is ", StudentDataResponse.data.StudentList);
-      setAdmin(StudentDataResponse.data.StudentList);
+      setStudent(StudentDataResponse.data.StudentList);
     };
     getlist();
   }, [secVal]);
@@ -101,28 +101,55 @@ const StudentUpdatePage = () => {
       </div>
 
       <div className="flex justify-center">
-        <div>
-          {StudentList !== null && StudentList.length !== 0 ? (
-            StudentList.map((Admin) => (
-              <div className="flex flex-col-3 h-10 m-2 p-2 justify-evenly items-center border border-blue-400">
-                <div className="p-1 m-1">{Admin.name}</div>
-                <div className="p-1 m-1">{Admin.roll_no}</div>
-                <div>
-                  <button
-                    className="bg-blue-300 p-1 m-1 rounded-md"
-                    onClick={() => {
-                      handleUserSelect(Admin.roll_no);
-                    }}
-                  >
-                    Update
-                  </button>
+      <div>
+        {StudentList !== null && StudentList.length !== 0 ? (
+          <div align="center">
+          <div className="w-[800px] flex flex-row  m-2 p-1 justify-evenly items-center ">
+            <div >
+              {" "}
+              {StudentList.map((Student) => (
+                <div className="border border-blue-200 px-1 mb-1 ">
+                  {" "}
+                  <div className="flex flex-row p-1 m-1">
+                    <h1>{Student.roll_no}</h1></div>
+                 
                 </div>
-              </div>
-            ))
-          ) : (
-            <div>No Data Found</div>
-          )}
-        </div>
+              ))}
+            </div>
+            <div>
+              {" "}
+              {StudentList.map((Student) => (
+                <div className="border  border-blue-200 px-1 mb-1">
+                  {" "}
+                  <div className="p-1 m-1">{Student.name}</div>
+                 
+                </div>
+              ))}
+            </div>
+           
+            <div>
+              {" "}
+              {StudentList.map((Student) => (
+                <div>
+                 
+                  <div  className=" px-1 mb-1">
+                    <button
+                      className="bg-blue-300 p-1 m-1 rounded-md shadow-md shadow-blue-200"
+                      onClick={() => {
+                        handleUserSelect(Student.roll_no);
+                      }}
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div> ) : (
+          <div>No Data Found</div>
+        )}
+      </div>
         {/* student form */}
         <div>
           {selectedUserId !== null ? (
