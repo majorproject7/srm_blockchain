@@ -102,7 +102,7 @@ const HomePage = () => {
 
       <Kmithead></Kmithead>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center">
       <div className=" w-[600px] flex justify-center mt-5  shadow-amber-200 shadow-md"><h1 className="text-xl font-semibold  p-2">Student Result Management System</h1></div>
       </div>
       <div className=" min-h-screen flex flex-row items-center justify-center ">
