@@ -1,26 +1,17 @@
-npm start script is mentioned in package.json file.
+Secure and Transparent Student Result Management System using Blockchain
 
-for backend code us nodemon server.js for development purpose.
+Project Overview
 
-mongodb in localhost will connect to ipv6 generally to over come that use 127.0.0.1
+This project implements a student result management system that utilizes blockchain technology to ensure the security, immutability, and transparency of academic records. The system offers several advantages over traditional methods:
 
-git remote add origin https://github.com/majorproject7/srm_blockchain.git
-git branch -M main
-git push -u origin main
+Enhanced Security: Blockchain's distributed ledger technology safeguards student data from unauthorized access or tampering.
+Improved Transparency: All stakeholders (students, institutions, employers) can access a verifiable and immutable record of results, fostering trust and accountability.
+Streamlined Verification: Employers and other institutions can instantly verify the authenticity of student results, reducing administrative burdens.
+Increased Efficiency: The system automates result recording and distribution processes, saving time and resources.
 
-
-
-truffle compiler version should be 0.8.19
-then ganache and truffle will correctly.
-
-
-contract address is found in migration details or ganache details in transaction.
-contract abi is found in artifacts or build/contracts :
- in json format.
-
-
- const contractAddress = await deployer.deployedContracts.YourContractName.address;
-console.log("Contract address:", contractAddress);
-
-this line is used to call the contract and get the value.
-
+Tech Stack :
+React,Express,Node
+Solidity,Web3
+MongoDB
+Tools : 
+Ganache,Npm,
